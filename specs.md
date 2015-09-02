@@ -1,34 +1,35 @@
-Airplane Collision Avoidance System
-============
+# Airplane Collision Avoidance System
+
 As part of the FAA's Next Generation Air Transportation System
 (https://en.wikipedia.org/wiki/Next_Generation_Air_Transportation_System) The
 FAA is contracted with your company to produce a collision-avoidance system for
 the cockpits of all aircraft.
 
 
-Navigation
------------
+## Navigation
+
 [ACAS](#airplane) |
 [Purpose](#purpose) |
 [Team](#team) |
 [Licence](#licence) |
 [TODO](#todo)
 
-Team
-----------------
+## Team
+
+----------
 <ul>
 <li>Abel Amadou</li>
-<li>Dean Bailey<li>
+<li>Dean Bailey</li>
 <li>Chris Benda</li>
 <li>Ben Boudra</li>
-<li>Josh Coyle<li>
-<li>Stephen Chavez<li>
+<li>Josh Coyle</li>
+<li>Stephen Chavez</li>
 <li>Jesse Nelson</li>
 <li>John Qualls</li>
 </ul>
 
-Purpose
--------
+## Purpose
+
 The purpose of this system will aid pliots in avoiding other flying airplanes.
 The system will receive real-time radar data and need to continuously calculate
 if a collision is likely, and give several different levels of warning. The
@@ -41,8 +42,8 @@ aircraft.
 
 ## References
 
-Overall Description
---------------------
+# Overall Description
+
         Product perspective
             System Interfaces
             User Interfaces
