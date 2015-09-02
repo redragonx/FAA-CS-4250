@@ -8,15 +8,13 @@ the cockpits of all aircraft.
 
 ## Navigation
 
-[ACAS](#airplane) |
+[Airplane Collision Avoidance System](#Airplane Collision Avoidance System) |
 [Purpose](#purpose) |
 [Team](#team) |
-[Licence](#licence) |
-[TODO](#todo)
+
 
 ## Team
 
-----------
 <ul>
 <li>Abel Amadou</li>
 <li>Dean Bailey</li>
@@ -71,7 +69,3 @@ aircraft.
             Portability
         Other requirements
 
-
-Licence
----------
-Copyright 2015 (GPLV3)??  
