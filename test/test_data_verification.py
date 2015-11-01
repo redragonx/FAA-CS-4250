@@ -1,4 +1,5 @@
 import unittest
+from mock import patch
 import computation_package.data_verification
 import program_objects.plane
 
@@ -33,20 +34,23 @@ class TestDataVerification(unittest.TestCase):
         self.assertFalse(my_class.within_distance(plane3))
         self.assertFalse(my_class.within_distance(plane4))
 
-    def test_verify_data_true(self):
+    @patch('computation_package.data_verification.dispatch_data_vaild')
+    def test_verify_data_true(self, mock):
         my_class = computation_package.data_verification
         plane5 = program_objects.plane
         plane6 = program_objects.plane
         self.assertFalse(my_class.verify_data(plane5))
         self.assertFalse(my_class.verify_data(plane6))
+        self.assertTrue(mock.called)
 
-    def test_verify_data_false(self):
+    @patch('computation_package.data_verification.dispatch_data_not_vaild')
+    def test_verify_data_false(self, mock):
         my_class = computation_package.data_verification
         plane7 = program_objects.plane
         plane8 = program_objects.plane
         self.assertFalse(my_class.verify_data(plane7))
         self.assertFalse(my_class.verify_data(plane8))
-
+        self.assertTrue(mock.called)
 
 if __name__ == '__main__':
     unittest.main()
