@@ -1,5 +1,3 @@
-def priority_queue(new_plane):
-    return
 
 
 def determine_collision(plane1, plane_me):

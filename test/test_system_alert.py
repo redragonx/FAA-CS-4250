@@ -1,9 +1,8 @@
+__author__ = 'daemoniclegend'
 import unittest
 
-__author__ = 'group'
 
-
-class TestCollisionDetection(unittest.TestCase):
+class TestSystemAlert(unittest.TestCase):
 
     def setUp(self):
         pass

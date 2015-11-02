@@ -1,5 +1,4 @@
 import unittest
-import program_objects.plane
 
 __author__ = 'group'
 
@@ -11,3 +10,4 @@ class TestUserKeypad(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+    
