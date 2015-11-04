@@ -17,7 +17,9 @@ class ADSIO():
     lat = None
     long = None
     altitude = None
-    velocity = None
+    x = None
+    y = None
+    z = None
 
     def __init__(self):
         pass
@@ -29,18 +31,23 @@ class ADSIO():
         self.input_stream = userInput  # raw_input()  removed currently for testing purposes
         parsed_data = []
 
-        if len(self.input_stream) == 34:
-            id = self.input_stream[0:-30]
-            lat = self.input_stream[4:-20]
-            long = self.input_stream[14:-10]
-            altitude = self.input_stream[24:-4]
-            velocity = self.input_stream[30:]
+        if len(self.input_stream) == 54:
+            id = self.input_stream[0:-50]
+            lat = self.input_stream[4:-40]
+            long = self.input_stream[14:-30]
+            altitude = self.input_stream[24:-24]
+            x = self.input_stream[30:-16]
+            y = self.input_stream[38:-8]
+            z = self.input_stream[46:]
 
             parsed_data.insert(0, id)
             parsed_data.insert(1, lat)
             parsed_data.insert(2, long)
             parsed_data.insert(3, altitude)
-            parsed_data.insert(4, velocity)
+            parsed_data.insert(4, x)
+            parsed_data.insert(5, y)
+            parsed_data.insert(6, z)
+
 
             # PlaneController.input_data(parsed_data)
 
