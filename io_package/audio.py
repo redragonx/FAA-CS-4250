@@ -2,7 +2,7 @@ __author__ = 'redragonx/daemoniclegend'
 
 #import pyglet
 
-class audio():
+class Audio():
 
     def audio_alert(error_type):
         pass
