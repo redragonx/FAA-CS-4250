@@ -5,7 +5,7 @@ __author__ = 'redragonx/daemoniclegend'
 
 
 # 4 digit id
-# 10 digit lat/longs  can have leading zeros format +/-XXX.XXXXXX first digit is 0 or 1 sign bit
+# 10 digit lat/longs  can have leading zeros format (+/-)XXX.XXXXXX first digit is 0 or 1 sign bit
 # 6 digit altitude
 # 4 digit velocity
 
@@ -46,6 +46,7 @@ class ADSIO():
 
         else:
             parsed_data = "INCOMPLETE"
+            # errors to be added later
             # Audio.audio_alert('bad_raw_data_error')
 
         return parsed_data
