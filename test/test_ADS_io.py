@@ -55,11 +55,13 @@ class TestADS_Io(unittest.TestCase):
         else:
             test1_answer = False
 
-            # testing with bad data...
+        # -----------------------------------------------------------------------------
+
+        # testing with bad data...
             # returns a list.
         test_list = ads.parse_string(self.__bad_sample_data)
 
-        if test_list == None:
+        if test_list is None:
             test2_answer = True
 
         # makes sure each part of both lists are not the same.
@@ -68,11 +70,13 @@ class TestADS_Io(unittest.TestCase):
         else:
             test2_answer = False
 
+        # -----------------------------------------------------------------------------
+
         # tests for incomplete or missing input data
         # returns a string
         test_list = ads.parse_string(self.__incomplete_sample_data)
 
-        if test_list == None or test_list == "INCOMPLETE":
+        if test_list is None or test_list == "INCOMPLETE":
             test3_answer = True
 
         print("test_parse_string_good_data: ", test1_answer)
