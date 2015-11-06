@@ -10,25 +10,14 @@ class TestAudio(unittest.TestCase):
     def test_audio_alert(self):
         audio = Audio()
 
-        test1_answer = False
-        test2_answer = False
-        response = None
         __goodString = 'testok'
-        __badString = 'Bad Error Message'
+        __badString = 'Bad error message is bad'
 
     # tests using a valid error code
-        response = audio.audio_alert(__goodString)
-        if response == 'Valid':
-            test1_answer = True
-
-        print('Test with valid input: ', test1_answer)
+        self.assertEqual(True, audio.audio_alert(__goodString), "audio test 1 FAILED")
 
     # tests using an invalid error code
-        response = audio.audio_alert(__badString)
-        if response == 'Invalid':
-            test2_answer = True
-
-        print('Test with valid input: ', test2_answer)
+        self.assertEqual(False, audio.audio_alert(__badString), "audio test 2 FAILED")
 
 
 if __name__ == '__main__':
