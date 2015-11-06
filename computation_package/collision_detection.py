@@ -1,17 +1,16 @@
+class CollisionDetection:
 
+    def determine_collision(self, p_a, potential_intruder):
+        """
+        Determines whether two aircraft will collide.
 
-def determine_collision(plane1, plane_me):
-    return
+        :param p_a: the primary aircraft
+        :param potential_intruder: the aircraft being compared to the primary aircraft
+        :return: 1 and TUC interval if they will collide 1; 0 and -1 if they will not
+        """
+        going_to_collide = -1
 
+        #TUC interval will be set inside the plane object which the caller has access to.
 
-def avoidance_method(plane1, plane_me):
-    return
-
-
-def dispatch_collision_alert(avoidance_method):
-    return
-
-
-def receive_input_data(plane):
-    return
+        return going_to_collide
 

@@ -7,7 +7,9 @@ __author__ = 'redragonx/daemoniclegend'
 # 4 digit id
 # 10 digit lat/longs  can have leading zeros format (+/-)XXX.XXXXXX first digit is 0 or 1 sign bit
 # 6 digit altitude
-# 4 digit velocity
+# 8 digit x velocity (1 digit sign) (4 digit kilometers/hour speed; ranges from 0kph - 9,999 kph) (3 digit decimal ranging from (.000-.999))
+# 8 digit y velocity (1 digit sign) (4 digit kilometers/hour speed; ranges from 0kph - 9,999 kph) (3 digit decimal ranging from (.000-.999))
+# 8 digit z velocity (1 digit sign) (4 digit kilometers/hour speed; ranges from 0kph - 9,999 kph) (3 digit decimal ranging from (.000-.999))
 
 
 class ADSIO():

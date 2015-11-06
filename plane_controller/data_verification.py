@@ -1,15 +1,17 @@
-def verify_data(existing_plane):
-    return
+
+class DataVerify:
+
+    def verify_data(self, existing_plane):
+        return
+
+    def within_distance(self, plane1):
+        return
 
 
-def within_distance(plane1):
-    return
+    def dispatch_data_valid(self, plane):
+        return
 
 
-def dispatch_data_valid(plane):
-    return
-
-
-def dispatch_data_not_vaild(alert_type):
-    return
+    def dispatch_data_not_vaild(self, alert_type):
+        return
 
