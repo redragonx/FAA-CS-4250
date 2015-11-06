@@ -51,7 +51,7 @@ class ADSIO():
             parsed_data.insert(5, y)
             parsed_data.insert(6, z)
 
-            # PlaneController.input_data(parsed_data)
+            PlaneController.input_data(parsed_data)
 
         else:
             parsed_data = "INCOMPLETE"
