@@ -21,7 +21,7 @@ def plane_controller_driver(list_in):
 
 def input_data(data_in):
     """
-    Takes the data from the IO module and sends that information to data_verification
+    Takes the data from the plane_controller_driver and sends that information to data_verification
 
     :param data_in:
     :return:
