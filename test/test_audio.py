@@ -13,7 +13,7 @@ class TestAudio(unittest.TestCase):
         test1_answer = False
         test2_answer = False
         response = None
-        __goodString = 'error1'
+        __goodString = 'testok'
         __badString = 'Bad Error Message'
 
     # tests using a valid error code
