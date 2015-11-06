@@ -6,7 +6,7 @@ class CollisionDetection:
 
         :param p_a: the primary aircraft
         :param potential_intruder: the aircraft being compared to the primary aircraft
-        :return: 1 and TUC interval if they will collide 1; 0 if not; -1 if not yet implemented
+        :return: True if the planes will collide, False if they will not
         """
 
         #TUC interval will be set inside the plane object which the caller has access to.
