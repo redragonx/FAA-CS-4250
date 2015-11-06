@@ -1,86 +1,88 @@
 __author__ = 'redragonx/daemoniclegend'
 
 
-__corrective_actions = ["ASCEND", "MAINTAIN ALTITUDE", "DESCEND"]
+class plane_controller:
 
-"""
-The set of planes that the ADS-B send in.
-"""
-__nearby_planes_list = {}
+    __corrective_actions = ["ASCEND", "MAINTAIN ALTITUDE", "DESCEND"]
 
-
-def plane_controller_driver(list_in):
     """
-    This thread runs in all of the computations for detecting collisions and generates relevant alerts.
-
-    :param list_in:
-    :return:
+    The set of planes that the ADS-B send in.
     """
-    pass
+    __nearby_planes_list = {}
 
 
-def input_data(data_in):
-    """
-    Takes the data from the plane_controller_driver and sends that information to data_verification
+    def plane_controller_driver(list_in):
+        """
+        This thread runs in all of the computations for detecting collisions and generates relevant alerts.
 
-    :param data_in:
-    :return:
-    """
-    pass
+        :param list_in:
+        :return:
+        """
+        pass
 
-def convert_to_cartesian_meters(list_in):
-    """
-    Converts the list of data from latitude, longitude, and elevation to cartesian coordinates.
 
-    :param list_in: the initial list of data in elevation, latitude, and longitude.
-    :return: the same list converted
-    """
-    pass
+    def input_data(data_in):
+        """
+        Takes the data from the plane_controller_driver and sends that information to data_verification
 
-def find_highest_priority_s(collsion_list):
-    """
-    Finds the plane or planes, when applicable, with the highest priority and returns them as list to the caller.
+        :param data_in:
+        :return:
+        """
+        pass
 
-    :param collsion_list: the list of the potential collisions
-    :return: high_priority_list: the the collisions with the highest priority
-    """
-    pass
+    def convert_to_cartesian_meters(list_in):
+        """
+        Converts the list of data from latitude, longitude, and elevation to cartesian coordinates.
 
-def update_plane_list(plane):
-    """
-    Adds or updates the plane to the nearby_plane_list
+        :param list_in: the initial list of data in elevation, latitude, and longitude.
+        :return: the same list converted
+        """
+        pass
 
-    :param plane:
-    :return:
-    """
-    pass
+    def find_highest_priority_s(collsion_list):
+        """
+        Finds the plane or planes, when applicable, with the highest priority and returns them as list to the caller.
 
-def dispatch_collision_alerts(alert_type):
-    """
+        :param collsion_list: the list of the potential collisions
+        :return: high_priority_list: the the collisions with the highest priority
+        """
+        pass
 
-    :return:
-    """
+    def update_plane_list(plane):
+        """
+        Adds or updates the plane to the nearby_plane_list
 
-def get_corrective_action(*planes):
-    """
-    Calculates the corrective action of the primary aircraft, will ascend or descend or maintain elevation based
-    upon the GPS location of the PA relative to other Aircraft.
+        :param plane:
+        :return:
+        """
+        pass
 
-    :param planes: planes
-    :return: ASCEND, MAINTAIN ALTITUDE, DESCEND
-    """
-    pass
+    def dispatch_collision_alerts(alert_type):
+        """
 
-#    constructor can go here. each piece can be accessed using   data_in[x]
-#    plane.__init__(data_in[0], data_in[1], data_in[2], data_in[3], data_in[4], data_in[5], data_in[6],)
+        :return:
+        """
 
-# function to take in a new transponder code for itself from the user keypad
-def update_transponder_code(new_code):
-    """
-    Updates the transponder code with the new code entered by the user.
+    def get_corrective_action(*planes):
+        """
+        Calculates the corrective action of the primary aircraft, will ascend or descend or maintain elevation based
+        upon the GPS location of the PA relative to other Aircraft.
 
-    :param new_code:
-    :return:
-    """
-    pass
-    # new_trans_code = new_code
+        :param planes: planes
+        :return: ASCEND, MAINTAIN ALTITUDE, DESCEND
+        """
+        pass
+
+    #    constructor can go here. each piece can be accessed using   data_in[x]
+    #    plane.__init__(data_in[0], data_in[1], data_in[2], data_in[3], data_in[4], data_in[5], data_in[6],)
+
+    # function to take in a new transponder code for itself from the user keypad
+    def update_transponder_code(new_code):
+        """
+        Updates the transponder code with the new code entered by the user.
+
+        :param new_code:
+        :return:
+        """
+        pass
+        # new_trans_code = new_code
