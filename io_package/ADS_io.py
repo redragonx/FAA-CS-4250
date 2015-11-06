@@ -13,6 +13,7 @@ __author__ = 'redragonx/daemoniclegend'
 
 
 class ADSIO():
+    audio = Audio()
     input_stream = None
     parsed_data = None
     id = None
@@ -50,12 +51,11 @@ class ADSIO():
             parsed_data.insert(5, y)
             parsed_data.insert(6, z)
 
-
             # PlaneController.input_data(parsed_data)
 
         else:
             parsed_data = "INCOMPLETE"
-            # errors to be added later
-            # Audio.audio_alert('bad_raw_data_error')
+
+            self.audio.audio_alert('bad_raw_data_error')
 
         return parsed_data
