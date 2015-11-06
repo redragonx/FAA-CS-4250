@@ -4,22 +4,14 @@ __author__ = 'group'
 class PlaneObject(object):
 
     id_code = 0    ### single identifier
-
-    current_lat = 0
-    current_long = 0
-    current_altitude = 0
-    current_velocity = 0
-    vector = [0, 0, 0]
+    location_vector = []
+    velocity_vector = []
     tuc_interval = -1
 
-    def __init__(self, id_code, current_lat, current_long, current_altitude, vectorX, vectorY, vectorZ):
+    def __init__(self, id_code, loc_x, loc_y, loc_z, vec_x, vec_y, vec_z):
         self.id_code = id_code
-        self.current_lat = current_lat
-        self.current_long = current_long
-        self.current_altitude = current_altitude
-        self.vector[0] = vectorX
-        self.vector[1] = vectorY
-        self.vector[2] = vectorZ
+        self.location_vector = [loc_x, loc_y, loc_z]
+        self.velocity_vector = [vec_x, vec_y, vec_z]
 
     def set_tuc_interval(self, tuc):
         """

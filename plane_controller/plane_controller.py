@@ -3,7 +3,6 @@ __author__ = 'redragonx/daemoniclegend'
 
 class plane_controller:
 
-
     __corrective_actions = ["ASCEND", "MAINTAIN ALTITUDE", "DESCEND"]
 
     """
@@ -24,13 +23,12 @@ class plane_controller:
 
     def input_data(data_in):
         """
-        Takes the data from the IO module and sends that information to data_verification
+        Takes the data from the plane_controller_driver and sends that information to data_verification
 
         :param data_in:
         :return:
         """
         pass
-
 
     def convert_to_cartesian_meters(list_in):
         """
@@ -41,7 +39,6 @@ class plane_controller:
         """
         pass
 
-
     def find_highest_priority_s(collsion_list):
         """
         Finds the plane or planes, when applicable, with the highest priority and returns them as list to the caller.
@@ -50,7 +47,6 @@ class plane_controller:
         :return: high_priority_list: the the collisions with the highest priority
         """
         pass
-
 
     def update_plane_list(plane):
         """
@@ -61,13 +57,11 @@ class plane_controller:
         """
         pass
 
-
     def dispatch_collision_alerts(alert_type):
         """
 
         :return:
         """
-
 
     def get_corrective_action(*planes):
         """
@@ -78,7 +72,6 @@ class plane_controller:
         :return: ASCEND, MAINTAIN ALTITUDE, DESCEND
         """
         pass
-
 
     #    constructor can go here. each piece can be accessed using   data_in[x]
     #    plane.__init__(data_in[0], data_in[1], data_in[2], data_in[3], data_in[4], data_in[5], data_in[6],)
