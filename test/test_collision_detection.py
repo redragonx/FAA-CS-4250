@@ -3,7 +3,7 @@ from computation_package.collision_detection import CollisionDetection
 from plane_controller import plane
 
 _author_ = 'group'
-
+print("test pull request")
 
 # plane.PlaneObject( id_code, loc_x, loc_y, loc_z, vec_x, vec_y, vec_z)
 # determine_collision(self, p_a, potential_intruder):
@@ -523,5 +523,5 @@ class TestCollisionDetection(unittest.TestCase):
                                  location_vector[0], location_vector[1], location_vector[2],
                                  velocity_vector[0], velocity_vector[1], velocity_vector[2])
 
-# if __name__ == '__main__':
-#     unittest.main
+if __name__ == '__main__':
+     unittest.main
