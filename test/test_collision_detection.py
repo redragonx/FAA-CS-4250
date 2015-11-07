@@ -88,7 +88,7 @@ class TestCollisionDetection(unittest.TestCase):
         plane_b = self.plane_helper(self.b_id_code, plane_b_location, plane_b_velocity)
         self.assertTrue(CollisionDetection().determine_collision(plane_a, plane_b), "Not implemented yet")
 
-    def ttest_non_moving_A_with_B_moving_neg_Z(self):  # 11
+    def test_non_moving_A_with_B_moving_neg_Z(self):  # 11
         plane_a_location, plane_a_velocity = [0, 0, 0], [0, 0, 0]
         plane_b_location, plane_b_velocity = [0, 0, 500], [0, 0, -30]
         plane_a = self.plane_helper(self.a_id_code, plane_a_location, plane_a_velocity)
