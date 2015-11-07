@@ -3,7 +3,6 @@ from computation_package.collision_detection import CollisionDetection
 from plane_controller import plane
 
 _author_ = 'group'
-print("test pull request")
 
 # plane.PlaneObject( id_code, loc_x, loc_y, loc_z, vec_x, vec_y, vec_z)
 # determine_collision(self, p_a, potential_intruder):
