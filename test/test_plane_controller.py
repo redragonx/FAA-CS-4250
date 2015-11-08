@@ -218,14 +218,14 @@ class TestPlaneController(unittest.TestCase):
         after it has checked for the 1 or 2 closest planes to avoid.
         '''
         global primary_aircraft
-        p_plane_location1, p_plane_velocity1 = [0, 0, 0], [100, 100, 100]
-        primary_aircraft = self.plane_helper("0011", p_plane_location1, p_plane_velocity1)
-        plane_location1, plane_velocity1 = [0, 0, 0], [100, 100, 100]
-        plane_location2, plane_velocity2 = [0, 0, 0], [100, 100, 100]
+        p_plane_location1, p_plane_velocity1 =  [425151, 519872, 3359], [100, 100, 100]
+        primary_aircraft = self.plane_helper("0001", p_plane_location1, p_plane_velocity1)
+        plane_location1, plane_velocity1 =  [848085, 754358, 7097], [100, 100, 100]
+        plane_location2, plane_velocity2 = [589308, 919611, 5326], [100, 100, 100]
         plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1)
-        plane_obj2 = self.plane_helper("0011", plane_location2, plane_velocity2)
+        plane_obj2 = self.plane_helper("0012", plane_location2, plane_velocity2)
         planes_list = [plane_obj1, plane_obj2]
-        alert_type = "ASCEND"
+        alert_type = "DESCEND"
         self.assertEqual(get_corrective_action(planes_list), alert_type)
 
 
