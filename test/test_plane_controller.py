@@ -3,7 +3,7 @@ from mock import *
 from plane_controller.plane_ctrl import *
 from plane_controller import plane
 from io_package.audio import Audio
-
+from computation_package.collision_detection import CollisionDetection
 import unittest
 
 '''
@@ -152,9 +152,11 @@ class TestPlaneController(unittest.TestCase):
     #     alert_type = "ASCEND"
     #     self.assertEqual(get_corrective_action(planes_list),alert_type)
 
+    @patch.object(CollisionDetection,
+                "determine_collision")
+    def test_collision_detection_generator(self, mock_determine_collision):
+        self.assertEqual(mock_determine_collision.call_count, len(nearby_planes_list))
 
-    # def test_collision_detection_generator(self):
-    #     pass
 
 
     # def test_update_transponder_code(self):
