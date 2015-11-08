@@ -25,7 +25,7 @@ def collision_detection_generator():
     and returned the booleans, the list will contain all of the closest 10 planes that are on a collision course with the
     PA
 
-    :return:
+    :return: list_closest: returns a list with the closest airplanes on a collision course with the PA
     """
 
 def input_data(data_in):
