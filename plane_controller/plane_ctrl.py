@@ -20,8 +20,12 @@ def plane_controller_driver():
 
 def collision_detection_generator():
     """
-    It
-    :return: list of
+    This will create threads for each plane and call the collision detection. The collision detection will return
+    true or false. If true, the object will be placed into a list. Once all the threads have completed their calculations
+    and returned the booleans, the list will contain all of the closest 10 planes that are on a collision course with the
+    PA
+
+    :return:
     """
 
 def input_data(data_in):
