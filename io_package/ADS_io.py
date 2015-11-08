@@ -1,4 +1,4 @@
-from plane_controller.plane_controller import PlaneController
+from plane_controller.plane_ctrl import PlaneController
 from audio import Audio
 
 __author__ = 'redragonx/daemoniclegend'

@@ -522,5 +522,5 @@ class TestCollisionDetection(unittest.TestCase):
                                  location_vector[0], location_vector[1], location_vector[2],
                                  velocity_vector[0], velocity_vector[1], velocity_vector[2])
 
-if __name__ == '__main__':
-     unittest.main
+# if __name__ == '__main__':
+#      unittest.main

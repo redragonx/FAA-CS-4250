@@ -45,6 +45,10 @@ def find_highest_priority_s(collsion_list):
     """
     pass
 
+def data_verify(list):
+    pass
+
+
 def __update_plane_list(plane):
     """
     Adds or updates the plane to the nearby_plane_list
@@ -52,6 +56,7 @@ def __update_plane_list(plane):
     :param plane:
     :return:
     """
+
     pass
 
 def dispatch_collision_alerts(alert_type):

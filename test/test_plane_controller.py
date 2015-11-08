@@ -1,12 +1,19 @@
 __author__ = 'daemoniclegend'
+from mock import patch
+from plane_controller.plane_ctrl import *
 
 import unittest
 
 class test_plane_controller(unittest.testcase):
 
-    def test_plane_controller_driver(list_in):
-        pass
+    # patch.object if the method that you are testing is in a class
+    @patch("plane_controller.input_data")
+    def test_plane_controller_driver(mock_input_data):
+        #arrange
 
+        # action
+        plane_controller_driver()
+        # asser
     def test_input_data(data_in):
         pass
 
