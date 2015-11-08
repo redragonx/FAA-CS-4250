@@ -20,10 +20,12 @@ class TestPlaneController(unittest.TestCase):
 
     # patch.object if the method that you are testing is in a class
     @patch.multiple("plane_controller.plane_ctrl",
+                    collision_detection_generator = DEFAULT,
                     find_highest_priority_s = DEFAULT,
                     get_corrective_action = DEFAULT,
                     dispatch_collision_alerts = DEFAULT)
-    def test_plane_controller_driver(self, find_highest_priority_s,
+    def test_plane_controller_driver(self, collision_detection_generator,
+                                     find_highest_priority_s,
                                      get_corrective_action,
                                      dispatch_collision_alerts):
         #1. find_highest_priority -> returns list of 1 or 2 planes
@@ -34,6 +36,7 @@ class TestPlaneController(unittest.TestCase):
         # action
         plane_controller_driver()
         # assert
+        self.assertTrue(collision_detection_generator.call_count > 0)
         self.assertTrue(find_highest_priority_s.call_count > 0)
         self.assertTrue(get_corrective_action.call_count > 0)
         self.assertTrue(dispatch_collision_alerts > 0)
