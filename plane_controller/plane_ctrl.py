@@ -4,10 +4,14 @@ __corrective_actions = ["ASCEND", "MAINTAIN ALTITUDE", "DESCEND"]
 """
 The set of planes that the ADS-B send in.
 """
-__nearby_planes_list = {}
+from plane_controller.plane import PlaneObject
+# __nearby_planes_list = {}
+nearby_planes_list = []
+primary_aircraft = PlaneObject("00",0,0,0,0,0,0)
 
 
-def plane_controller_driver(list_in):
+
+def plane_controller_driver():
     """
     This thread runs in all of the computations for detecting collisions and generates relevant alerts.
 
@@ -16,6 +20,15 @@ def plane_controller_driver(list_in):
     """
     pass
 
+def collision_detection_generator():
+    """
+    This will create threads for each plane and call the collision detection. The collision detection will return
+    true or false. If true, the object will be placed into a list. Once all the threads have completed their calculations
+    and returned the booleans, the list will contain all of the closest 10 planes that are on a collision course with the
+    PA
+
+    :return: list_closest: returns a list with the closest airplanes on a collision course with the PA
+    """
 
 def input_data(data_in):
     """
@@ -35,11 +48,11 @@ def convert_to_cartesian_meters(list_in):
     """
     pass
 
-def find_highest_priority_s(collsion_list):
+def find_highest_priority_s(list_in):
     """
     Finds the plane or planes, when applicable, with the highest priority and returns them as list to the caller.
 
-    :param collsion_list: the list of the potential collisions
+    :param
     :return: high_priority_list: the the collisions with the highest priority
     """
     pass
@@ -55,7 +68,6 @@ def update_plane_list(plane):
     :param plane:
     :return:
     """
-
     pass
 
 def dispatch_collision_alerts(alert_type):
@@ -69,7 +81,7 @@ def dispatch_collision_alerts(alert_type):
 
 
 
-def get_corrective_action(*planes):
+def get_corrective_action(planes):
     """
     Calculates the corrective action of the primary aircraft, will ascend or descend or maintain elevation based
     upon the GPS location of the PA relative to other Aircraft.
