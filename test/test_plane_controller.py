@@ -111,12 +111,14 @@ class TestPlaneController(unittest.TestCase):
     #     # pass
     #
      def test_update_plane_list(self):
+        '''
+        This is testing to make sure the update_plane_list method updates the global nearby_planes_list.
+
+        '''
         plane_location, plane_velocity = [0, 0, 0], [100, 100, 100]
         plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
         update_plane_list(plane_obj)
         list = [plane_obj]
-        print(nearby_planes_list)
-        print(list)
         self.assertEqual(nearby_planes_list, list)
         pass
     #

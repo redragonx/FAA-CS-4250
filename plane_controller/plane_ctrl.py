@@ -66,8 +66,7 @@ def update_plane_list(plane):
     :param plane:
     :return:
     """
-    nearby_planes_list.append(plane)
-    #pass
+    pass
 
 def dispatch_collision_alerts(alert_type):
     """
