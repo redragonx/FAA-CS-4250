@@ -1,26 +1,42 @@
 __author__ = 'redragonx/daemoniclegend'
 
-from plane_controller.plane import PlaneObject
+# from plane_controller.plane import PlaneObject
 import re
 
-class DataVerify():
 
+class DataVerify():
     def verify_data(self, list_in):
         data_list = list_in
-        idPattern = re.compile("\d{4}")
-        latPattern = re.compile("[0-1][0](([0-8]\d{8})|([9][0]{8}))")
-        longPattern = re.compile("[0-1][0-1](([0-7]\d{8})|([8][0]{7}))")
-        vectorPattern = re.compile("\d{8}")
-        VALID = True
-        if idPattern.match(data_list(0)):
-            if latPattern.match(data_list(1)):
-                if longPattern.match(data_list(2)):
-                    if vectorPattern.match(data_list(3)):
-                        if vectorPattern.match(data_list(4)):
-                            if vectorPattern.match(data_list(5)):
-                                verified_plane = PlaneObject(data_list(0), data_list(1), data_list(2), data_list(3),
-                                                             data_list(4), data_list(5))
-        return verified_plane, True
+        idPattern = re.compile("[0-9]{4}")
+        latPattern = re.compile("[01][0][0-8][0-9]{7}|[0-1][0][9][0]{7}")
+        longPattern = re.compile("[0-1][0-1][0-7][0-9]{6}|[0-1][0-1][8][0]{5}")
+        velocityPattern = re.compile("^[0-9]{6}")
+        vectorPattern = re.compile("^[0-9]{8}")
+        valid = False
+
+        if idPattern.match(data_list[0]):
+            if latPattern.match(data_list[1]):
+                if longPattern.match(data_list[2]):
+                    if velocityPattern.match(data_list[3]):
+                        if vectorPattern.match(data_list[4]):
+                            if vectorPattern.match(data_list[5]):
+                                if vectorPattern.match(data_list[6]):
+                                    # here is where the plane object itself would be returned after creation
+                                    return 'True'
+                                else:
+                                    return 'False'
+                            else:
+                                return 'False'
+                        else:
+                            return 'False'
+                    else:
+                        return 'False'
+                else:
+                    return 'False'
+            else:
+                return 'False'
+        else:
+            return 'False'
 
     def within_distance(self, plane1):
         return
