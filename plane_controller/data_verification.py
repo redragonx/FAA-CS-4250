@@ -5,6 +5,8 @@ import re
 
 
 class DataVerify():
+    velocity_map = {}
+
     def verify_data(self, list_in):
         data_list = list_in
         idPattern = re.compile("[0-9]{4}")
