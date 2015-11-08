@@ -155,8 +155,12 @@ class TestPlaneController(unittest.TestCase):
     @patch.object(CollisionDetection,
                 "determine_collision")
     def test_collision_detection_generator(self, mock_determine_collision):
-        collision_detection_generator()
+        global nearby_planes_list
+        nearby_planes_list = []
+        final_l = collision_detection_generator()
         self.assertEqual(mock_determine_collision.call_count, len(nearby_planes_list))
+
+
 
 
 
