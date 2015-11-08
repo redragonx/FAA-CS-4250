@@ -113,7 +113,8 @@ class TestPlaneController(unittest.TestCase):
      def test_update_plane_list(self, plane):
          plane_location, plane_velocity = [0, 0, 0], [100, 100, 100]
          plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
-         self.assertEqual(update_plane_list(plane_obj), [])
+         nearby_planes_list.append(plane_obj)
+         self.assertEqual(update_plane_list(plane_obj), nearby_planes_list)
 
          pass
     #
