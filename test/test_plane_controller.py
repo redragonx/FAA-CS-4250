@@ -52,26 +52,26 @@ class TestPlaneController(unittest.TestCase):
     def test_input_data(self,convert_to_cartesian_meters
                         ,data_verify,update_plane_list):
         '''
-        This method test to see if input_data calls its correct methods and follows the correct order
-        convert -> data_verify -> update_plane_list
+         This method test to see if input_data calls its correct methods and follows the correct order
+         convert -> data_verify -> update_plane_list
         '''
         #arrange
-        # data_in =[id,lat,long,altitude,x,y,z]
-        data_in =[10,111,222,2,0,1,0]
-        c_t_c =[]
-        plane_location, plane_velocity = [0, 0, 0], [100, 100, 100]
-        plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
+            # data_in =[id,lat,long,altitude,x,y,z]
+            data_in =[10,111,222,2,0,1,0]
+            c_t_c =[]
+            plane_location, plane_velocity = [0, 0, 0], [100, 100, 100]
+            plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
 
         # action
-        input_data(data_in)
+            input_data(data_in)
 
         # assert
-        self.assertEqual(convert_to_cartesian_meters.call_count,1)
-        self.assertEqual(data_verify.call_count,1)
-        self.assertEqual(update_plane_list.call_count,1)
-        convert_to_cartesian_meters.assert_called_once_with(data_in)
-        data_verify.assert_called_once_with(c_t_c)
-        update_plane_list.assert_called_once_with(plane_obj)
+            self.assertEqual(convert_to_cartesian_meters.call_count,1)
+            self.assertEqual(data_verify.call_count,1)
+            self.assertEqual(update_plane_list.call_count,1)
+            convert_to_cartesian_meters.assert_called_once_with(data_in)
+            data_verify.assert_called_once_with(c_t_c)
+            update_plane_list.assert_called_once_with(plane_obj)
 
     def test_convert_to_cartesian_meters(self):
         '''
@@ -177,4 +177,3 @@ class TestPlaneController(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-    print("abel")
