@@ -125,6 +125,11 @@ class TestPlaneController(unittest.TestCase):
 
     @patch.object(Audio,"audio_alert")
     def test_dispatch_collision_alerts(self, mock_audio_alert):
+        '''
+        This method tests to see if dispatch_collision_alerts sends the correct audio alert to the audio class.
+        :param mock_audio_alert:
+        :return:
+        '''
         alert_type = 'climb'
         dispatch_collision_alerts(alert_type)
         mock_audio_alert.assert_called_once_with(alert_type)
