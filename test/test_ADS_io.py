@@ -8,6 +8,7 @@ __author__ = 'redragonx/daemoniclegend'
 # 6 digit altitude
 # 4 digit velocity
 
+
 class TestADS_Io(unittest.TestCase):
     __sampleData = "0001" \
                    "0174678922" \
