@@ -28,6 +28,11 @@ class TestPlaneController(unittest.TestCase):
     #                                  find_highest_priority_s,
     #                                  get_corrective_action,
     #                                  dispatch_collision_alerts):
+    #     '''
+    #      This method checks to see if the plane driver calls its correct sequence of commands
+    #     '''
+    #     #1. collision_detection_generator -> calculates and returns a list of all the planes on a collision course with
+    #          the PA
     #     #1. find_highest_priority -> returns list of 1 or 2 planes
     #     #2. corrective action -> String command
     #     #3. dispatch event -> sends chris's audio alert
@@ -48,6 +53,10 @@ class TestPlaneController(unittest.TestCase):
     #                 update_plane_list = DEFAULT)
     # def test_input_data(self,convert_to_cartesian_meters
     #                     ,data_verify,update_plane_list):
+    #     '''
+    #      This method test to see if input_data calls its correct methods and follows the correct order
+    #      convert -> data_verify -> update_plane_list
+    #     '''
     #     #arrange
     #         # data_in =[id,lat,long,altitude,x,y,z]
     #         data_in =[10,111,222,2,0,1,0]
@@ -68,6 +77,10 @@ class TestPlaneController(unittest.TestCase):
     #     # pass
     #
     # def test_convert_to_cartesian_meters(self):
+    #     '''
+    #      This method test to see if the latitude longitude and elevation come back in their repsective
+    #      cartesian coordinates
+    #     '''
     #     original_data1 =[]
     #     c_t_c1 =[]
     #     self.assertEquals(convert_to_cartesian_meters(original_data1), c_t_c1)
@@ -81,7 +94,8 @@ class TestPlaneController(unittest.TestCase):
 
     def test_find_highest_priority_s(self):
         '''
-        This is testing to see if the highest priority
+        This is testing find_highest method. It sends in a list with the 10 closest planes on a collision with the PA.
+        It will return a list containing 1 or 2 planes in the same TUC
 
         '''
         data_in=[]
