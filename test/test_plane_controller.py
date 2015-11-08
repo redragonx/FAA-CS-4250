@@ -26,8 +26,9 @@ class TestPlaneController(unittest.TestCase):
         #2. corrective action -> String command
         #3. dispatch event -> sends chris's audio alert
         # arrange
+
         plane_location, plane_velocity = [0, 0, 0], [100, 100, 100]
-        plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
+        plane_obj1 = self.plane_helper("0011", plane_location, plane_velocity)
         data_in_collision_list = ["plane1", "plane2", "plane3"]
 
         # action
