@@ -49,7 +49,7 @@ def data_verify(list):
     pass
 
 
-def __update_plane_list(plane):
+def update_plane_list(plane):
     """
     Adds or updates the plane to the nearby_plane_list
 

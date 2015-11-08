@@ -11,7 +11,7 @@ import unittest
 mock_name.assert_called_once_with(name of paremeter)
 '''
 
-class test_plane_controller(unittest.TestCase):
+class TestPlaneController(unittest.TestCase):
 
     # patch.object if the method that you are testing is in a class
     def test_plane_controller_driver(self,mock_input_data):
@@ -24,9 +24,9 @@ class test_plane_controller(unittest.TestCase):
     @patch.multiple("plane_ctrl",
                     convert_to_cartesian_meters = DEFAULT,
                     data_verify = DEFAULT,
-                    __update_plane_list = DEFAULT)
+                    update_plane_list = DEFAULT)
     def test_input_data(self,convert_to_cartesian_meters
-                        ,data_verify,__update_plane_list):
+                        ,data_verify,update_plane_list):
         #arrange
             # data_in =[id,lat,long,altitude,x,y,z]
             data_in =[10,111,222,2,0,1,0]
@@ -40,10 +40,10 @@ class test_plane_controller(unittest.TestCase):
         # assert
             self.assertEqual(convert_to_cartesian_meters.call_count,1)
             self.assertEqual(data_verify.call_count,1)
-            self.assertEqual(__update_plane_list.call_count,1)
+            self.assertEqual(update_plane_list.call_count,1)
             convert_to_cartesian_meters.assert_called_once_with(data_in)
-            data_verify.call_count.assert_called_once_with(c_t_c)
-            __update_plane_list.call_count.assert_called_once_with(plane_obj)
+            data_verify.assert_called_once_with(c_t_c)
+            update_plane_list.assert_called_once_with(plane_obj)
         # pass
 
     def test_convert_to_cartesian_meters(list_in):
