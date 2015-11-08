@@ -78,7 +78,12 @@ class TestPlaneController(unittest.TestCase):
     #     c_t_c3 =[]
     #     self.assertEquals(convert_to_cartesian_meters(original_data3), c_t_c3)
 
+
     def test_find_highest_priority_s(self):
+        '''
+        This is testing to see if the highest priority
+
+        '''
         data_in=[]
         data_out=[]
         self.assertEqual(find_highest_priority_s(data_in),data_out)
