@@ -136,6 +136,10 @@ class TestPlaneController(unittest.TestCase):
     #
 
     # def test_get_corrective_action(self):
+    #     '''
+    #     This method tests get_corrective_action to see if the correct alert is sent to the user
+    #     after it has checked for the 1 or 2 closest planes to avoid.
+    #     '''
     #     global primary_aircraft
     #     p_plane_location1, p_plane_velocity1 = [0, 0, 0], [100, 100, 100]
     #     primary_aircraft = self.plane_helper("0011", p_plane_location1,p_plane_velocity1)
