@@ -111,6 +111,7 @@ class TestPlaneController(unittest.TestCase):
     #     # pass
     #
      def test_update_plane_list(self):
+        self.nearby_planes_list= []
         plane_location, plane_velocity = [0, 0, 0], [100, 100, 100]
         plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
         update_plane_list(plane_obj)
