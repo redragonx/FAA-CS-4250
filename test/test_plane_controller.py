@@ -20,19 +20,19 @@ mock_name.call_args_list =>
 class TestPlaneController(unittest.TestCase):
     def setUp(self):
         self.plane1_location, plane1_velocity = [0, 0, 0], [100, 100, 100]
-        self.plane1_obj = self.plane_helper("0011", self.plane1_location, plane1_velocity)
+        self.plane1_obj = self.plane_helper("227", self.plane1_location, plane1_velocity)
 
         self.plane2_location, plane2_velocity = [0, 0, 0], [100, 100, 100]
-        self.plane2_obj = self.plane_helper("0012", self.plane2_location, plane2_velocity)
+        self.plane2_obj = self.plane_helper("331", self.plane2_location, plane2_velocity)
 
         self.plane3_location, plane3_velocity = [0, 0, 0], [100, 100, 100]
-        self.plane3_obj = self.plane_helper("0013", self.plane3_location, plane3_velocity)
+        self.plane3_obj = self.plane_helper("440", self.plane3_location, plane3_velocity)
 
         self.plane4_location, plane4_velocity = [0, 0, 0], [100, 100, 100]
-        self.plane4_obj = self.plane_helper("0014", self.plane4_location, plane4_velocity)
+        self.plane4_obj = self.plane_helper("802", self.plane4_location, plane4_velocity)
 
         self.plane5_location, plane5_velocity = [0, 0, 0], [100, 100, 100]
-        self.plane5_obj = self.plane_helper("0015", self.plane5_location, plane5_velocity)
+        self.plane5_obj = self.plane_helper("901", self.plane5_location, plane5_velocity)
     # patch.object if the method that you are testing is in a class
     @patch.multiple("plane_controller.plane_ctrl",
                     collision_detection_generator=DEFAULT,
@@ -89,7 +89,7 @@ class TestPlaneController(unittest.TestCase):
 
     def test_convert_to_cartesian_meters(self):
         '''
-         This method test to see if the latitude longitude and elevation come back in their repsective
+         These method test to see if the latitude longitude and elevation come back in their repsective
          cartesian coordinates
         '''
         original_data1 = ["0013136740", "1163168417", "6561"]
