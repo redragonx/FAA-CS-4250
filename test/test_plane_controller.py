@@ -46,8 +46,7 @@ class TestPlaneController(unittest.TestCase):
         self.assertEqual(get_corrective_action.call_count, find_highest_priority_s.call_count > 0)
         self.assertEqual(dispatch_collision_alert.call_count, find_highest_priority_s.call_count > 0)
 
-        f_c_find_highest_priority = find_highest_priority_s.call_args_list[0]
-        self.assertEqual(f_c_find_highest_priority, call(data_in_collision_list))
+
         # pass
 
     @patch.multiple("plane_controller.plane_ctrl",
