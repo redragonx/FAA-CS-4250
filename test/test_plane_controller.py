@@ -147,13 +147,14 @@ class TestPlaneController(unittest.TestCase):
     #     alert_type = "ASCEND"
     #     self.assertEqual(get_corrective_action(planes_list),alert_type)
 
-    # def test_update_transponder_code(self):
-    #     pass
-
     #
     # def test_collision_detection_generator(self):
     #     pass
     #
+
+    # def test_update_transponder_code(self):
+    #     pass
+
     def plane_helper(self, id_code, location_vector, velocity_vector):
         return plane.PlaneObject(id_code,
                                  location_vector[0], location_vector[1], location_vector[2],
