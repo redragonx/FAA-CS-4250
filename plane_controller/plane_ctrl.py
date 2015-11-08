@@ -46,7 +46,7 @@ def convert_to_cartesian_meters(list_in):
     """
     pass
 
-def find_highest_priority_s():
+def find_highest_priority_s(list_in):
     """
     Finds the plane or planes, when applicable, with the highest priority and returns them as list to the caller.
 
