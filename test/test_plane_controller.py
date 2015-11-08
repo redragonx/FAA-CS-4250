@@ -92,26 +92,30 @@ class TestPlaneController(unittest.TestCase):
     #     self.assertEquals(convert_to_cartesian_meters(original_data3), c_t_c3)
 
 
-    def test_find_highest_priority_s(self):
-        '''
-        This is testing find_highest method. It sends in a list with the 10 closest planes on a collision with the PA.
-        It will return a list containing 1 or 2 planes in the same TUC
-
-        '''
-        data_in=[]
-        data_out=[]
-        self.assertEqual(find_highest_priority_s(data_in),data_out)
-        data_in=[]
-        data_out=[]
-        self.assertEqual(find_highest_priority_s(data_in),data_out)
-        data_in=[]
-        data_out=[]
-        self.assertEqual(find_highest_priority_s(data_in),data_out)
-
-        # pass
+    # def test_find_highest_priority_s(self):
+    #     '''
+    #     This is testing find_highest method. It sends in a list with the 10 closest planes on a collision with the PA.
+    #     It will return a list containing 1 or 2 planes in the same TUC
     #
-    # def test_update_plane_list(plane):
-    #     pass
+    #     '''
+    #     data_in=[]
+    #     data_out=[]
+    #     self.assertEqual(find_highest_priority_s(data_in),data_out)
+    #     data_in=[]
+    #     data_out=[]
+    #     self.assertEqual(find_highest_priority_s(data_in),data_out)
+    #     data_in=[]
+    #     data_out=[]
+    #     self.assertEqual(find_highest_priority_s(data_in),data_out)
+    #
+    #     # pass
+    #
+     def test_update_plane_list(self, plane):
+         plane_location, plane_velocity = [0, 0, 0], [100, 100, 100]
+         plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
+         self.assertEqual(update_plane_list(plane_obj), [])
+
+         pass
     #
     # def test_dispatch_collision_alerts(alert_type):
     #     pass
