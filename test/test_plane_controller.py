@@ -154,6 +154,7 @@ class TestPlaneController(unittest.TestCase):
         self.assertEqual(find_highest_priority_s(data_in1), data_out1)
 
     def test_find_highest_priority_s2(self):
+
         self.plane1_obj.set_tuc_interval()
         data_in1 = [self.plane1_obj,self.plane2_obj,self.plane3_obj,self.plane4_obj,self.plane5_obj]
         data_out1 = []
