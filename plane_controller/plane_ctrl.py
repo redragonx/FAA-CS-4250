@@ -5,8 +5,10 @@ __corrective_actions = ["ASCEND", "MAINTAIN ALTITUDE", "DESCEND"]
 """
 The set of planes that the ADS-B send in.
 """
+from io_package.audio import Audio
 # __nearby_planes_list = {}
 nearby_planes_list = []
+send_alert = Audio()
 
 
 def plane_controller_driver():
