@@ -1,14 +1,12 @@
-
 __corrective_actions = ["ASCEND", "MAINTAIN ALTITUDE", "DESCEND"]
 
 """
 The set of planes that the ADS-B send in.
 """
-from plane_controller.plane import PlaneObject
+from plane import PlaneObject
 # __nearby_planes_list = {}
 nearby_planes_list = []
-primary_aircraft = PlaneObject("00",0,0,0,0,0,0)
-
+primary_aircraft = PlaneObject("00", 0, 0, 0, 0, 0, 0)
 
 
 def plane_controller_driver():
@@ -20,6 +18,7 @@ def plane_controller_driver():
     """
     pass
 
+
 def collision_detection_generator():
     """
     This will create threads for each plane and call the collision detection. The collision detection will return
@@ -30,6 +29,7 @@ def collision_detection_generator():
     :return: list_closest: returns a list with the closest airplanes on a collision course with the PA
     """
 
+
 def input_data(data_in):
     """
     Takes the data from the plane_controller_driver and sends that information to data_verification
@@ -38,6 +38,7 @@ def input_data(data_in):
     :return:
     """
     pass
+
 
 def convert_to_cartesian_meters(list_in):
     """
@@ -48,6 +49,7 @@ def convert_to_cartesian_meters(list_in):
     """
     pass
 
+
 def find_highest_priority_s(list_in):
     """
     Finds the plane or planes, when applicable, with the highest priority and returns them as list to the caller.
@@ -56,6 +58,7 @@ def find_highest_priority_s(list_in):
     :return: high_priority_list: the the collisions with the highest priority
     """
     pass
+
 
 def data_verify(list):
     pass
@@ -70,6 +73,7 @@ def update_plane_list(plane):
     """
     pass
 
+
 def dispatch_collision_alerts(alert_type):
     """
 
@@ -78,7 +82,6 @@ def dispatch_collision_alerts(alert_type):
     # rel_x = PA[loc_x] - new_plane[loc_x]
     # rel_y = PA[loc_y] - new_plane[loc_y]
     # rel_z = PA[loc_z] - new_plane[loc_z]
-
 
 
 def get_corrective_action(planes):
@@ -90,6 +93,7 @@ def get_corrective_action(planes):
     :return: ASCEND, MAINTAIN ALTITUDE, DESCEND
     """
     pass
+
 
 #    constructor can go here. each piece can be accessed using   data_in[x]
 #    plane.__init__(data_in[0], data_in[1], data_in[2], data_in[3], data_in[4], data_in[5], data_in[6],)
