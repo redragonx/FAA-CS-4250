@@ -8,7 +8,7 @@ The set of planes that the ADS-B send in.
 __nearby_planes_list = {}
 
 
-def plane_controller_driver(list_in):
+def plane_controller_driver():
     """
     This thread runs in all of the computations for detecting collisions and generates relevant alerts.
 

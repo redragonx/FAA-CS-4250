@@ -27,12 +27,20 @@ class TestPlaneController(unittest.TestCase):
         #3. dispatch event -> sends chris's audio alert
         # arrange
 
-        plane_location, plane_velocity = [0, 0, 0], [100, 100, 100]
-        plane_obj1 = self.plane_helper("0011", plane_location, plane_velocity)
-        data_in_collision_list = ["plane1", "plane2", "plane3"]
+        plane_location1, plane_velocity1 = [0, 0, 0], [100, 100, 100]
+        plane_location2, plane_velocity2 = [0, 0, 0], [100, 100, 100]
+        plane_location3, plane_velocity3 = [0, 0, 0], [100, 100, 100]
+        plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1)
+        plane_obj2 = self.plane_helper("0011", plane_location2, plane_velocity2)
+        plane_obj3 = self.plane_helper("0011", plane_location3, plane_velocity3)
+        data_in_collision_list = [plane_obj1,plane_obj2,plane_obj3]
 
         # action
+        plane_controller_driver()
         # assert
+        self.assertEqual(find_highest_priority_s.call_count, find_highest_priority_s.call_count > 0)
+        self.assertEqual(get_corrective_action.call_count, find_highest_priority_s.call_count > 0)
+        self.assertEqual(dispatch_collision_alert.call_count, find_highest_priority_s.call_count > 0)
         pass
 
     @patch.multiple("plane_controller.plane_ctrl",
