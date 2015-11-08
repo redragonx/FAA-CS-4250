@@ -8,7 +8,7 @@ The set of planes that the ADS-B send in.
 from io_package.audio import Audio
 # __nearby_planes_list = {}
 nearby_planes_list = []
-send_alert = Audio()
+
 
 
 def plane_controller_driver():
@@ -75,7 +75,7 @@ def dispatch_collision_alerts(alert_type):
 
     :return:
     """
-    send_alert.audio_alert(alert_type)
+    Audio().audio_alert(alert_type)
     # rel_x = PA[loc_x] - new_plane[loc_x]
     # rel_y = PA[loc_y] - new_plane[loc_y]
     # rel_z = PA[loc_z] - new_plane[loc_z]

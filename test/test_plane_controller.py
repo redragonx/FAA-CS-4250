@@ -123,7 +123,7 @@ class TestPlaneController(unittest.TestCase):
     #     list = [plane_obj]
     #     self.assertEqual(nearby_planes_list, list)
 
-    @patch.object(send_alert,"audio_alert")
+    @patch.object(Audio,"audio_alert")
     def test_dispatch_collision_alerts(self, mock_audio_alert):
         alert_type = 'climb'
         dispatch_collision_alerts(alert_type)
