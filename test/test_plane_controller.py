@@ -152,9 +152,9 @@ class TestPlaneController(unittest.TestCase):
     #     self.assertEqual(get_corrective_action(planes_list),alert_type)
 
     #
-    # def test_collision_detection_generator(self):
-    #     pass
-    #
+    def test_collision_detection_generator(self):
+        pass
+
 
     # def test_update_transponder_code(self):
     #     pass
