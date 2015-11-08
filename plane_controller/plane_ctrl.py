@@ -9,7 +9,7 @@ from io_package.audio import Audio
 from plane_controller.plane import PlaneObject
 # __nearby_planes_list = {}
 nearby_planes_list = []
-primary_aircraft = PlaneObject()
+primary_aircraft = PlaneObject("00",0,0,0,0,0,0)
 
 
 
