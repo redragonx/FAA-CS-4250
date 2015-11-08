@@ -101,7 +101,7 @@ class TestPlaneController(unittest.TestCase):
     # def test_update_transponder_code(new_code):
     #     pass
     #
-    # def test_collision_collision_detection_generator(self):
+    # def test_collision_detection_generator(self):
     #     pass
 
 
