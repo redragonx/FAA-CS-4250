@@ -12,7 +12,6 @@ class DataVerify():
         longPattern = re.compile("[0-1][0-1][0-7][0-9]{6}|[0-1][0-1][8][0]{5}")
         velocityPattern = re.compile("^[0-9]{6}")
         vectorPattern = re.compile("^[0-9]{8}")
-        valid = False
 
         if idPattern.match(data_list[0]):
             if latPattern.match(data_list[1]):
