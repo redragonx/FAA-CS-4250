@@ -6,8 +6,10 @@ __corrective_actions = ["ASCEND", "MAINTAIN ALTITUDE", "DESCEND"]
 The set of planes that the ADS-B send in.
 """
 from io_package.audio import Audio
+from plane_controller import plane
 # __nearby_planes_list = {}
 nearby_planes_list = []
+primary_aircraft = plane()
 
 
 
@@ -81,7 +83,7 @@ def dispatch_collision_alerts(alert_type):
 
 
 
-def get_corrective_action(*planes):
+def get_corrective_action(planes):
     """
     Calculates the corrective action of the primary aircraft, will ascend or descend or maintain elevation based
     upon the GPS location of the PA relative to other Aircraft.

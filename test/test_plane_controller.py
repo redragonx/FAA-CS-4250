@@ -134,8 +134,19 @@ class TestPlaneController(unittest.TestCase):
     #     dispatch_collision_alerts(alert_type)
     #     mock_audio_alert.assert_called_once_with(alert_type)
     #
-    def test_get_corrective_action(*planes):
-        pass
+
+    def test_get_corrective_action(self):
+        p_plane_location1, p_plane_velocity1 = [0, 0, 0], [100, 100, 100]
+        plane_obj1 = self.plane_helper("0011", p_plane_location1,p_plane_velocity1)
+        plane_location1, plane_velocity1 = [0, 0, 0], [100, 100, 100]
+        plane_location2, plane_velocity2 = [0, 0, 0], [100, 100, 100]
+        plane_location3, plane_velocity3 = [0, 0, 0], [100, 100, 100]
+        plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1)
+        plane_obj2 = self.plane_helper("0011", plane_location2, plane_velocity2)
+        plane_obj3 = self.plane_helper("0011", plane_location3, plane_velocity3)
+        planes_list = [plane_obj1 ,plane_obj2 ,plane_obj3]
+        alert_type = "ASCEND"
+        self.assertEqual(get_corrective_action(planes_list),alert_type)
 
     # def test_update_transponder_code(new_code):
     #     pass
