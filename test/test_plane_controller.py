@@ -42,7 +42,7 @@ class TestPlaneController(unittest.TestCase):
         # action
         plane_controller_driver()
         # assert
-        self.assertEqual(find_highest_priority_s.call_count, find_highest_priority_s.call_count > 0)
+        self.assertTrue(find_highest_priority_s.call_count > 0)
         self.assertEqual(get_corrective_action.call_count, find_highest_priority_s.call_count > 0)
         self.assertEqual(dispatch_collision_alerts.call_count, find_highest_priority_s.call_count > 0)
 
@@ -107,7 +107,6 @@ class TestPlaneController(unittest.TestCase):
                                  velocity_vector[0], velocity_vector[1], velocity_vector[2])
 
 
-'''
-if __name__ == '__main__':
-    unittest.main()
-'''
+
+# if __name__ == '__main__':
+#     unittest.main()
