@@ -235,12 +235,12 @@ class TestPlaneController(unittest.TestCase):
         after it has checked for the 1 or 2 closest planes to avoid.
         '''
         global primary_aircraft
-        p_plane_location1, p_plane_velocity1 = [0, 0, 0], [100, 100, 100]
-        primary_aircraft = self.plane_helper("0011", p_plane_location1, p_plane_velocity1)
-        plane_location1, plane_velocity1 = [0, 0, 0], [100, 100, 100]
-        plane_location2, plane_velocity2 = [0, 0, 0], [100, 100, 100]
+        p_plane_location1, p_plane_velocity1 = [450441, 785768, 8951], [100, 100, 100]
+        primary_aircraft = self.plane_helper("0001", p_plane_location1, p_plane_velocity1)
+        plane_location1, plane_velocity1 = [322655, 259402, 7690], [100, 100, 100]
+        plane_location2, plane_velocity2 = [33494, 123753, 2734], [100, 100, 100]
         plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1)
-        plane_obj2 = self.plane_helper("0011", plane_location2, plane_velocity2)
+        plane_obj2 = self.plane_helper("0012", plane_location2, plane_velocity2)
         planes_list = [plane_obj1, plane_obj2]
         alert_type = "ASCEND"
         self.assertEqual(get_corrective_action(planes_list), alert_type)
@@ -252,14 +252,14 @@ class TestPlaneController(unittest.TestCase):
         after it has checked for the 1 or 2 closest planes to avoid.
         '''
         global primary_aircraft
-        p_plane_location1, p_plane_velocity1 = [0, 0, 0], [100, 100, 100]
-        primary_aircraft = self.plane_helper("0011", p_plane_location1, p_plane_velocity1)
-        plane_location1, plane_velocity1 = [0, 0, 0], [100, 100, 100]
-        plane_location2, plane_velocity2 = [0, 0, 0], [100, 100, 100]
+        p_plane_location1, p_plane_velocity1 =  [838115, 701998, 4364], [100, 100, 100]
+        primary_aircraft = self.plane_helper("0001", p_plane_location1, p_plane_velocity1)
+        plane_location1, plane_velocity1 = [446314, 220417, 1699], [100, 100, 100]
+        plane_location2, plane_velocity2 = [508330, 13887, 478], [100, 100, 100]
         plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1)
-        plane_obj2 = self.plane_helper("0011", plane_location2, plane_velocity2)
+        plane_obj2 = self.plane_helper("0012", plane_location2, plane_velocity2)
         planes_list = [plane_obj1, plane_obj2]
-        alert_type = "ASCEND"
+        alert_type = "MAINTAIN_ALTITUDE"
         self.assertEqual(get_corrective_action(planes_list), alert_type)
 
 
@@ -269,13 +269,11 @@ class TestPlaneController(unittest.TestCase):
         after it has checked for the 1 or 2 closest planes to avoid.
         '''
         global primary_aircraft
-        p_plane_location1, p_plane_velocity1 = [0, 0, 0], [100, 100, 100]
-        primary_aircraft = self.plane_helper("0011", p_plane_location1, p_plane_velocity1)
-        plane_location1, plane_velocity1 = [0, 0, 0], [100, 100, 100]
-        plane_location2, plane_velocity2 = [0, 0, 0], [100, 100, 100]
+        p_plane_location1, p_plane_velocity1 = [740352, 417544, 9225], [100, 100, 100]
+        primary_aircraft = self.plane_helper("0001", p_plane_location1, p_plane_velocity1)
+        plane_location1, plane_velocity1 =  [676632, 763416, 7465], [100, 100, 100]
         plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1)
-        plane_obj2 = self.plane_helper("0011", plane_location2, plane_velocity2)
-        planes_list = [plane_obj1, plane_obj2]
+        planes_list = [plane_obj1]
         alert_type = "ASCEND"
         self.assertEqual(get_corrective_action(planes_list), alert_type)
 
@@ -287,14 +285,12 @@ class TestPlaneController(unittest.TestCase):
         after it has checked for the 1 or 2 closest planes to avoid.
         '''
         global primary_aircraft
-        p_plane_location1, p_plane_velocity1 = [0, 0, 0], [100, 100, 100]
-        primary_aircraft = self.plane_helper("0011", p_plane_location1, p_plane_velocity1)
-        plane_location1, plane_velocity1 = [0, 0, 0], [100, 100, 100]
-        plane_location2, plane_velocity2 = [0, 0, 0], [100, 100, 100]
+        p_plane_location1, p_plane_velocity1 = [971784, 362204, 9698], [100, 100, 100]
+        primary_aircraft = self.plane_helper("0001", p_plane_location1, p_plane_velocity1)
+        plane_location1, plane_velocity1 = [544760, 522579, 2903], [100, 100, 100]
         plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1)
-        plane_obj2 = self.plane_helper("0011", plane_location2, plane_velocity2)
-        planes_list = [plane_obj1, plane_obj2]
-        alert_type = "ASCEND"
+        planes_list = [plane_obj1]
+        alert_type = "DESCEND"
         self.assertEqual(get_corrective_action(planes_list), alert_type)
 
 
@@ -304,14 +300,10 @@ class TestPlaneController(unittest.TestCase):
         after it has checked for the 1 or 2 closest planes to avoid.
         '''
         global primary_aircraft
-        p_plane_location1, p_plane_velocity1 = [0, 0, 0], [100, 100, 100]
-        primary_aircraft = self.plane_helper("0011", p_plane_location1, p_plane_velocity1)
-        plane_location1, plane_velocity1 = [0, 0, 0], [100, 100, 100]
-        plane_location2, plane_velocity2 = [0, 0, 0], [100, 100, 100]
-        plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1)
-        plane_obj2 = self.plane_helper("0011", plane_location2, plane_velocity2)
-        planes_list = [plane_obj1, plane_obj2]
-        alert_type = "ASCEND"
+        p_plane_location1, p_plane_velocity1 = [367444, 197892, 9165], [100, 100, 100]
+        primary_aircraft = self.plane_helper("0001", p_plane_location1, p_plane_velocity1)
+        planes_list = []
+        alert_type = "DO NOTHING"
         self.assertEqual(get_corrective_action(planes_list), alert_type)
 
 
