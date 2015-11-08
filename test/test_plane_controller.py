@@ -115,15 +115,40 @@ class TestPlaneController(unittest.TestCase):
         It will return a list containing 1 or 2 planes in the same TUC
 
         '''
-        data_in = []
-        data_out = []
-        self.assertEqual(find_highest_priority_s(data_in), data_out)
-        data_in = []
-        data_out = []
-        self.assertEqual(find_highest_priority_s(data_in), data_out)
-        data_in = []
-        data_out = []
-        self.assertEqual(find_highest_priority_s(data_in), data_out)
+        data_in1 = []
+        data_out1 = []
+        self.assertEqual(find_highest_priority_s(data_in1), data_out1)
+        data_in2 = []
+        data_out2 = []
+        self.assertEqual(find_highest_priority_s(data_in2), data_out2)
+        data_in3 = []
+        data_out3 = []
+        self.assertEqual(find_highest_priority_s(data_in3), data_out3)
+        data_in4 = []
+        data_out4 = []
+        self.assertEqual(find_highest_priority_s(data_in3), data_out3)
+        data_in4 = []
+        data_out4 = []
+        self.assertEqual(find_highest_priority_s(data_in3), data_out3)
+        data_in5 = []
+        data_out5 = []
+        self.assertEqual(find_highest_priority_s(data_in3), data_out3)
+        data_in6 = []
+        data_out6 = []
+        self.assertEqual(find_highest_priority_s(data_in3), data_out3)
+        data_in7 = []
+        data_out7 = []
+        self.assertEqual(find_highest_priority_s(data_in3), data_out3)
+        data_in8 = []
+        data_out8 = []
+        self.assertEqual(find_highest_priority_s(data_in3), data_out3)
+        data_in9 = []
+        data_out9 = []
+        self.assertEqual(find_highest_priority_s(data_in3), data_out3)
+        data_in10 = []
+        data_out10 = []
+        self.assertEqual(find_highest_priority_s(data_in3), data_out3)
+
 
         # pass
 
