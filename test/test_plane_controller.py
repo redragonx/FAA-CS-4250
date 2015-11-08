@@ -82,6 +82,12 @@ class TestPlaneController(unittest.TestCase):
         data_in=[]
         data_out=[]
         self.assertEqual(find_highest_priority_s(data_in),data_out)
+        data_in=[]
+        data_out=[]
+        self.assertEqual(find_highest_priority_s(data_in),data_out)
+        data_in=[]
+        data_out=[]
+        self.assertEqual(find_highest_priority_s(data_in),data_out)
 
         # pass
     #
