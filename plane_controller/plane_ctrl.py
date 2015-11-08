@@ -6,7 +6,7 @@ __corrective_actions = ["ASCEND", "MAINTAIN ALTITUDE", "DESCEND"]
 The set of planes that the ADS-B send in.
 """
 # __nearby_planes_list = {}
-nearby_planes_list = [0,2,4]
+nearby_planes_list = []
 
 
 def plane_controller_driver():

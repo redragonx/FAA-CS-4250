@@ -110,24 +110,22 @@ class TestPlaneController(unittest.TestCase):
     #
     #     # pass
     #
-     def test_update_plane_list(self):
-        '''
-        This is testing to make sure the update_plane_list method updates the global nearby_planes_list.
+     # def test_update_plane_list(self):
+     #    '''
+     #    This is testing to make sure the update_plane_list method updates the global nearby_planes_list.
+     #
+     #    '''
+     #    global nearby_planes_list
+     #    nearby_planes_list = []
+     #    plane_location, plane_velocity = [0, 0, 0], [100, 100, 100]
+     #    plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
+     #    update_plane_list(plane_obj)
+     #    list = [plane_obj]
+     #    self.assertEqual(nearby_planes_list, list)
 
-        '''
-        global nearby_planes_list
-        nearby_planes_list = []
-        plane_location, plane_velocity = [0, 0, 0], [100, 100, 100]
-        plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
-        update_plane_list(plane_obj)
-        list = [plane_obj]
-        self.assertEqual(nearby_planes_list, list)
-
-
-        # pass
     #
-    # def test_dispatch_collision_alerts(alert_type):
-    #     pass
+    def test_dispatch_collision_alerts(self):
+        pass
     #
     # def test_get_corrective_action(*planes):
     #     pass
