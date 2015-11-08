@@ -110,13 +110,10 @@ class TestPlaneController(unittest.TestCase):
     #
     #     # pass
     #
-     def test_update_plane_list(self, plane):
-         plane_location, plane_velocity = [0, 0, 0], [100, 100, 100]
-         plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
-         nearby_planes_list.append(plane_obj)
-         self.assertEqual(update_plane_list(plane_obj), nearby_planes_list)
-
-         pass
+     @patch("nearby_planes_list")
+     def test_update_plane_list(self, nearby_planes_list):
+        nearby_planes_list = []
+        pass
     #
     # def test_dispatch_collision_alerts(alert_type):
     #     pass
