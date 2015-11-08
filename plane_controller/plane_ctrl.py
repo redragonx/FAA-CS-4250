@@ -75,7 +75,6 @@ def dispatch_collision_alerts(alert_type):
 
     :return:
     """
-    Audio().audio_alert(alert_type)
     # rel_x = PA[loc_x] - new_plane[loc_x]
     # rel_y = PA[loc_y] - new_plane[loc_y]
     # rel_z = PA[loc_z] - new_plane[loc_z]
