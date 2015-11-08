@@ -87,26 +87,26 @@ class TestPlaneController(unittest.TestCase):
         c_t_c3 = []
         self.assertEquals(convert_to_cartesian_meters(original_data3), c_t_c3)
         original_data4 = []
-        c_t_c3 = []
-        self.assertEquals(convert_to_cartesian_meters(original_data3), c_t_c3)
+        c_t_c4 = []
+        self.assertEquals(convert_to_cartesian_meters(original_data4), c_t_c4)
         original_data5 = []
-        c_t_c3 = []
-        self.assertEquals(convert_to_cartesian_meters(original_data3), c_t_c3)
+        c_t_c5 = []
+        self.assertEquals(convert_to_cartesian_meters(original_data5), c_t_c5)
         original_data6 = []
-        c_t_c3 = []
-        self.assertEquals(convert_to_cartesian_meters(original_data3), c_t_c3)
+        c_t_c6 = []
+        self.assertEquals(convert_to_cartesian_meters(original_data6), c_t_c6)
         original_data7 = []
-        c_t_c3 = []
-        self.assertEquals(convert_to_cartesian_meters(original_data3), c_t_c3)
+        c_t_c7 = []
+        self.assertEquals(convert_to_cartesian_meters(original_data7), c_t_c7)
         original_data8 = []
-        c_t_c3 = []
-        self.assertEquals(convert_to_cartesian_meters(original_data3), c_t_c3)
+        c_t_c8 = []
+        self.assertEquals(convert_to_cartesian_meters(original_data8), c_t_c8)
         original_data9 = []
-        c_t_c3 = []
-        self.assertEquals(convert_to_cartesian_meters(original_data3), c_t_c3)
+        c_t_c9 = []
+        self.assertEquals(convert_to_cartesian_meters(original_data9), c_t_c9)
         original_data10 = []
-        c_t_c3 = []
-        self.assertEquals(convert_to_cartesian_meters(original_data3), c_t_c3)
+        c_t_c10 = []
+        self.assertEquals(convert_to_cartesian_meters(original_data10), c_t_c10)
 
 
     def test_find_highest_priority_s(self):
