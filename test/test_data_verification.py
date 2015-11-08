@@ -1,56 +1,36 @@
+__author__ = 'redragonx/daemoniclegend'
+
+from plane_controller.data_verification import DataVerify
 import unittest
-from mock import patch
-import plane_controller.data_verification
-import plane_controller.plane
-
-__author__ = 'group'
 
 
-class TestDataVerification(unittest.TestCase):
+class test_data_verification(unittest.TestCase):
 
-    def setUp(self):
-        pass
+    def test_verify_data(self):
+        dv = DataVerify()
+        __good_data_list = ["0001", "0074678922", "1045375468", "035700", "06007890", "46539201", "57890345"]
+        __alpha_list = ["0A01", "0074678922", "1045375468", "035700", "06007890", "46539201", "57890345"]
+        __bad_lat_list1 = ["0001", "0094678922", "1045375468", "035700", "06007890", "46539201", "57890345"]
+        __bad_lat_list2 = ["0001", "2074678922", "1045375468", "035700", "06007890", "46539201", "57890345"]
+        __bad_long_list1 = ["0001", "0074678922", "1085375468", "035700", "06007890", "46539201", "57890345"]
+        __bad_long_list2 = ["0001", "0074678922", "2045375468", "035700", "06007890", "46539201", "57890345"]
 
-    def test_within_distance_true(self):
-        my_class = plane_controller.data_verification
+        self.assertEqual('True', dv.verify_data(__good_data_list), 'Test 1 failed')
+        self.assertEqual('False', dv.verify_data(__alpha_list), 'Test 2 failed')
+        self.assertEqual('False', dv.verify_data(__bad_lat_list1), 'Test 3 failed')
+        self.assertEqual('False', dv.verify_data(__bad_lat_list2), 'Test 4 failed')
+        self.assertEqual('False', dv.verify_data(__bad_long_list1), 'Test 5 failed')
+        self.assertEqual('False', dv.verify_data(__bad_long_list2), 'Test 6 failed')
 
-        plane1 = plane_controller.plane
-        plane1.current_long = -65.41584
-        plane1.current_lat = -104.48541
-        plane1.current_vel = 180
+    def test_within_distance(self, plane1):
+        return
 
-        plane2 = plane_controller.plane
-        plane2.current_long = -70.41584
-        plane2.current_lat = -115.48541
-        plane2.current_vel = 162
+    def test_dispatch_data_valid(self, plane):
+        return
 
-        self.assertTrue(my_class.within_distance(plane1))
-        self.assertTrue(my_class.within_distance(plane2))
+    def test_dispatch_data_not_vaild(self, alert_type):
+        return
 
-    def test_within_distance_false(self):
-        my_class = plane_controller.data_verification
-        plane3 = plane_controller.plane
-        plane4 = plane_controller.plane
-        self.assertFalse(my_class.within_distance(plane3))
-        self.assertFalse(my_class.within_distance(plane4))
-
-    @patch('computation_package.data_verification.dispatch_data_vaild')
-    def test_verify_data_true(self, mock):
-        my_class = plane_controller.data_verification
-        plane5 = plane_controller.plane
-        plane6 = plane_controller.plane
-        self.assertFalse(my_class.verify_data(plane5))
-        self.assertFalse(my_class.verify_data(plane6))
-        self.assertTrue(mock.called)
-
-    @patch('computation_package.data_verification.dispatch_data_not_vaild')
-    def test_verify_data_false(self, mock):
-        my_class = plane_controller.data_verification
-        plane7 = plane_controller.plane
-        plane8 = plane_controller.plane
-        self.assertFalse(my_class.verify_data(plane7))
-        self.assertFalse(my_class.verify_data(plane8))
-        self.assertTrue(mock.called)
 
 if __name__ == '__main__':
     unittest.main()
