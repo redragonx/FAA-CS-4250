@@ -43,8 +43,8 @@ class TestPlaneController(unittest.TestCase):
         plane_controller_driver()
         # assert
         self.assertTrue(find_highest_priority_s.call_count > 0)
-        self.assertEqual(get_corrective_action.call_count, find_highest_priority_s.call_count > 0)
-        self.assertEqual(dispatch_collision_alerts.call_count, find_highest_priority_s.call_count > 0)
+        self.assertTrue(get_corrective_action.call_count > 0)
+        self.assertTrue(dispatch_collision_alerts > 0)
 
 
         # pass
