@@ -57,7 +57,7 @@ class TestPlaneController(unittest.TestCase):
         # arrange
         # data_in =[id,lat,long,altitude,x,y,z]
         data_in = [10, 111, 222, 2, 0, 1, 0]
-        c_t_c = [roun]
+        c_t_c = []
         plane_location, plane_velocity = [0, 0, 0], [100, 100, 100]
         plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
 
@@ -87,25 +87,25 @@ class TestPlaneController(unittest.TestCase):
         c_t_c3 = []
         self.assertEquals(convert_to_cartesian_meters(original_data3), c_t_c3)
         original_data4 = []
-        c_t_c4 = []
+        c_t_c4 =  [round(,4),round(,4),round(,4)]
         self.assertEquals(convert_to_cartesian_meters(original_data4), c_t_c4)
         original_data5 = []
-        c_t_c5 = []
+        c_t_c5 =  [round(,4),round(,4),round(,4)]
         self.assertEquals(convert_to_cartesian_meters(original_data5), c_t_c5)
         original_data6 = []
-        c_t_c6 = []
+        c_t_c6 =  [round(,4),round(,4),round(,4)]
         self.assertEquals(convert_to_cartesian_meters(original_data6), c_t_c6)
         original_data7 = []
-        c_t_c7 = []
+        c_t_c7 =  [round(,4),round(,4),round(,4)]
         self.assertEquals(convert_to_cartesian_meters(original_data7), c_t_c7)
         original_data8 = []
-        c_t_c8 = []
+        c_t_c8 =  [round(,4),round(,4),round(,4)]
         self.assertEquals(convert_to_cartesian_meters(original_data8), c_t_c8)
         original_data9 = []
-        c_t_c9 = []
+        c_t_c9 =  [round(,4),round(,4),round(,4)]
         self.assertEquals(convert_to_cartesian_meters(original_data9), c_t_c9)
         original_data10 = []
-        c_t_c10 = []
+        c_t_c10 = [round(,4),round(,4),round(,4)]
         self.assertEquals(convert_to_cartesian_meters(original_data10), c_t_c10)
 
 
