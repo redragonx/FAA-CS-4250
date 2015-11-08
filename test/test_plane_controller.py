@@ -57,7 +57,7 @@ class TestPlaneController(unittest.TestCase):
         # arrange
         # data_in =[id,lat,long,altitude,x,y,z]
         data_in = [10, 111, 222, 2, 0, 1, 0]
-        c_t_c = []
+        c_t_c = [roun]
         plane_location, plane_velocity = [0, 0, 0], [100, 100, 100]
         plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
 
@@ -77,8 +77,8 @@ class TestPlaneController(unittest.TestCase):
          This method test to see if the latitude longitude and elevation come back in their repsective
          cartesian coordinates
         '''
-        original_data1 = []
-        c_t_c1 = []
+        original_data1 = ["0013136740", "1163168417", "6561"]
+        c_t_c1 = [round(-5944598.358067343, 4), round(-1798356.177876519, 4), round(1449465.324689559,4)]
         self.assertEquals(convert_to_cartesian_meters(original_data1), c_t_c1)
         original_data2 = []
         c_t_c2 = []
