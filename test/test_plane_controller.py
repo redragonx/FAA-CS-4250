@@ -110,20 +110,20 @@ class TestPlaneController(unittest.TestCase):
     #
     #     # pass
     #
-     # def test_update_plane_list(self):
-     #    '''
-     #    This is testing to make sure the update_plane_list method updates the global nearby_planes_list.
-     #
-     #    '''
-     #    global nearby_planes_list
-     #    nearby_planes_list = []
-     #    plane_location, plane_velocity = [0, 0, 0], [100, 100, 100]
-     #    plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
-     #    update_plane_list(plane_obj)
-     #    list = [plane_obj]
-     #    self.assertEqual(nearby_planes_list, list)
-
+    # def test_update_plane_list(self):
+    #     '''
+    #     This is testing to make sure the update_plane_list method updates the global nearby_planes_list.
     #
+    #     '''
+    #     global nearby_planes_list
+    #     nearby_planes_list = []
+    #     plane_location, plane_velocity = [0, 0, 0], [100, 100, 100]
+    #     plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
+    #     update_plane_list(plane_obj)
+    #     list = [plane_obj]
+    #     self.assertEqual(nearby_planes_list, list)
+
+
     def test_dispatch_collision_alerts(self):
         pass
     #
@@ -136,7 +136,7 @@ class TestPlaneController(unittest.TestCase):
     # def test_collision_detection_generator(self):
     #     pass
     #
-     def plane_helper(self, id_code, location_vector, velocity_vector):
+    def plane_helper(self, id_code, location_vector, velocity_vector):
         return plane.PlaneObject(id_code,
                                  location_vector[0], location_vector[1], location_vector[2],
                                  velocity_vector[0], velocity_vector[1], velocity_vector[2])
