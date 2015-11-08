@@ -5,7 +5,8 @@ __corrective_actions = ["ASCEND", "MAINTAIN ALTITUDE", "DESCEND"]
 """
 The set of planes that the ADS-B send in.
 """
-__nearby_planes_list = {}
+# __nearby_planes_list = {}
+nearby_planes_list = {}
 
 
 def plane_controller_driver():
@@ -17,6 +18,11 @@ def plane_controller_driver():
     """
     pass
 
+def collision_detection_generator():
+    """
+    It
+    :return: list of
+    """
 
 def input_data(data_in):
     """
