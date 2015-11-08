@@ -1,4 +1,4 @@
-from plane_controller.plane_ctrl import PlaneController
+from plane_controller import plane_ctrl
 from audio import Audio
 
 __author__ = 'redragonx/daemoniclegend'
@@ -51,10 +51,10 @@ class ADSIO():
             parsed_data.insert(5, y)
             parsed_data.insert(6, z)
 
-            PlaneController.input_data(parsed_data)
+            plane_ctrl.input_data(parsed_data)
 
         else:
-            parsed_data = "INCOMPLETE"
+            parsed_data = False
 
             self.audio.audio_alert('bad_raw_data_error')
 

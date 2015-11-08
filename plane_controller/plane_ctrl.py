@@ -1,4 +1,3 @@
-__author__ = 'redragonx/daemoniclegend'
 
 __corrective_actions = ["ASCEND", "MAINTAIN ALTITUDE", "DESCEND"]
 
