@@ -180,6 +180,13 @@ class TestPlaneController(unittest.TestCase):
         data_out1 = []
         self.assertEqual(find_highest_priority_s(data_in1), data_out1)
 
+    def test_find_highest_priority_s6(self):
+
+        self.plane1_obj.set_tuc_interval()
+        data_in1 = [self.plane1_obj,self.plane2_obj,self.plane3_obj,self.plane4_obj,self.plane5_obj]
+        data_out1 = []
+        self.assertEqual(find_highest_priority_s(data_in1), data_out1)
+
     def test_update_plane_list(self):
         '''
         This is testing to make sure the update_plane_list method updates the global nearby_planes_list.
