@@ -157,8 +157,11 @@ class TestPlaneController(unittest.TestCase):
     def test_collision_detection_generator(self, mock_determine_collision):
         global nearby_planes_list
         nearby_planes_list = []
-        final_l = collision_detection_generator()
+        generated_tested_colided_list = collision_detection_generator()
+        true_colided_list=[]
         self.assertEqual(mock_determine_collision.call_count, len(nearby_planes_list))
+        self.assertEqual(generated_tested_colided_list, true_colided_list)
+
 
 
 
