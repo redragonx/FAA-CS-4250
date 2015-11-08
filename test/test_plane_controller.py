@@ -83,19 +83,19 @@ class TestPlaneController(unittest.TestCase):
         original_data2 = ["1067118752", "1103679115", "5815"]
         c_t_c2 = [round(-586349.9350400632, 4), round(-2409120.159576062, 4), round(-5875040.710891093, 4)]
         self.assertEquals(convert_to_cartesian_meters(original_data2), c_t_c2)
-        original_data3 = []
-        c_t_c3 = []
+        original_data3 = ["0000000000","0000000000", "2400"]
+        c_t_c3 = [6373400.0, 0.0, 0.0]
         self.assertEquals(convert_to_cartesian_meters(original_data3), c_t_c3)
-        original_data4 = []
-        c_t_c4 =  [round(,4),round(,4),round(,4)]
+        original_data4 = ["0054000000", "0122000000", "35"]
+        c_t_c4 =  [round(6373400.0,4),round(0.0,4),round(0.0,4)]
         self.assertEquals(convert_to_cartesian_meters(original_data4), c_t_c4)
-        original_data5 = []
-        c_t_c5 =  [round(,4),round(,4),round(,4)]
+        original_data5 = ["045000000", "045000000", "2400"]
+        c_t_c5 =  [round(3186700.0000000005,4),round(3186700.0,4),round(4506674.359214341,4)]
         self.assertEquals(convert_to_cartesian_meters(original_data5), c_t_c5)
-        original_data6 = []
-        c_t_c6 =  [round(,4),round(,4),round(,4)]
+        original_data6 = ["0045000000", "1000000000", "2400"]
+        c_t_c6 =  [round(4506674.359214342,4),round(0.0,4),round(4506674.359214341,4)]
         self.assertEquals(convert_to_cartesian_meters(original_data6), c_t_c6)
-        original_data7 = [["1090000000", "0450000000", "2400"]
+        original_data7 = ["1090000000", "0450000000", "2400"]
         c_t_c7 =  [round(0.0,4),round(0.0,4),round(-6373400.0,4)]
         self.assertEquals(convert_to_cartesian_meters(original_data7), c_t_c7)
         original_data8 = ["0000000000", "0000000000", "35"]
