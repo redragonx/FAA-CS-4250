@@ -115,7 +115,27 @@ class TestPlaneController(unittest.TestCase):
         It will return a list containing 1 or 2 planes in the same TUC
 
         '''
-        data_in1 = []
+        plane1_location, plane1_velocity = [0, 0, 0], [100, 100, 100]
+        plane1_obj = self.plane_helper("0011", plane1_location, plane1_velocity)
+        plane1_obj.set_tuc_interval()
+
+        plane2_location, plane2_velocity = [0, 0, 0], [100, 100, 100]
+        plane2_obj = self.plane_helper("0011", plane2_location, plane2_velocity)
+        plane2_obj.set_tuc_interval()
+
+        plane3_location, plane3_velocity = [0, 0, 0], [100, 100, 100]
+        plane3_obj = self.plane_helper("0011", plane3_location, plane3_velocity)
+        plane3_obj.set_tuc_interval()
+
+        plane4_location, plane4_velocity = [0, 0, 0], [100, 100, 100]
+        plane4_obj = self.plane_helper("0011", plane4_location, plane4_velocity)
+        plane4_obj.set_tuc_interval()
+
+        plane5_location, plane5_velocity = [0, 0, 0], [100, 100, 100]
+        plane5_obj = self.plane_helper("0011", plane5_location, plane5_velocity)
+        plane5_obj.set_tuc_interval()
+
+        data_in1 = [plane1_obj,plane2_obj,plane3_obj,plane4_obj,plane5_obj]
         data_out1 = []
         self.assertEqual(find_highest_priority_s(data_in1), data_out1)
         data_in2 = []
