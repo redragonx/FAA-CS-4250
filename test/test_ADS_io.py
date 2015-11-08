@@ -17,11 +17,11 @@ class TestADS_Io(unittest.TestCase):
                    "46539201" \
                    "57890345"
 
-    __bad_sample_data = "0009" \
+    __bad_sample_data = "0001" \
                         "0174678922" \
-                        "1045375468" \
+                        "10453754684" \
                         "035700" \
-                        "06007893" \
+                        "06007890" \
                         "46539201" \
                         "57890345"
 
@@ -35,53 +35,25 @@ class TestADS_Io(unittest.TestCase):
 
     __sample_data_list = ["0001", "0174678922", "1045375468", "035700", "06007890", "46539201", "57890345"]
 
-
     def test_parse_string(self):
         ads = ADSIO()
-        test1_answer = False
-        test2_answer = False
-        test3_answer = False
-
-        # returns a list.
-        test_list = ads.parse_string(self.__sampleData)
-
-        if test_list is None:
-            test1_answer = False
 
         # makes sure each part of both lists are the same.
-        if set(test_list) == set(self.__sample_data_list):
-            test1_answer = True
-
-        else:
-            test1_answer = False
+        self.assertEqual(self.__sample_data_list, ads.parse_string(self.__sampleData), 'Test 1 failed.')
 
         # -----------------------------------------------------------------------------
 
         # testing with bad data...
-            # returns a list.
-        test_list = ads.parse_string(self.__bad_sample_data)
+        # returns a list.
 
-        if test_list is None:
-            test2_answer = True
-
-        # makes sure each part of both lists are not the same.
-        if set(test_list) != set(self.__sample_data_list):
-            test2_answer = True
-        else:
-            test2_answer = False
+        self.assertFalse(ads.parse_string(self.__bad_sample_data), 'Test 2 failed.')
 
         # -----------------------------------------------------------------------------
 
         # tests for incomplete or missing input data
         # returns a string
-        test_list = ads.parse_string(self.__incomplete_sample_data)
 
-        if test_list is None or test_list == "INCOMPLETE":
-            test3_answer = True
-
-        print("test_parse_string_good_data: ", test1_answer)
-        print("test_parse_string_bad_data: ", test2_answer)
-        print("Incomplete data: ", test3_answer)
+        self.assertFalse(ads.parse_string(self.__incomplete_sample_data), 'Test 3 failed.')
 
 
 if __name__ == '__main__':
