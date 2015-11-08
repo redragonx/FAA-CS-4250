@@ -77,9 +77,9 @@ class TestPlaneController(unittest.TestCase):
         '''
         # arrange
         # data_in =[id,lat,long,altitude,x,y,z]
-        data_in = [10, 111, 222, 2, 0, 1, 0]
-        c_t_c = []
-        plane_location, plane_velocity = [0, 0, 0], [100, 100, 100]
+        data_in = ["110","0013136740","1163168417","6561",100, 100,100]
+        c_t_c = [-894163.0351763, 5032354.994301094, -3811775.7330091116]
+        plane_location, plane_velocity = c_t_c, [100, 100, 100]
         plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
 
         # action
