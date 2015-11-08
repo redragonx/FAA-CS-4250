@@ -80,8 +80,8 @@ class TestPlaneController(unittest.TestCase):
         original_data1 = ["0013136740", "1163168417", "6561"]
         c_t_c1 = [round(-5944598.358067343, 4), round(-1798356.177876519, 4), round(1449465.324689559,4)]
         self.assertEquals(convert_to_cartesian_meters(original_data1), c_t_c1)
-        original_data2 = []
-        c_t_c2 = []
+        original_data2 = ["1067118752", "1103679115", "5815"]
+        c_t_c2 = [round(-586349.9350400632, 4), round(-2409120.159576062, 4), round(-5875040.710891093, 4)]
         self.assertEquals(convert_to_cartesian_meters(original_data2), c_t_c2)
         original_data3 = []
         c_t_c3 = []
