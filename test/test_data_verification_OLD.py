@@ -7,7 +7,6 @@ __author__ = 'group'
 
 
 class TestDataVerification(unittest.TestCase):
-
     def setUp(self):
         pass
 
@@ -51,6 +50,7 @@ class TestDataVerification(unittest.TestCase):
         self.assertFalse(my_class.verify_data(plane7))
         self.assertFalse(my_class.verify_data(plane8))
         self.assertTrue(mock.called)
+
 
 if __name__ == '__main__':
     unittest.main()

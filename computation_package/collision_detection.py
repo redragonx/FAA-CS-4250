@@ -1,5 +1,4 @@
 class CollisionDetection:
-
     def determine_collision(self, p_a, potential_intruder):
         """
         Determines whether two aircraft will collide.
@@ -11,6 +10,5 @@ class CollisionDetection:
 
         raise Exception("Not Yet Implemented.")
 
-        #TUC interval will be set inside the plane object which the caller has access to.
+        # TUC interval will be set inside the plane object which the caller has access to.
         pass
-

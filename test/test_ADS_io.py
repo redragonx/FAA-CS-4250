@@ -3,6 +3,7 @@ from io_package.ADS_io import ADSIO
 
 __author__ = 'redragonx/daemoniclegend'
 
+
 # 4 digit id
 # 10 digit lat/longs  can have leading zeros format (+/-)XXX.XXXXXX first digit is 0 or 1 sign bit
 # 6 digit altitude

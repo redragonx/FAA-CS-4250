@@ -5,7 +5,6 @@ import unittest
 
 
 class test_data_verification(unittest.TestCase):
-
     def test_verify_data(self):
         dv = DataVerify()
         __good_data_list = ["0001", "0074678922", "1045375468", "035700", "06007890", "46539201", "57890345"]
