@@ -10,6 +10,10 @@ import unittest
 .side_effect=[]#irretable thing
 .call_count #{returns How times called}
 mock_name.assert_called_once_with(name of paremeter)
+mock_name.call_args_list =>
+                        returns a list of all the parameter that was passed in to the method
+                        have to be used with {call(paremater checking)
+
 '''
 
 class TestPlaneController(unittest.TestCase):
