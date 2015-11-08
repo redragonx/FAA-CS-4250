@@ -364,7 +364,6 @@ class TestPlaneController(unittest.TestCase):
         '''
         This test is check the collision_detection_generator method to see if the correct list is returned of
         all the planes in the area that have a potential collision with the PA
-
         '''
         global nearby_planes_list
         nearby_planes_list = []
