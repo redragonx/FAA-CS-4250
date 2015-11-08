@@ -25,7 +25,7 @@ class TestPlaneController(unittest.TestCase):
                     dispatch_collision_alerts = DEFAULT)
     def test_plane_controller_driver(self, find_highest_priority_s,
                                      get_corrective_action,
-                                     dispatch_collision_alert):
+                                     dispatch_collision_alerts):
         #1. find_highest_priority -> returns list of 1 or 2 planes
         #2. corrective action -> String command
         #3. dispatch event -> sends chris's audio alert
@@ -44,7 +44,7 @@ class TestPlaneController(unittest.TestCase):
         # assert
         self.assertEqual(find_highest_priority_s.call_count, find_highest_priority_s.call_count > 0)
         self.assertEqual(get_corrective_action.call_count, find_highest_priority_s.call_count > 0)
-        self.assertEqual(dispatch_collision_alert.call_count, find_highest_priority_s.call_count > 0)
+        self.assertEqual(dispatch_collision_alerts.call_count, find_highest_priority_s.call_count > 0)
 
 
         # pass
@@ -86,7 +86,7 @@ class TestPlaneController(unittest.TestCase):
         self.assertEquals(convert_to_cartesian_meters(original_data3), c_t_c3)
 
     #
-    # def test_find_highest_priority_s(collsion_list):
+    #def test_find_highest_priority_s(collsion_list):
     #     pass
     #
     # def test_update_plane_list(plane):
@@ -107,6 +107,7 @@ class TestPlaneController(unittest.TestCase):
                                  velocity_vector[0], velocity_vector[1], velocity_vector[2])
 
 
-
+'''
 if __name__ == '__main__':
     unittest.main()
+'''
