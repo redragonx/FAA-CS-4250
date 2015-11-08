@@ -9,6 +9,8 @@ class CollisionDetection:
         :return: True if the planes will collide, False if they will not
         """
 
+        raise Exception("Not Yet Implemented.")
+
         #TUC interval will be set inside the plane object which the caller has access to.
         pass
 
