@@ -21,18 +21,24 @@ class TestPlaneController(unittest.TestCase):
     def setUp(self):
         self.plane1_location, plane1_velocity = [0, 0, 0], [100, 100, 100]
         self.plane1_obj = self.plane_helper("227", self.plane1_location, plane1_velocity)
+        self.plane1_obj.set_tuc_interval(8302.287698233651)
 
         self.plane2_location, plane2_velocity = [0, 0, 0], [100, 100, 100]
         self.plane2_obj = self.plane_helper("331", self.plane2_location, plane2_velocity)
+        self.plane2_obj.set_tuc_interval(10064.8100367134)
 
         self.plane3_location, plane3_velocity = [0, 0, 0], [100, 100, 100]
         self.plane3_obj = self.plane_helper("440", self.plane3_location, plane3_velocity)
+        self.plane3_obj.set_tuc_interval(23087.316045484404)
 
         self.plane4_location, plane4_velocity = [0, 0, 0], [100, 100, 100]
         self.plane4_obj = self.plane_helper("802", self.plane4_location, plane4_velocity)
+        self.plane4_obj.set_tuc_interval(1598.2491739877244)
 
         self.plane5_location, plane5_velocity = [0, 0, 0], [100, 100, 100]
         self.plane5_obj = self.plane_helper("901", self.plane5_location, plane5_velocity)
+        self.plane5_obj.set_tuc_interval(10864.460059084924)
+
     # patch.object if the method that you are testing is in a class
     @patch.multiple("plane_controller.plane_ctrl",
                     collision_detection_generator=DEFAULT,
@@ -148,45 +154,39 @@ class TestPlaneController(unittest.TestCase):
         It will return a list containing 1 or 2 planes in the same TUC
 
         '''
-        self.plane1_obj.set_tuc_interval()
-        data_in1 = [self.plane1_obj,self.plane2_obj,self.plane3_obj,self.plane4_obj,self.plane5_obj]
-        data_out1 = []
-        self.assertEqual(find_highest_priority_s(data_in1), data_out1)
+        collision_list = [self.plane1_obj,self.plane2_obj,self.plane3_obj, self.plane5_obj]
+        data_out1 = [self.plane1_obj, self.plane2_obj]
+        self.assertEqual(find_highest_priority_s(collision_list), data_out1)
 
     def test_find_highest_priority_s2(self):
 
-        self.plane1_obj.set_tuc_interval()
-        data_in1 = [self.plane1_obj,self.plane2_obj,self.plane3_obj,self.plane4_obj,self.plane5_obj]
-        data_out1 = []
-        self.assertEqual(find_highest_priority_s(data_in1), data_out1)
+        collision_list = [self.plane1_obj,self.plane2_obj,self.plane3_obj,self.plane4_obj]
+        data_out1 = [self.plane4_obj]
+        self.assertEqual(find_highest_priority_s(collision_list), data_out1)
 
     def test_find_highest_priority_s3(self):
 
-        self.plane1_obj.set_tuc_interval()
-        data_in1 = [self.plane1_obj,self.plane2_obj,self.plane3_obj,self.plane4_obj,self.plane5_obj]
-        data_out1 = []
-        self.assertEqual(find_highest_priority_s(data_in1), data_out1)
+        collision_list = [self.plane1_obj,self.plane2_obj]
+        data_out1 = [self.plane1_obj,self.plane2_obj]
+        self.assertEqual(find_highest_priority_s(collision_list), data_out1)
 
     def test_find_highest_priority_s4(self):
 
-        self.plane1_obj.set_tuc_interval()
-        data_in1 = [self.plane1_obj,self.plane2_obj,self.plane3_obj,self.plane4_obj,self.plane5_obj]
-        data_out1 = []
-        self.assertEqual(find_highest_priority_s(data_in1), data_out1)
+        collision_list = [self.plane1_obj, self.plane3_obj]
+        data_out1 = [self.plane1_obj]
+        self.assertEqual(find_highest_priority_s(collision_list), data_out1)
 
     def test_find_highest_priority_s5(self):
 
-        self.plane1_obj.set_tuc_interval()
-        data_in1 = [self.plane1_obj,self.plane2_obj,self.plane3_obj,self.plane4_obj,self.plane5_obj]
-        data_out1 = []
-        self.assertEqual(find_highest_priority_s(data_in1), data_out1)
+        collision_list = [self.plane3_obj]
+        data_out1 = [self.plane3_obj]
+        self.assertEqual(find_highest_priority_s(collision_list), data_out1)
 
     def test_find_highest_priority_s6(self):
 
-        self.plane1_obj.set_tuc_interval()
-        data_in1 = [self.plane1_obj,self.plane2_obj,self.plane3_obj,self.plane4_obj,self.plane5_obj]
+        collision_list = []
         data_out1 = []
-        self.assertEqual(find_highest_priority_s(data_in1), data_out1)
+        self.assertEqual(find_highest_priority_s(collision_list), data_out1)
 
     def test_update_plane_list(self):
         '''
