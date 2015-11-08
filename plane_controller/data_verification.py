@@ -10,13 +10,13 @@ class DataVerify():
         idPattern = re.compile("[0-9]{4}")
         latPattern = re.compile("[01][0][0-8][0-9]{7}|[0-1][0][9][0]{7}")
         longPattern = re.compile("[0-1][0-1][0-7][0-9]{6}|[0-1][0-1][8][0]{5}")
-        velocityPattern = re.compile("^[0-9]{6}")
+        altitudePattern = re.compile("^[0-9]{6}")
         vectorPattern = re.compile("^[0-9]{8}")
 
         if idPattern.match(data_list[0]):
             if latPattern.match(data_list[1]):
                 if longPattern.match(data_list[2]):
-                    if velocityPattern.match(data_list[3]):
+                    if altitudePattern.match(data_list[3]):
                         if vectorPattern.match(data_list[4]):
                             if vectorPattern.match(data_list[5]):
                                 if vectorPattern.match(data_list[6]):
