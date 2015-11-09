@@ -1,6 +1,7 @@
 __author__ = 'redragonx/daemoniclegend'
 
 from plane_controller.data_verification import DataVerify
+from plane_controller.plane import PlaneObject
 import unittest
 
 
@@ -21,8 +22,53 @@ class test_data_verification(unittest.TestCase):
         self.assertEqual('False', dv.verify_data(__bad_long_list1), 'Test 5 failed')
         self.assertEqual('False', dv.verify_data(__bad_long_list2), 'Test 6 failed')
 
-    def test_within_distance(self, plane1):
-        return
+    def test_within_distance_no_accel(self):
+        dv = DataVerify()
+        velocity_map_test = {"0001": [[1, 0, 0], 0]}
+        plane = self.plane_helper("0001", [0, 0, 0], [1, 0, 0])
+        dv.velocity_map = velocity_map_test
+
+        self.assertFalse(dv.within_distance(plane))
+
+    def test_within_distance_accel_1(self):
+        dv = DataVerify()
+        velocity_map_test = {"0001": [[0, 0, 0], 0]}
+        plane = self.plane_helper("0001", [0, 0, 0], [0, 1, 0])
+        dv.velocity_map = velocity_map_test
+
+        self.assertTrue(dv.within_distance(plane))
+
+    def test_within_distance_accel_2(self):
+        dv = DataVerify()
+        velocity_map_test = {"0001": [[0, 0, 1], 0]}
+        plane = self.plane_helper("0001", [0, 0, 0], [0, 0, 30])
+        dv.velocity_map = velocity_map_test
+
+        self.assertTrue(dv.within_distance(plane))
+
+    def test_within_distance_accel_3(self):
+        dv = DataVerify()
+        velocity_map_test = {"0001": [[0, 0, 1], 0]}
+        plane = self.plane_helper("0001", [0, 0, 0], [0, 0, 31])
+        dv.velocity_map = velocity_map_test
+
+        self.assertTrue(dv.within_distance(plane))
+
+    def test_within_distance_accel_4(self):
+        dv = DataVerify()
+        velocity_map_test = {"0001": [[2, 0, 0], 0]}
+        plane = self.plane_helper("0001", [0, 0, 0], [33, 0, 0])
+        dv.velocity_map = velocity_map_test
+
+        self.assertFalse(dv.within_distance(plane))
+
+    def test_within_distance_accel_neg(self):
+        dv = DataVerify()
+        velocity_map_test = {"0001": [[0, 30, 0], 0]}
+        plane = self.plane_helper("0001", [0, 0, 0], [0, 15, 0])
+        dv.velocity_map = velocity_map_test
+
+        self.assertTrue(dv.within_distance(plane))
 
     def test_dispatch_data_valid(self, plane):
         return
@@ -30,6 +76,10 @@ class test_data_verification(unittest.TestCase):
     def test_dispatch_data_not_vaild(self, alert_type):
         return
 
+    def plane_helper(self, id_code, location_vector, velocity_vector):
+        return PlaneObject(id_code,
+                                 location_vector[0], location_vector[1], location_vector[2],
+                                 velocity_vector[0], velocity_vector[1], velocity_vector[2])
 
 if __name__ == '__main__':
     unittest.main()
