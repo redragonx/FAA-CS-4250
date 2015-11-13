@@ -42,6 +42,11 @@ def collision_detection_generator():
     dummy_plane4 = PlaneObject("4", 1, 1, 1, 2, 2, 2)
     dummy_plane5 = PlaneObject("5", 1, 1, 1, 2, 2, 2)
     dummy_plane6 = PlaneObject("6", 1, 1, 1, 2, 2, 2)
+    dummy_plane7 = PlaneObject("7", 1, 1, 1, 2, 2, 2)
+    dummy_plane8 = PlaneObject("8", 1, 1, 1, 2, 2, 2)
+    dummy_plane9 = PlaneObject("9", 1, 1, 1, 2, 2, 2)
+    dummy_plane10 = PlaneObject("10", 1, 1, 1, 2, 2, 2)
+
 
     nearby_planes_list.append(dummy_plane1)
     nearby_planes_list.append(dummy_plane2)
@@ -49,6 +54,10 @@ def collision_detection_generator():
     nearby_planes_list.append(dummy_plane4)
     nearby_planes_list.append(dummy_plane5)
     nearby_planes_list.append(dummy_plane6)
+    nearby_planes_list.append(dummy_plane7)
+    nearby_planes_list.append(dummy_plane8)
+    nearby_planes_list.append(dummy_plane9)
+    nearby_planes_list.append(dummy_plane10)
 
     # pool = ThreadPool(processes=10)
     # c_d = CollisionDetection()
