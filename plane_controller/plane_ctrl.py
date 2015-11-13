@@ -1,4 +1,5 @@
 __corrective_actions = ["ASCEND", "MAINTAIN ALTITUDE", "DESCEND"]
+#https://docs.python.org/2/library/queue.html#Queue.Queue.join
 from multiprocessing.pool import ThreadPool
 from Queue import Queue
 from computation_package.collision_detection import CollisionDetection
@@ -81,20 +82,22 @@ def collision_detection_generator():
     # for i in collision_course_planes:
     #     print i.id_code
 
+
     c_d = CollisionDetection()
     queue = Queue()
     for i in nearby_planes_list:
         Thread(target=c_d.determine_collision(dummy_pa, i ,queue)).start()
-    queue.join()
+    queue.join() ## block until all tasks are done
     collision_course_planes = []
     for i in iter(queue.get, None):
         collision_course_planes.append(i)
         if queue._qsize() == 0:
             break
 
-    print(collision_course_planes)
+    print collision_course_planes
     for i in collision_course_planes:
         print i.id_code
+    return collision_course_planes
 
 
 
