@@ -1,4 +1,9 @@
 __corrective_actions = ["ASCEND", "MAINTAIN ALTITUDE", "DESCEND"]
+#https://docs.python.org/2/library/queue.html#Queue.Queue.join
+from multiprocessing.pool import ThreadPool
+from Queue import Queue
+from computation_package.collision_detection import CollisionDetection
+from threading import Thread
 
 """
 The set of planes that the ADS-B send in.
@@ -15,6 +20,8 @@ def plane_controller_driver():
 
     :param list_in:
     :return:
+    collision_detection_generator():
+
     """
     pass
 
@@ -28,6 +35,79 @@ def collision_detection_generator():
 
     :return: list_closest: returns a list with the closest airplanes on a collision course with the PA
     """
+    dummy_pa = PlaneObject("PA", 1 ,1 ,1 ,2, 2, 2)
+    dummy_plane1 = PlaneObject("1", 1, 1, 1, 2, 2, 2)
+    dummy_plane2 = PlaneObject("2", 1, 1, 1, 2, 2, 2)
+    dummy_plane3 = PlaneObject("3", 1, 1, 1, 2, 2, 2)
+    dummy_plane4 = PlaneObject("4", 1, 1, 1, 2, 2, 2)
+    dummy_plane5 = PlaneObject("5", 1, 1, 1, 2, 2, 2)
+    dummy_plane6 = PlaneObject("6", 1, 1, 1, 2, 2, 2)
+    dummy_plane7 = PlaneObject("7", 1, 1, 1, 2, 2, 2)
+    dummy_plane8 = PlaneObject("8", 1, 1, 1, 2, 2, 2)
+    dummy_plane9 = PlaneObject("9", 1, 1, 1, 2, 2, 2)
+    dummy_plane10 = PlaneObject("10", 1, 1, 1, 2, 2, 2)
+
+
+    nearby_planes_list.append(dummy_plane1)
+    nearby_planes_list.append(dummy_plane2)
+    nearby_planes_list.append(dummy_plane3)
+    nearby_planes_list.append(dummy_plane4)
+    nearby_planes_list.append(dummy_plane5)
+    nearby_planes_list.append(dummy_plane6)
+    nearby_planes_list.append(dummy_plane7)
+    nearby_planes_list.append(dummy_plane8)
+    nearby_planes_list.append(dummy_plane9)
+    nearby_planes_list.append(dummy_plane10)
+
+    # pool = ThreadPool(processes=10)
+    # c_d = CollisionDetection()
+    # queue = Queue()
+    # for i in nearby_planes_list:
+    #     pool.apply_async(c_d.determine_collision(dummy_pa, i, queue)) #A variant of the apply() method which returns a result object.
+    # queue.join()
+    # collision_course_planes = []
+    # for i in iter(queue.get, None):
+    #     collision_course_planes.append(i)
+    #     if queue._qsize() == 0:
+    #         break
+    #
+    # print(collision_course_planes)
+    # for i in collision_course_planes:
+    #     print i.id_code
+
+    # pool = ThreadPool(processes=10)
+    # c_d = CollisionDetection()
+    # queue = Queue()
+    # for i in nearby_planes_list:
+    #     pool.apply(c_d.determine_collision, (dummy_pa, i, queue))
+    # queue.join()
+    # collision_course_planes = []
+    # for i in iter(queue.get, None):
+    #     collision_course_planes.append(i)
+    #     if queue._qsize() == 0:
+    #         break
+    #
+    # print(collision_course_planes)
+    # for i in collision_course_planes:
+    #     print i.id_code
+
+
+    c_d = CollisionDetection()
+    queue = Queue()
+    for i in nearby_planes_list:
+        Thread(target=c_d.determine_collision(dummy_pa, i ,queue)).start()
+    queue.join() ## block until all tasks are done
+    collision_course_planes = []
+    for i in iter(queue.get, None):
+        collision_course_planes.append(i)
+        if queue._qsize() == 0:
+            break
+
+    print collision_course_planes
+    for i in collision_course_planes:
+        print i.id_code
+    return collision_course_planes
+
 
 
 def input_data(data_in):
@@ -108,3 +188,6 @@ def update_transponder_code(new_code):
     """
     pass
     # new_trans_code = new_code
+
+
+collision_detection_generator()
