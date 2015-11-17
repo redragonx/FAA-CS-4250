@@ -150,7 +150,6 @@ def collision_detection_generator():
             if queue._qsize() == 0:
                 break
 
-    print collision_course_planes
     for i in collision_course_planes:
         print i.id_code
     return collision_course_planes
