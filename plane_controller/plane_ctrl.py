@@ -20,8 +20,8 @@ def plane_controller_driver():
 
     :param list_in:
     :return:
-    collision_detection_generator():
-
+    Use Event to wait for the input to reliquinsh the lock so that we can update the nearby_planes_list
+    find_highest_priority_s(collision_detection_generator())
 
     """
     pass
@@ -188,14 +188,48 @@ def convert_to_cartesian_meters(list_in):
     pass
 
 
-def find_highest_priority_s(list_in):
+def find_highest_priority_s(collision_list):
     """
     Finds the plane or planes, when applicable, with the highest priority and returns them as list to the caller.
 
     :param
     :return: high_priority_list: the the collisions with the highest priority
     """
-    pass
+    priority_list =[]
+
+    if len(collision_list) != 0:
+        for p in collision_list:
+            if(len(priority_list< 2)):
+                priority_list.append(p)
+            else:
+                if p.tuc_interval < priority_list[0].tuc_interval:
+                    if priority_list[0].tuc_interval < priority_list[1].tuc_interval:
+                         priority_list[1] = p
+                    else:
+                         priority_list[0]= p
+                elif p.tuc_interval < priority_list[1].tuc_interval:
+                     priority_list[1] = p
+                else: pass
+
+    """
+
+    """
+    if len(priority_list == 0) or len(priority_list == 1):
+        return priority_list
+    elif len(priority_list == 2):
+        if priority_list[0].tuc_interval / priority_list[1].tuc_interval > 2.0:
+            return list(priority_list[1])
+        elif priority_list[1].tuc_interval / priority_list[0].tuc_interval > 2.0:
+            return list(priority_list[0])
+        else:
+            return priority_list
+
+
+
+
+
+
+    # pass
     # we should reset the tuc interval here of all of them back to -1. So we dont
     # resuse the same tuc interval
 
