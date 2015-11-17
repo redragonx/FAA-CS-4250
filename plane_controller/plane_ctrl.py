@@ -112,8 +112,20 @@ def collision_detection_generator():
     dummy_pa = PlaneObject("PA", 0 , 0 , 0 , 0, 0, 0)
 
     dummy_plane1 = PlaneObject("1", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    dummy_plane2 = PlaneObject("2", 500, 500, -500, -10, -10, 10) #should hit
-    dummy_plane3 = PlaneObject("3", -401, 0, 0, 100, 0, 0) #should hit
+    # dummy_plane2 = PlaneObject("2", 500, 500, -500, -10, -10, 10) #should hit
+    # dummy_plane3 = PlaneObject("3", -401, 0, 0, 100, 0, 0) #should hit
+    dummy_plane2 = PlaneObject("2", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    dummy_plane3 = PlaneObject("3", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    dummy_plane4 = PlaneObject("4", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    dummy_plane5 = PlaneObject("5", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    dummy_plane6 = PlaneObject("6", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    dummy_plane7 = PlaneObject("7", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    dummy_plane8 = PlaneObject("8", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    dummy_plane9 = PlaneObject("9", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    # dummy_plane9 = PlaneObject("9", 500, 500, -500, -10, -10, 10) #should hit
+    dummy_plane10 = PlaneObject("10", 500, 500, -500, -10, -10, 10) #should hit
+
+
 
     # dummy_plane2 = PlaneObject("2", 1, 1, 1, 2, 2, 2)
     # dummy_plane3 = PlaneObject("3", 1, 1, 1, 2, 2, 2)
@@ -127,16 +139,15 @@ def collision_detection_generator():
 
 
     nearby_planes_list.append(dummy_plane1)
-    #nearby_planes_list.append(dummy_plane2)
-    #nearby_planes_list.append(dummy_plane3)
-    # nearby_planes_list.append(dummy_plane3)
-    # nearby_planes_list.append(dummy_plane4)
-    # nearby_planes_list.append(dummy_plane5)
-    # nearby_planes_list.append(dummy_plane6)
-    # nearby_planes_list.append(dummy_plane7)
-    # nearby_planes_list.append(dummy_plane8)
-    # nearby_planes_list.append(dummy_plane9)
-    # nearby_planes_list.append(dummy_plane10)
+    nearby_planes_list.append(dummy_plane2)
+    nearby_planes_list.append(dummy_plane3)
+    nearby_planes_list.append(dummy_plane4)
+    nearby_planes_list.append(dummy_plane5)
+    nearby_planes_list.append(dummy_plane6)
+    nearby_planes_list.append(dummy_plane7)
+    nearby_planes_list.append(dummy_plane8)
+    nearby_planes_list.append(dummy_plane9)
+    nearby_planes_list.append(dummy_plane10)
 
 
     queue = Queue()

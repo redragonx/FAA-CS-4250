@@ -17,8 +17,6 @@ class CollisionDetection:
             queue.put(potential_intruder)
             queue.task_done()
 
-
-
     def determine_collision(self, p_a, potential_intruder):
         '''
         Determines whether two aircraft will collide.

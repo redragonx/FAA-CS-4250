@@ -22,3 +22,4 @@ class PlaneObject(object):
         :return:
         """
         self.tuc_interval = tuc
+
