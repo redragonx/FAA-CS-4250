@@ -9,7 +9,15 @@ class CollisionDetection:
     radius_A = 200
     radius_B = 200
 
-    def determine_collision(self, p_a, potential_intruder, queue):
+    def build_collision_list(self, p_a, potential_intruder, queue):
+        if self.determine_collision(p_a, potential_intruder):
+            potential_intruder.set_tuc_interval(self.check_negative_root(self.calculate_a_b_c_of_algo()))
+            queue.put(potential_intruder)
+            queue.task_done()
+
+
+
+    def determine_collision(self, p_a, potential_intruder):
         '''
         Determines whether two aircraft will collide.
         :param p_a: he primary aircraft
@@ -17,16 +25,27 @@ class CollisionDetection:
         :param queue: rue if the planes will collide, False if they will not
         :return:
         '''
-        if self.dummy(potential_intruder):
-            queue.put(potential_intruder)
-            queue.task_done()
 
-        # TUC interval will be set inside the plane object which the caller has access to.
-    def dummy(self, potential_intruder):
-        if int(potential_intruder.id_code) % 2 == 0:
-            return True
+        self.velocity_A = p_a.velocity_vector
+        self.vector_position_A = p_a.location_vector
+
+        self.velocity_B = potential_intruder.velocity_vector
+        self.vector_position_B = potential_intruder.location_vector
+        u = self.calculate_a_b_c_of_algo()
+        if u > 0:
+            if self.check_negative_root(u) > 0:
+                return True
+            else:
+                return False
         else:
             return False
+        # if int(potential_intruder.id_code) % 2 == 0:
+        #     return True
+        # else:
+        #     return False
+
+        # TUC interval will be set inside the plane object which the caller has access to.
+
 
     #vector 2 minus vector 1
     def vector_subtraction(self, matrix_A, matrix_B):
@@ -57,14 +76,22 @@ class CollisionDetection:
         return self.calculate_b_in_algo()**2-4*self.calculate_a_in_algo()*self.calculate_c_in_algo()
 
     def check_negative_root(self, u):
-
-        if(self.calculate_a_in_algo() != 0 and u >=0):
-            return ((-self.calculate_b_in_algo()-sqrt(u))/(2*self.calculate_a_in_algo()))
-        else:
-            print("Exiting neg root: dividing result by 0 or sqrt is negative")
+        # print"hello"
+        # if(self.calculate_a_in_algo() != 0 and u >=0):
+        return ((-self.calculate_b_in_algo()-sqrt(u))/(2*self.calculate_a_in_algo()))
+        # else:
+        #     print("Exiting neg root: dividing result by 0 or sqrt is negative")
 
     def check_positive_root(self, u):
         if(self.calculate_a_in_algo() != 0 and u >=0):
             return ((-self.calculate_b_in_algo()+sqrt(u))/(2*self.calculate_a_in_algo()))
         else:
             print("Exiting pos root: dividing result by 0 or sqrt is negative")
+
+
+#
+# from plane_controller.plane import PlaneObject
+# dummy_pa = PlaneObject("PA", 1 ,1 ,1 ,2, 2, 2)
+# dummy_plane1 = PlaneObject("1", 1, 1, 1, 2, 2, 2)
+# objtest = CollisionDetection()
+# print(objtest.determine_collision(dummy_pa, dummy_plane1))
