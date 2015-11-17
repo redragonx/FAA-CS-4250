@@ -22,6 +22,7 @@ def plane_controller_driver():
     :return:
     collision_detection_generator():
 
+
     """
     pass
 
@@ -126,8 +127,8 @@ def collision_detection_generator():
 
 
     nearby_planes_list.append(dummy_plane1)
-    nearby_planes_list.append(dummy_plane2)
-    nearby_planes_list.append(dummy_plane3)
+    #nearby_planes_list.append(dummy_plane2)
+    #nearby_planes_list.append(dummy_plane3)
     # nearby_planes_list.append(dummy_plane3)
     # nearby_planes_list.append(dummy_plane4)
     # nearby_planes_list.append(dummy_plane5)

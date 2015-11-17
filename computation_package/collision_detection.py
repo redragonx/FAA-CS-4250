@@ -8,10 +8,12 @@ class CollisionDetection:
     vector_position_B = []
     radius_A = 200
     radius_B = 200
+    u = -1
+    negative_root = -1
 
     def build_collision_list(self, p_a, potential_intruder, queue):
         if self.determine_collision(p_a, potential_intruder):
-            potential_intruder.set_tuc_interval(self.check_negative_root(self.calculate_a_b_c_of_algo()))
+            potential_intruder.set_tuc_interval(self.negative_root)
             queue.put(potential_intruder)
             queue.task_done()
 
@@ -31,9 +33,11 @@ class CollisionDetection:
 
         self.velocity_B = potential_intruder.velocity_vector
         self.vector_position_B = potential_intruder.location_vector
-        u = self.calculate_a_b_c_of_algo()
-        if u > 0:
-            if self.check_negative_root(u) > 0:
+        self.u = self.calculate_a_b_c_of_algo()
+
+        if self.u > 0:
+            self.negative_root = self.check_negative_root()
+            if self.negative_root > 0:
                 return True
             else:
                 return False
@@ -43,7 +47,6 @@ class CollisionDetection:
         #     return True
         # else:
         #     return False
-
         # TUC interval will be set inside the plane object which the caller has access to.
 
 
@@ -75,16 +78,16 @@ class CollisionDetection:
         #if postivive have to do roots
         return self.calculate_b_in_algo()**2-4*self.calculate_a_in_algo()*self.calculate_c_in_algo()
 
-    def check_negative_root(self, u):
+    def check_negative_root(self):
         # print"hello"
         # if(self.calculate_a_in_algo() != 0 and u >=0):
-        return ((-self.calculate_b_in_algo()-sqrt(u))/(2*self.calculate_a_in_algo()))
+        return ((-self.calculate_b_in_algo()-sqrt(self.u))/(2*self.calculate_a_in_algo()))
         # else:
         #     print("Exiting neg root: dividing result by 0 or sqrt is negative")
 
-    def check_positive_root(self, u):
-        if(self.calculate_a_in_algo() != 0 and u >=0):
-            return ((-self.calculate_b_in_algo()+sqrt(u))/(2*self.calculate_a_in_algo()))
+    def check_positive_root(self):
+        if(self.calculate_a_in_algo() != 0 and self.u >=0):
+            return ((-self.calculate_b_in_algo()+sqrt(self.u))/(2*self.calculate_a_in_algo()))
         else:
             print("Exiting pos root: dividing result by 0 or sqrt is negative")
 
