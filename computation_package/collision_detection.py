@@ -12,10 +12,18 @@ class CollisionDetection:
     negative_root = -1
 
     def build_collision_list(self, p_a, potential_intruder, queue):
-        if self.determine_collision(p_a, potential_intruder):
-            potential_intruder.set_tuc_interval(self.negative_root)
-            queue.put(potential_intruder)
-            queue.task_done()
+            if self.determine_collision(p_a, potential_intruder):
+                # sleep(10)
+                i =0
+                while i!=200000:i+=1
+                potential_intruder.set_tuc_interval(self.negative_root)
+                queue.put(potential_intruder)
+                queue.task_done()
+    # def build_collision_list(self, p_a, potential_intruder, queue):
+    #     if self.determine_collision(p_a, potential_intruder):
+    #         potential_intruder.set_tuc_interval(self.negative_root)
+    #         queue.put(potential_intruder)
+    #         queue.task_done()
 
     def determine_collision(self, p_a, potential_intruder):
         '''
