@@ -156,13 +156,16 @@ def collision_detection_generator():
     thread_list = []
     # print len(nearby_planes_list)
     for i in nearby_planes_list:
-        t = Thread(target= CollisionDetection().build_collision_list, args=(dummy_pa, i ,queue))
+        t = Thread(target=CollisionDetection().build_collision_list, args=(dummy_pa, i ,queue))
         thread_list.append(t)
         t.start()
+
     for i in thread_list:
         i.join()
+    print "Here passed Join......."
 
     collision_course_planes = []
+    # print "Que:",queue.qsize()
     if queue.qsize() > 0:
         for i in iter(queue.get, None):
             collision_course_planes.append(i)
@@ -171,6 +174,9 @@ def collision_detection_generator():
 
     for i in collision_course_planes:
         print i.id_code
+
+    print "RL:",len(collision_course_planes)
+    print "Done......."
     return collision_course_planes
 
 
