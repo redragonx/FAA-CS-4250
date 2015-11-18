@@ -21,9 +21,12 @@ def plane_controller_driver():
     :param list_in:
     :return:
     Use Event to wait for the input to reliquinsh the lock so that we can update the nearby_planes_list
-    find_highest_priority_s(collision_detection_generator())
+
+
+    dispatch_collision_alerts(get_corrective_action(find_highest_priority_s(collision_detection_generator())))
 
     """
+
     pass
 
 
@@ -199,40 +202,37 @@ def find_highest_priority_s(collision_list):
 
     if len(collision_list) != 0:
         for p in collision_list:
-            if(len(priority_list< 2)):
+            if len(priority_list) < 2:
                 priority_list.append(p)
             else:
                 if p.tuc_interval < priority_list[0].tuc_interval:
                     if priority_list[0].tuc_interval < priority_list[1].tuc_interval:
-                         priority_list[1] = p
+                        priority_list[1] = p
                     else:
-                         priority_list[0]= p
+                        priority_list[0] = p
                 elif p.tuc_interval < priority_list[1].tuc_interval:
-                     priority_list[1] = p
-                else: pass
+                    priority_list[1] = p
+                else:
+                    pass
 
     """
-
+    These conditional statements check to see if the TUC of one plane is 2x greater than the other,
+    if it is greater then we take closest plane which, under these conditions,
+    we have designated to be a higher priority.
     """
-    if len(priority_list == 0) or len(priority_list == 1):
+    if len(priority_list) == 0 or len(priority_list) == 1:
         return priority_list
-    elif len(priority_list == 2):
+    elif len(priority_list) == 2:
         if priority_list[0].tuc_interval / priority_list[1].tuc_interval > 2.0:
-            return list(priority_list[1])
+            return [priority_list[1]]
         elif priority_list[1].tuc_interval / priority_list[0].tuc_interval > 2.0:
-            return list(priority_list[0])
+            return [priority_list[0]]
         else:
             return priority_list
-
-
-
-
-
 
     # pass
     # we should reset the tuc interval here of all of them back to -1. So we dont
     # resuse the same tuc interval
-
 
 def data_verify(list):
     pass
@@ -258,15 +258,82 @@ def dispatch_collision_alerts(alert_type):
     # rel_z = PA[loc_z] - new_plane[loc_z]
 
 
-def get_corrective_action(planes):
+def get_corrective_action(priority_list, primary_aicrt):
     """
     Calculates the corrective action of the primary aircraft, will ascend or descend or maintain elevation based
     upon the GPS location of the PA relative to other Aircraft.
 
     :param planes: planes
-    :return: ASCEND, MAINTAIN ALTITUDE, DESCEND
+    :return: climb, maintain, descend
     """
-    pass
+    #global primary_aircraft
+    primary_aircraft = primary_aicrt
+
+
+    print "Elv: " + str(primary_aircraft.elevation)
+    print "lox y: " + str(primary_aircraft.location_vector[1])
+    print "vect z:: " + str(primary_aircraft.location_vector[2])
+
+
+    if len(priority_list) == 0:
+        return "Do Nothing"
+    elif len(priority_list) == 1:
+        if (__compare_planes(primary_aircraft, priority_list[0])) == 1:
+            return "climb"
+        else:
+            return "descend"
+    elif len(priority_list) == 2:
+        result_intruder1 = __compare_planes(primary_aircraft, priority_list[0])
+        result_intruder2 = __compare_planes(primary_aircraft, priority_list[1])
+        result = result_intruder1 + result_intruder2
+        #if = 2 then the PA needs to go above both the planes
+        if result == 2:
+            return "climb"
+        #else if result is equal to 0 then the PA should maintain its elevation and not move
+        elif result == 0:
+            return "maintain"
+        #else if the result is = -2 then the PA should descend
+        elif result == -2:
+            return "descend"
+        else:
+            return "Error"
+
+
+
+
+def __compare_planes(plane1, plane2):
+    '''
+
+    :param plane1:
+    :param plane2:
+    :return:
+    '''
+
+    result_elevation = __compare_numbers(plane1.elevation, plane2.elevation)
+    if result_elevation != 0:
+        return result_elevation
+
+    result_x = __compare_numbers(plane1.location_vector[0], plane2.location_vector[0])
+    if result_x != 0:
+        return result_x
+
+    result_y = __compare_numbers(plane1.location_vector[1], plane2.location_vector[1])
+    if result_y != 0:
+        return result_y
+
+    result_z = __compare_numbers(plane1.location_vector[2], plane2.location_vector[2])
+    if result_z != 0:
+        return result_z
+
+    return -5
+
+def __compare_numbers(float1, float2):
+    if float1 > float2:
+        return 1
+    elif float1 < float2:
+        return -1
+    else:
+        return 0
 
 
 #    constructor can go here. each piece can be accessed using   data_in[x]
