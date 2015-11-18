@@ -344,19 +344,23 @@ class TestPlaneController(unittest.TestCase):
         alert_type = "descend"
         self.assertEqual(get_corrective_action(planes_list, primary_aircraft), alert_type)
 
+
     @patch.object(CollisionDetection,
-                  "determine_collision")
-    def test_collision_detection_generator(self, mock_determine_collision):
-        '''
-        This test is check the collision_detection_generator method to see if the correct list is returned of
-        all the planes in the area that have a potential collision with the PA
-        '''
-        global nearby_planes_list
-        nearby_planes_list = []
+                  "build_collision_list")
+    def test_call_count_collision_detection_generator(self, mock_build_collision_list):
+        collision_detection_generator()
+        self.assertEqual(mock_build_collision_list.call_count, len(nearby_planes_list))
+
+    def test_behavior_of_collision_detection_generator(self):
+        # global nearby_planes_list
+        # nearby_planes_list = []
         generated_tested_colided_list = collision_detection_generator()
-        true_colided_list = []
-        self.assertEqual(mock_determine_collision.call_count, len(nearby_planes_list))
-        self.assertEqual(generated_tested_colided_list, true_colided_list)
+        dummy_plane10 = PlaneObject("10", 500, 500, -500, -10, -10, 10) #should hit
+        dummy_plane10.set_tuc_interval(26.90598923241497)
+        true_colided_list = [dummy_plane10]
+        self.assertEqual(generated_tested_colided_list[0].tuc_interval, true_colided_list[0].tuc_interval)
+        self.assertEqual(generated_tested_colided_list[0].id_code, true_colided_list[0].id_code)
+
 
     # def test_update_transponder_code(self):
     #     pass
