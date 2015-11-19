@@ -292,7 +292,7 @@ class TestPlaneController(unittest.TestCase):
         '''
         # global primary_aircraft
         p_plane_location1, p_plane_velocity1 = [367444, 197892, 9165], [100, 100, 100]
-        primary_aircraft.update_plane(p_plane_location1, p_plane_velocity1)
+        primary_aircraft.update_plane(p_plane_location1, p_plane_velocity1, 1000)
         planes_list = []
         alert_type = "Do Nothing"
         self.assertEqual(get_corrective_action(planes_list), alert_type)
