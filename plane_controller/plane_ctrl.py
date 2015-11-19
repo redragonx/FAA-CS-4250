@@ -4,15 +4,13 @@ from multiprocessing.pool import ThreadPool
 from Queue import Queue
 from computation_package.collision_detection import CollisionDetection
 from threading import Thread
-from time import sleep
+
 """
 The set of planes that the ADS-B send in.
 """
 from plane import PlaneObject
 # __nearby_planes_list = {}
-global nearby_planes_list
 nearby_planes_list = []
-global primary_aircraft
 primary_aircraft = PlaneObject("00", 0, 0, 0, 0, 0, 0)
 
 
@@ -43,6 +41,38 @@ def collision_detection_generator():
     """
 
 
+    # pool = ThreadPool(processes=10)
+    # c_d = CollisionDetection()
+    # queue = Queue()
+    # for i in nearby_planes_list:
+    #     pool.apply_async(c_d.determine_collision(dummy_pa, i, queue)) #A variant of the apply() method which returns a result object.
+    # queue.join()
+    # collision_course_planes = []
+    # for i in iter(queue.get, None):
+    #     collision_course_planes.append(i)
+    #     if queue._qsize() == 0:
+    #         break
+    #
+    # print(collision_course_planes)
+    # for i in collision_course_planes:
+    #     print i.id_code
+
+    # pool = ThreadPool(processes=10)
+    # c_d = CollisionDetection()
+    # queue = Queue()
+    # for i in nearby_planes_list:
+    #     pool.apply(c_d.determine_collision, (dummy_pa, i, queue))
+    # queue.join()
+    # collision_course_planes = []
+    # for i in iter(queue.get, None):
+    #     collision_course_planes.append(i)
+    #     if queue._qsize() == 0:
+    #         break
+    #
+    # print(collision_course_planes)
+    # for i in collision_course_planes:
+    #     print i.id_code
+
     # dummy_pa = PlaneObject("PA", 1 ,1 ,1 ,2, 2, 2)
     # dummy_plane1 = PlaneObject("1", 1, 1, 1, 2, 2, 2)
     # dummy_plane2 = PlaneObject("2", 1, 1, 1, 2, 2, 2)
@@ -66,7 +96,22 @@ def collision_detection_generator():
     # nearby_planes_list.append(dummy_plane8)
     # nearby_planes_list.append(dummy_plane9)
     # nearby_planes_list.append(dummy_plane10)
-
+    #
+    #
+    # queue = Queue()
+    # for i in nearby_planes_list:
+    #     Thread(target= CollisionDetection().build_collision_list, args=(dummy_pa, i ,queue)).start()
+    # queue.join() ## block until all tasks are done
+    # collision_course_planes = []
+    # for i in iter(queue.get, None):
+    #     collision_course_planes.append(i)
+    #     if queue._qsize() == 0:
+    #         break
+    #
+    # print collision_course_planes
+    # for i in collision_course_planes:
+    #     print i.id_code
+    # return collision_course_planes
     dummy_pa = PlaneObject("PA", 0 , 0 , 0 , 0, 0, 0)
 
     dummy_plane1 = PlaneObject("1", 400, 0, 0, 100, 0, 0) #shouldnt hit
@@ -110,11 +155,11 @@ def collision_detection_generator():
     queue = Queue()
     thread_list = []
     # print len(nearby_planes_list)
-
     for i in nearby_planes_list:
-        t = Thread(target= CollisionDetection().build_collision_list, args=(dummy_pa, i ,queue))
+        t = Thread(target=CollisionDetection().build_collision_list, args=(dummy_pa, i ,queue))
         thread_list.append(t)
         t.start()
+
     for i in thread_list:
         i.join()
     print "Here passed Join......."
@@ -133,8 +178,6 @@ def collision_detection_generator():
     print "RL:",len(collision_course_planes)
     print "Done......."
     return collision_course_planes
-
-
 
 
 
