@@ -269,7 +269,40 @@ def find_highest_priority_s(collision_list):
                     priority_list[1] = p
                 else:
                     pass
+    if len(priority_list) == 0 or len(priority_list) == 1:
+        return priority_list
+    elif __get_priority(priority_list[0]) == __get_priority(priority_list[1]):
+        return priority_list
+    else:
+        if __get_priority(priority_list[0]) == "HIGH" or __get_priority(priority_list[1]) == "HIGH":
+            if __get_priority(priority_list[0]) == "HIGH":
+                return [priority_list[0]]
+            else:
+                return [priority_list[1]]
+        elif __get_priority(priority_list[0]) == "MEDIUM" or __get_priority(priority_list[1]) == "MEDIUM":
+            if __get_priority(priority_list[0]) == "MEDIUM":
+                return [priority_list[0]]
+            else:
+                return [priority_list[1]]
+        elif __get_priority(priority_list[0]) == "LOW" or __get_priority(priority_list[1]) == "LOW":
+            if __get_priority(priority_list[0]) == "LOW":
+                return [priority_list[0]]
+            else:
+                return [priority_list[1]]
+    return "Unreachable Error"
 
+
+def __get_priority(plane):
+    if plane.tuc_interval < 1*60:
+        return "HIGH"
+    elif plane.tuc_interval < 3 * 60:
+        return "MEDIUM"
+    elif plane.tuc_interval < 10 * 60:
+        return "LOW"
+    else:
+        return "LOWEST"
+
+'''
     """
     These conditional statements check to see if the TUC of one plane is 2x greater than the other,
     if it is greater then we take closest plane which, under these conditions,
@@ -284,7 +317,7 @@ def find_highest_priority_s(collision_list):
             return [priority_list[0]]
         else:
             return priority_list
-
+'''
     # pass
     # we should reset the tuc interval here of all of them back to -1. So we dont
     # resuse the same tuc interval
