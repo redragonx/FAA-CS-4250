@@ -4,6 +4,7 @@ from multiprocessing.pool import ThreadPool
 from Queue import Queue
 from computation_package.collision_detection import CollisionDetection
 from threading import Thread
+from plane_controller.data_verification import DataVerify
 
 """
 The set of planes that the ADS-B send in.
@@ -189,7 +190,46 @@ def input_data(data_in):
     :param data_in:
     :return:
     """
-    pass
+    verifier = DataVerify()
+    result = verifier.verify_data(data_in)
+    numerical_data = __convert_to_numbers(data_in)
+    if result:
+        cartesian_list = convert_to_cartesian_meters(numerical_data[1:4])
+        plane_object = PlaneObject(data_in[0], cartesian_list[0], cartesian_list[1], cartesian_list[2], data_in[4],
+                                   data_in[5], data_in[6], data_in[3])
+        if verifier.within_distance(plane_object):
+            update_plane_list(plane_object)
+
+
+def __convert_to_numbers(list_in):
+    list_in[0] = int(list_in[0])
+    list_in[1] = __convert_lat_long(list_in[1])
+    list_in[2] = __convert_lat_long(list_in[2])
+    list_in[3] = int(list_in[3])
+    list_in[4] = __convert_vector(list_in[4])
+    list_in[5] = __convert_vector(list_in[5])
+    list_in[6] = __convert_vector(list_in[6])
+    return list_in
+
+
+def __convert_lat_long(string_lat_long):
+    unsigned_lat_long = string_lat_long[1:10]
+    if string_lat_long == 0:
+        return float(unsigned_lat_long) / 1000000
+    else:
+        return -1 * float(unsigned_lat_long) / 1000000
+
+
+def __convert_vector(string_vector):
+    unsigned_vector = string_vector[1:8]
+    if string_vector == 0:
+        return float(unsigned_vector) / 1000
+    else:
+        return -1 * float(unsigned_vector) / 1000
+
+
+
+#180000000 -> 180.000000 = a degree value
 
 
 def convert_to_cartesian_meters(list_in):
@@ -197,7 +237,11 @@ def convert_to_cartesian_meters(list_in):
     Converts the list of data from latitude, longitude, and elevation to cartesian coordinates.
 
     :param list_in: the initial list of data in elevation, latitude, and longitude.
-    :return: the same list converted
+    :return: list_out: the list with cartesian coordinates in place of location information. list should be
+    in the following format:
+        loc_x
+        loc_y
+        loc_z
     """
     pass
 
