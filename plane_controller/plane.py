@@ -25,8 +25,8 @@ class PlaneObject(object):
         """
         self.tuc_interval = tuc
 
-    def update_plane(self, loc_x, loc_y, loc_z, vec_x, vec_y, vec_z, elevation):
-        self.location_vector = [loc_x, loc_y, loc_z]
-        self.velocity_vector = [vec_x, vec_y, vec_z]
+    def update_plane(self, p_plane_location, p_plane_velocity, elevation):
+        self.location_vector = p_plane_location
+        self.velocity_vector = p_plane_velocity
         self.elevation = elevation
 
