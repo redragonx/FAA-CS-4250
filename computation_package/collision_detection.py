@@ -48,11 +48,11 @@ class CollisionDetection:
                 return False
         else:
             return False
-        # if int(potential_intruder.id_code) % 2 == 0:
-        #     return True
-        # else:
-        #     return False
-        # TUC interval will be set inside the plane object which the caller has access to.
+            # if int(potential_intruder.id_code) % 2 == 0:
+            #     return True
+            # else:
+            #     return False
+            # TUC interval will be set inside the plane object which the caller has access to.
 
 
     #vector 2 minus vector 1
@@ -67,15 +67,15 @@ class CollisionDetection:
 
     def calculate_b_in_algo(self):
         return 2*(self.dot_product(self.vector_subtraction(self.velocity_A, self.velocity_B),
-                       self.vector_subtraction(self.vector_position_A, self.vector_position_B)))
+                                   self.vector_subtraction(self.vector_position_A, self.vector_position_B)))
 
     def calculate_a_in_algo(self):
         return self.dot_product(self.vector_subtraction(self.velocity_A, self.velocity_B),
-                        self.vector_subtraction(self.velocity_A, self.velocity_B))
+                                self.vector_subtraction(self.velocity_A, self.velocity_B))
 
     def calculate_c_in_algo(self):
         return (self.dot_product(self.vector_subtraction(self.vector_position_A, self.vector_position_B),
-                self.vector_subtraction(self.vector_position_A, self.vector_position_B))) - \
+                                 self.vector_subtraction(self.vector_position_A, self.vector_position_B))) - \
                (self.radius_A+self.radius_B)**2
 
     def calculate_a_b_c_of_algo(self):
@@ -97,9 +97,9 @@ class CollisionDetection:
             print("Exiting pos root: dividing result by 0 or sqrt is negative")
 
 
-#
-# from plane_controller.plane import PlaneObject
-# dummy_pa = PlaneObject("PA", 1 ,1 ,1 ,2, 2, 2)
-# dummy_plane1 = PlaneObject("1", 1, 1, 1, 2, 2, 2)
-# objtest = CollisionDetection()
-# print(objtest.determine_collision(dummy_pa, dummy_plane1))
+            #
+            # from plane_controller.plane import PlaneObject
+            # dummy_pa = PlaneObject("PA", 1 ,1 ,1 ,2, 2, 2)
+            # dummy_plane1 = PlaneObject("1", 1, 1, 1, 2, 2, 2)
+            # objtest = CollisionDetection()
+            # print(objtest.determine_collision(dummy_pa, dummy_plane1))

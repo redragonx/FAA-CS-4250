@@ -16,10 +16,10 @@ class ADSIO():
     audio = Audio()
     input_stream = None
     parsed_data = None
-    id = None
-    lat = None
-    long = None
-    altitude = None
+    plane_id = None
+    plane_lat = None
+    plane_long = None
+    plane_altitude = None
     x = None
     y = None
     z = None
@@ -30,26 +30,26 @@ class ADSIO():
     def input_listener(self):
         pass
 
-    def parse_string(self, userInput):
-        self.input_stream = userInput  # raw_input()  removed currently for testing purposes
+    def parse_string(self, user_input):
+        self.input_stream = user_input  # raw_input()  removed currently for testing purposes
         parsed_data = []
 
         if len(self.input_stream) == 54:
-            id = self.input_stream[0:-50]
-            lat = self.input_stream[4:-40]
-            long = self.input_stream[14:-30]
-            altitude = self.input_stream[24:-24]
-            x = self.input_stream[30:-16]
-            y = self.input_stream[38:-8]
-            z = self.input_stream[46:]
+            self.plane_id = self.input_stream[0:-50]
+            self.plane_lat = self.input_stream[4:-40]
+            self.plane_long = self.input_stream[14:-30]
+            self.plane_altitude = self.input_stream[24:-24]
+            self.x = self.input_stream[30:-16]
+            self.y = self.input_stream[38:-8]
+            self.z = self.input_stream[46:]
 
-            parsed_data.insert(0, id)
-            parsed_data.insert(1, lat)
-            parsed_data.insert(2, long)
-            parsed_data.insert(3, altitude)
-            parsed_data.insert(4, x)
-            parsed_data.insert(5, y)
-            parsed_data.insert(6, z)
+            parsed_data.insert(0, self.plane_id)
+            parsed_data.insert(1, self.plane_lat)
+            parsed_data.insert(2, self.plane_long)
+            parsed_data.insert(3, self.plane_altitude)
+            parsed_data.insert(4, self.x)
+            parsed_data.insert(5, self.y)
+            parsed_data.insert(6, self.z)
 
             plane_ctrl.input_data(parsed_data)
 
