@@ -4,6 +4,7 @@ from multiprocessing.pool import ThreadPool
 from Queue import Queue
 from computation_package.collision_detection import CollisionDetection
 from threading import Thread
+from plane_controller.data_verification import DataVerify
 
 """
 The set of planes that the ADS-B send in.
@@ -188,7 +189,26 @@ def input_data(data_in):
     :param data_in:
     :return:
     """
+    verifier = DataVerify()
+    __convert_to_numbers(data_in)
+    result = verifier.verify_data(data_in)
+    if result:
+        cartesian_list = convert_to_cartesian_meters(data_in[1:4])
+        plane_object = PlaneObject(data_in[0], cartesian_list[0], cartesian_list[1], cartesian_list[2], data_in[4],
+                                   data_in[5], data_in[6], data_in[3])
+        plane_to_submit = verifier.within_distance(plane_object)
+
     pass
+
+def __convert_to_numbers(list_in):
+    list_in[0] = int(list_in[0])
+    list_in[1] = __convert_lat_long()
+
+
+def __convert_lat_long()
+
+
+def __convert_vector()
 
 
 def convert_to_cartesian_meters(list_in):
@@ -196,7 +216,11 @@ def convert_to_cartesian_meters(list_in):
     Converts the list of data from latitude, longitude, and elevation to cartesian coordinates.
 
     :param list_in: the initial list of data in elevation, latitude, and longitude.
-    :return: the same list converted
+    :return: list_out: the list with cartesian coordinates in place of location information. list should be
+    in the following format:
+        loc_x
+        loc_y
+        loc_z
     """
     pass
 
