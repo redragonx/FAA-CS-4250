@@ -200,6 +200,9 @@ def input_data(data_in):
         if verifier.within_distance(plane_object):
             update_plane_list(plane_object)
 
+    # ["1067118752", "1103679115", "5815"]
+
+
 
 def __convert_to_numbers(list_in):
     list_in[0] = int(list_in[0])
@@ -360,7 +363,7 @@ def get_corrective_action(priority_list):
 
     print "Elv: " + str(primary_aircraft.elevation)
     print "lox y: " + str(primary_aircraft.location_vector[1])
-    print "vect z:: " + str(primary_aircraft.location_vector[2])
+    print "vect z:: " + str(primary_aircraft.velocity_vector[2])
 
 
     if len(priority_list) == 0:

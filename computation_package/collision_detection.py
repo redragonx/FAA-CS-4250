@@ -1,5 +1,4 @@
 from math import sqrt
-from time import sleep
 class CollisionDetection:
     #put in self, we could probably make this into a module and not a class? Something to think about.
     velocity_A = []
