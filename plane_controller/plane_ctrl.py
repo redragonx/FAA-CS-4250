@@ -115,43 +115,44 @@ def collision_detection_generator():
     # return collision_course_planes
     dummy_pa = PlaneObject("PA", 0 , 0 , 0 , 0, 0, 0)
 
-    dummy_plane1 = PlaneObject("1", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    # dummy_plane2 = PlaneObject("2", 500, 500, -500, -10, -10, 10) #should hit
-    # dummy_plane3 = PlaneObject("3", -401, 0, 0, 100, 0, 0) #should hit
-    dummy_plane2 = PlaneObject("2", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    dummy_plane3 = PlaneObject("3", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    dummy_plane4 = PlaneObject("4", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    dummy_plane5 = PlaneObject("5", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    dummy_plane6 = PlaneObject("6", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    dummy_plane7 = PlaneObject("7", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    dummy_plane8 = PlaneObject("8", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    dummy_plane9 = PlaneObject("9", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    # dummy_plane9 = PlaneObject("9", 500, 500, -500, -10, -10, 10) #should hit
-    dummy_plane10 = PlaneObject("10", 500, 500, -500, -10, -10, 10) #should hit
-
-
-
-    # dummy_plane2 = PlaneObject("2", 1, 1, 1, 2, 2, 2)
-    # dummy_plane3 = PlaneObject("3", 1, 1, 1, 2, 2, 2)
-    # dummy_plane4 = PlaneObject("4", 1, 1, 1, 2, 2, 2)
-    # dummy_plane5 = PlaneObject("5", 1, 1, 1, 2, 2, 2)
-    # dummy_plane6 = PlaneObject("6", 1, 1, 1, 2, 2, 2)
-    # dummy_plane7 = PlaneObject("7", 1, 1, 1, 2, 2, 2)
-    # dummy_plane8 = PlaneObject("8", 1, 1, 1, 2, 2, 2)
-    # dummy_plane9 = PlaneObject("9", 1, 1, 1, 2, 2, 2)
-    # dummy_plane10 = PlaneObject("10", 1, 1, 1, 2, 2, 2)
-
-    nearby_planes_list.append(dummy_plane1)
-    nearby_planes_list.append(dummy_plane2)
-    nearby_planes_list.append(dummy_plane3)
-    nearby_planes_list.append(dummy_plane4)
-    nearby_planes_list.append(dummy_plane5)
-    nearby_planes_list.append(dummy_plane6)
-    nearby_planes_list.append(dummy_plane7)
-    nearby_planes_list.append(dummy_plane8)
-    nearby_planes_list.append(dummy_plane9)
-    nearby_planes_list.append(dummy_plane10)
+    # dummy_plane1 = PlaneObject("1", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    # # dummy_plane2 = PlaneObject("2", 500, 500, -500, -10, -10, 10) #should hit
+    # # dummy_plane3 = PlaneObject("3", -401, 0, 0, 100, 0, 0) #should hit
+    # dummy_plane2 = PlaneObject("2", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    # dummy_plane3 = PlaneObject("3", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    # dummy_plane4 = PlaneObject("4", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    # dummy_plane5 = PlaneObject("5", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    # dummy_plane6 = PlaneObject("6", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    # dummy_plane7 = PlaneObject("7", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    # dummy_plane8 = PlaneObject("8", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    # dummy_plane9 = PlaneObject("9", 400, 0, 0, 100, 0, 0) #shouldnt hit
+    # # dummy_plane9 = PlaneObject("9", 500, 500, -500, -10, -10, 10) #should hit
+    # dummy_plane10 = PlaneObject("10", 500, 500, -500, -10, -10, 10) #should hit
+    #
+    #
+    #
+    # # dummy_plane2 = PlaneObject("2", 1, 1, 1, 2, 2, 2)
+    # # dummy_plane3 = PlaneObject("3", 1, 1, 1, 2, 2, 2)
+    # # dummy_plane4 = PlaneObject("4", 1, 1, 1, 2, 2, 2)
+    # # dummy_plane5 = PlaneObject("5", 1, 1, 1, 2, 2, 2)
+    # # dummy_plane6 = PlaneObject("6", 1, 1, 1, 2, 2, 2)
+    # # dummy_plane7 = PlaneObject("7", 1, 1, 1, 2, 2, 2)
+    # # dummy_plane8 = PlaneObject("8", 1, 1, 1, 2, 2, 2)
+    # # dummy_plane9 = PlaneObject("9", 1, 1, 1, 2, 2, 2)
+    # # dummy_plane10 = PlaneObject("10", 1, 1, 1, 2, 2, 2)
+    #
+    # nearby_planes_list.append(dummy_plane1)
+    # nearby_planes_list.append(dummy_plane2)
+    # nearby_planes_list.append(dummy_plane3)
+    # nearby_planes_list.append(dummy_plane4)
+    # nearby_planes_list.append(dummy_plane5)
+    # nearby_planes_list.append(dummy_plane6)
+    # nearby_planes_list.append(dummy_plane7)
+    # nearby_planes_list.append(dummy_plane8)
+    # nearby_planes_list.append(dummy_plane9)
+    # nearby_planes_list.append(dummy_plane10)
     # print len(nearby_planes_list)
+    print "This isnt correct: " + str(nearby_planes_list)
 
     queue = Queue()
     thread_list = []
@@ -163,7 +164,7 @@ def collision_detection_generator():
 
     for i in thread_list:
         i.join()
-    print "Here passed Join......."
+    # print "Here passed Join......."
 
     collision_course_planes = []
     # print "Que:",queue.qsize()
@@ -176,8 +177,8 @@ def collision_detection_generator():
     for i in collision_course_planes:
         print i.id_code
 
-    print "RL:",len(collision_course_planes)
-    print "Done......."
+    # print "RL:",len(collision_course_planes)
+    # print "Done......."
     return collision_course_planes
 
 
@@ -292,7 +293,7 @@ def dispatch_collision_alerts(alert_type):
     # rel_z = PA[loc_z] - new_plane[loc_z]
 
 
-def get_corrective_action(priority_list, primary_aicrt):
+def get_corrective_action(priority_list):
     """
     Calculates the corrective action of the primary aircraft, will ascend or descend or maintain elevation based
     upon the GPS location of the PA relative to other Aircraft.
@@ -301,7 +302,7 @@ def get_corrective_action(priority_list, primary_aicrt):
     :return: climb, maintain, descend
     """
     #global primary_aircraft
-    primary_aircraft = primary_aicrt
+    #primary_aircraft = primary_aicrt
 
 
     print "Elv: " + str(primary_aircraft.elevation)
