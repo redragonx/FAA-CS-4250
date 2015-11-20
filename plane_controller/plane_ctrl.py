@@ -185,7 +185,7 @@ def collision_detection_generator():
 
 def input_data(data_in):
     """
-    Takes the data from the plane_controller_driver and sends that information to data_verification
+    Takes the data from the plane_controller_driver and sends that information to data_verification.
 
     :param data_in:
     :return:
