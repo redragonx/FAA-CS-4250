@@ -2,6 +2,7 @@ __corrective_actions = ["ASCEND", "MAINTAIN ALTITUDE", "DESCEND"]
 #https://docs.python.org/2/library/queue.html#Queue.Queue.join
 from multiprocessing.pool import ThreadPool
 from Queue import Queue
+from time import sleep,clock
 from computation_package.collision_detection import CollisionDetection
 from threading import Thread
 from plane_controller.data_verification import DataVerify
@@ -18,6 +19,18 @@ from plane import PlaneObject
 # __nearby_planes_list = {}
 nearby_planes_list = []
 primary_aircraft = PlaneObject("00", 0, 0, 0, 0, 0, 0)
+plane_management_queue=Queue(maxsize=10)
+
+def remove_excess_planes():
+    b=0
+    for i in nearby_planes_list:
+        if(clock()-i.update_time>10):
+            nearby_planes_list.pop(b)
+        b+=1
+
+
+    # pass
+
 
 
 def plane_controller_driver():
@@ -32,8 +45,14 @@ def plane_controller_driver():
     dispatch_collision_alerts(get_corrective_action(find_highest_priority_s(collision_detection_generator())))
 
     """
-
-    pass
+    while True:
+        clock_time = clock()
+        while clock() < clock_time+5:
+            if plane_management_queue.qsize()!=0:
+                inputed_plane = plane_management_queue.get()
+                update_plane_list(inputed_plane)
+        remove_excess_planes()
+        # dispatch_collision_alerts(get_corrective_action(find_highest_priority_s(collision_detection_generator())))
 
 
 def collision_detection_generator():
@@ -190,7 +209,7 @@ def collision_detection_generator():
 
 def input_data(data_in):
     """
-    Takes the data from the plane_controller_driver and sends that information to data_verification
+    Takes the data from the plane_controller_driver and sends that information to data_verification.
 
     :param data_in:
     :return:
@@ -203,7 +222,7 @@ def input_data(data_in):
         plane_object = PlaneObject(data_in[0], cartesian_list[0], cartesian_list[1], cartesian_list[2], data_in[4],
                                    data_in[5], data_in[6], data_in[3])
         if verifier.within_distance(plane_object):
-            update_plane_list(plane_object)
+            plane_management_queue.put(plane_object)
 
     # ["1067118752", "1103679115", "5815"]
 
@@ -352,7 +371,18 @@ def update_plane_list(plane):
     :param plane:
     :return:
     """
-    pass
+
+    for i in nearby_planes_list:
+        if plane.id_code == i.id_code:
+            i.update_plane(plane.location_vector,plane.velocity_vector,plane.elevation)
+            i.update_time = clock()
+        else:
+            nearby_planes_list.append(i)
+
+
+
+
+    # pass
 
 
 def dispatch_collision_alerts(lookup_list):
