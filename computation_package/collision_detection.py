@@ -12,9 +12,6 @@ class CollisionDetection:
 
     def build_collision_list(self, p_a, potential_intruder, queue):
             if self.determine_collision(p_a, potential_intruder):
-                # sleep(10)
-                i =0
-                while i!=900000:i+=1
                 potential_intruder.set_tuc_interval(self.negative_root)
                 queue.put(potential_intruder)
                 queue.task_done()

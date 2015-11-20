@@ -41,7 +41,7 @@ class DataVerify():
 
     def within_distance(self, plane1):
         raise Exception("Not Yet Implemented.")
-
+        # pass
     def dispatch_data_valid(self, plane):
         return
 
