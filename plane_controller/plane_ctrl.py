@@ -311,27 +311,32 @@ def find_highest_priority_s(collision_list):
 def __find_priority(priority_list):
     if len(priority_list) == 0:
         return [priority_list, "DO NOTHING"]
-    elif len(priority_list) == 1 or __get_priority(priority_list[0]) == __get_priority(priority_list[1]):
+    elif len(priority_list) == 1:
         if not (priority_list[0] == "LOWEST"):
-            return [priority_list, get_corrective_action(priority_list[0])]
+            return [priority_list, __get_priority(priority_list[0])]
+        else:
+            return [priority_list, "DO NOTHING"]
+    elif __get_priority(priority_list[0]) == __get_priority(priority_list[1]):
+        if not (priority_list[0] == "LOWEST"):
+            return [priority_list, __get_priority(priority_list[0])]
         else:
             return [priority_list, "DO NOTHING"]
     else:
         if __get_priority(priority_list[0]) == "HIGH" or __get_priority(priority_list[1]) == "HIGH":
             if __get_priority(priority_list[0]) == "HIGH":
-                return [priority_list[0], __get_priority(priority_list[0])]
+                return [[priority_list[0]], __get_priority(priority_list[0])]
             else:
-                return [priority_list[1], __get_priority(priority_list[1])]
+                return [[priority_list[1]], __get_priority(priority_list[1])]
         elif __get_priority(priority_list[0]) == "MEDIUM" or __get_priority(priority_list[1]) == "MEDIUM":
             if __get_priority(priority_list[0]) == "MEDIUM":
-                return [priority_list[0], __get_priority(priority_list[0])]
+                return [[priority_list[0]], __get_priority(priority_list[0])]
             else:
-                return [priority_list[1], __get_priority(priority_list[1])]
+                return [[priority_list[1]], __get_priority(priority_list[1])]
         elif __get_priority(priority_list[0]) == "LOW" or __get_priority(priority_list[1]) == "LOW":
             if __get_priority(priority_list[0]) == "LOW":
-                return [priority_list[0], __get_priority(priority_list[0])]
+                return [[priority_list[0]], __get_priority(priority_list[0])]
             else:
-                return [priority_list[1], __get_priority(priority_list[0])]
+                return [[priority_list[1]], __get_priority(priority_list[1])]
     return [priority_list, "DO NOTHING"]
 
 
@@ -394,7 +399,7 @@ def dispatch_collision_alerts(lookup_list):
     :return:
     """
     audio = Audio()
-    audio.audio_alert(__collision_alerts[lookup_list[0],lookup_list[1]])
+    audio.audio_alert(__collision_alerts[lookup_list[0]][lookup_list[1]])
     # rel_x = PA[loc_x] - new_plane[loc_x]
     # rel_y = PA[loc_y] - new_plane[loc_y]
     # rel_z = PA[loc_z] - new_plane[loc_z]
