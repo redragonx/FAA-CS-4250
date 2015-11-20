@@ -1,5 +1,4 @@
 from math import sqrt
-from time import sleep
 class CollisionDetection:
     #put in self, we could probably make this into a module and not a class? Something to think about.
     velocity_A = []
@@ -12,10 +11,15 @@ class CollisionDetection:
     negative_root = -1
 
     def build_collision_list(self, p_a, potential_intruder, queue):
-        if self.determine_collision(p_a, potential_intruder):
-            potential_intruder.set_tuc_interval(self.negative_root)
-            queue.put(potential_intruder)
-            queue.task_done()
+            if self.determine_collision(p_a, potential_intruder):
+                potential_intruder.set_tuc_interval(self.negative_root)
+                queue.put(potential_intruder)
+                queue.task_done()
+    # def build_collision_list(self, p_a, potential_intruder, queue):
+    #     if self.determine_collision(p_a, potential_intruder):
+    #         potential_intruder.set_tuc_interval(self.negative_root)
+    #         queue.put(potential_intruder)
+    #         queue.task_done()
 
     def determine_collision(self, p_a, potential_intruder):
         '''

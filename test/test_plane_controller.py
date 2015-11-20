@@ -20,23 +20,31 @@ class TestPlaneController(unittest.TestCase):
     def setUp(self):
         self.plane1_location, plane1_velocity = [0, 0, 0], [100, 100, 100]
         self.plane1_obj = self.plane_helper("227", self.plane1_location, plane1_velocity)
-        self.plane1_obj.set_tuc_interval(8302.287698233651)
+        self.plane1_obj.set_tuc_interval(599)
 
         self.plane2_location, plane2_velocity = [0, 0, 0], [100, 100, 100]
         self.plane2_obj = self.plane_helper("331", self.plane2_location, plane2_velocity)
-        self.plane2_obj.set_tuc_interval(10064.8100367134)
+        self.plane2_obj.set_tuc_interval(180)
 
         self.plane3_location, plane3_velocity = [0, 0, 0], [100, 100, 100]
         self.plane3_obj = self.plane_helper("440", self.plane3_location, plane3_velocity)
-        self.plane3_obj.set_tuc_interval(23087.316045484404)
+        self.plane3_obj.set_tuc_interval(179.00020)
 
         self.plane4_location, plane4_velocity = [0, 0, 0], [100, 100, 100]
         self.plane4_obj = self.plane_helper("802", self.plane4_location, plane4_velocity)
-        self.plane4_obj.set_tuc_interval(1598.2491739877244)
+        self.plane4_obj.set_tuc_interval(120.000)
 
         self.plane5_location, plane5_velocity = [0, 0, 0], [100, 100, 100]
         self.plane5_obj = self.plane_helper("901", self.plane5_location, plane5_velocity)
-        self.plane5_obj.set_tuc_interval(10864.460059084924)
+        self.plane5_obj.set_tuc_interval(70.000)
+
+        self.plane6_location, plane6_velocity = [0, 0, 0], [100, 100, 100]
+        self.plane6_obj = self.plane_helper("802", self.plane6_location, plane6_velocity)
+        self.plane6_obj.set_tuc_interval(59.00)
+
+        self.plane7_location, plane7_velocity = [0, 0, 0], [100, 100, 100]
+        self.plane7_obj = self.plane_helper("802", self.plane7_location, plane7_velocity)
+        self.plane7_obj.set_tuc_interval(59.00)
 
     # patch.object if the method that you are testing is in a class
     @patch.multiple("plane_controller.plane_ctrl",
@@ -65,18 +73,16 @@ class TestPlaneController(unittest.TestCase):
         self.assertTrue(dispatch_collision_alerts > 0)
 
     @patch.multiple("plane_controller.plane_ctrl",
-                    convert_to_cartesian_meters=DEFAULT,
-                    data_verify=DEFAULT,
-                    update_plane_list=DEFAULT)
-    def test_input_data(self, convert_to_cartesian_meters
-                        , data_verify, update_plane_list):
+                    convert_to_cartesian_meters=DEFAULT)
+    @patch.object(DataVerify,"verify_data")
+    def test_input_data(self, mock_verify_data,convert_to_cartesian_meters):
         """
         This method test to see if input_data calls its correct methods and follows the correct order
         convert -> data_verify -> update_plane_list
         '"""
         # arrange
         # data_in =[id,lat,long,altitude,x,y,z]
-        data_in = ["110","0013136740","1163168417","6561",100, 100,100]
+        data_in = ["110","0013136740","1163168417","6561","00100000", "00100000","00100000"]
         c_t_c = [-894163.0351763, 5032354.994301094, -3811775.7330091116]
         plane_location, plane_velocity = c_t_c, [100, 100, 100]
         plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
@@ -86,11 +92,9 @@ class TestPlaneController(unittest.TestCase):
 
         # assert
         self.assertEqual(convert_to_cartesian_meters.call_count, 1)
-        self.assertEqual(data_verify.call_count, 1)
-        self.assertEqual(update_plane_list.call_count, 1)
-        convert_to_cartesian_meters.assert_called_once_with(data_in)
-        data_verify.assert_called_once_with(c_t_c)
-        update_plane_list.assert_called_once_with(plane_obj)
+        self.assertEqual(mock_verify_data.call_count, 1)
+        convert_to_cartesian_meters.assert_called_once_with(data_in[1:4])
+        mock_verify_data.assert_called_once_with(data_in)
 
     def test_convert_to_cartesian_meters(self):
         """
@@ -152,38 +156,41 @@ class TestPlaneController(unittest.TestCase):
         It will return a list containing 1 or 2 planes in the same TUC
 
         """
-        collision_list = [self.plane1_obj,self.plane2_obj,self.plane3_obj, self.plane5_obj]
-        data_out1 = [self.plane1_obj, self.plane2_obj]
+        collision_list = [self.plane1_obj, self.plane2_obj, self.plane3_obj, self.plane4_obj, self.plane5_obj,
+                          self.plane6_obj, self.plane7_obj]
+        data_out1 = [[self.plane7_obj, self.plane6_obj], 'HIGH']
         self.assertEqual(find_highest_priority_s(collision_list), data_out1)
 
     def test_find_highest_priority_s2(self):
 
         collision_list = [self.plane1_obj,self.plane2_obj,self.plane3_obj,self.plane4_obj]
-        data_out1 = [self.plane4_obj]
+        data_out1 = [[self.plane3_obj, self.plane4_obj], 'MEDIUM']
         self.assertEqual(find_highest_priority_s(collision_list), data_out1)
 
     def test_find_highest_priority_s3(self):
 
         collision_list = [self.plane1_obj,self.plane2_obj]
-        data_out1 = [self.plane1_obj,self.plane2_obj]
+        data_out1 = [[self.plane1_obj,self.plane2_obj], "LOW"]
         self.assertEqual(find_highest_priority_s(collision_list), data_out1)
 
     def test_find_highest_priority_s4(self):
 
         collision_list = [self.plane1_obj, self.plane3_obj]
-        data_out1 = [self.plane1_obj]
+        data_out1 = [[self.plane3_obj], 'MEDIUM']
         self.assertEqual(find_highest_priority_s(collision_list), data_out1)
 
     def test_find_highest_priority_s5(self):
 
         collision_list = [self.plane3_obj]
-        data_out1 = [self.plane3_obj]
+        data_out1 = [[self.plane3_obj], 'MEDIUM']
+        print find_highest_priority_s(collision_list)
+        print data_out1
         self.assertEqual(find_highest_priority_s(collision_list), data_out1)
 
     def test_find_highest_priority_s6(self):
 
         collision_list = []
-        data_out1 = []
+        data_out1 = [[], 'DO NOTHING']
         self.assertEqual(find_highest_priority_s(collision_list), data_out1)
 
     def test_update_plane_list(self):
@@ -206,163 +213,187 @@ class TestPlaneController(unittest.TestCase):
         :param mock_audio_alert:
         :return:
         '''
-        alert_type = 'climb'
+        alert_type = ["HIGH", "CLIMB"]
         dispatch_collision_alerts(alert_type)
-        mock_audio_alert.assert_called_once_with(alert_type)
+        mock_audio_alert.assert_called_once_with("climbnow")
 
     def test_3_planes_descend(self):
         '''
         This method tests get_corrective_action to see if the correct alert is sent to the user
         after it has checked for the 1 or 2 closest planes to avoid.
         '''
-        global primary_aircraft
         p_plane_location1, p_plane_velocity1 =  [425151, 519872, 3359], [100, 100, 100]
-        primary_aircraft = self.plane_helper("0001", p_plane_location1, p_plane_velocity1)
+        primary_aircraft.update_plane(p_plane_location1, p_plane_velocity1,1000)
         plane_location1, plane_velocity1 =  [848085, 754358, 7097], [100, 100, 100]
         plane_location2, plane_velocity2 = [589308, 919611, 5326], [100, 100, 100]
-        plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1)
-        plane_obj2 = self.plane_helper("0012", plane_location2, plane_velocity2)
+        plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1,2000)
+        plane_obj2 = self.plane_helper("0012", plane_location2, plane_velocity2,3000)
         planes_list = [plane_obj1, plane_obj2]
-        alert_type = "descend"
-        self.assertEqual(get_corrective_action(planes_list, primary_aircraft), alert_type)
+        alert_type = "DESCEND"
+        self.assertEqual(get_corrective_action(planes_list), alert_type)
 
     def test_3_planes_ascend(self):
         '''
         This method tests get_corrective_action to see if the correct alert is sent to the user
         after it has checked for the 1 or 2 closest planes to avoid.
         '''
-        global primary_aircraft
+        # global primary_aircraft
         p_plane_location1, p_plane_velocity1 = [450441, 785768, 8951], [100, 100, 100]
-        primary_aircraft = self.plane_helper("0001", p_plane_location1, p_plane_velocity1)
+        primary_aircraft.update_plane(p_plane_location1, p_plane_velocity1,1546)
         plane_location1, plane_velocity1 = [322655, 259402, 7690], [100, 100, 100]
         plane_location2, plane_velocity2 = [33494, 123753, 2734], [100, 100, 100]
-        plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1)
-        plane_obj2 = self.plane_helper("0012", plane_location2, plane_velocity2)
+        plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1,1000)
+        plane_obj2 = self.plane_helper("0012", plane_location2, plane_velocity2,1203)
         planes_list = [plane_obj1, plane_obj2]
-        alert_type = "climb"
-        self.assertEqual(get_corrective_action(planes_list, primary_aircraft), alert_type)
+        alert_type = "CLIMB"
+        self.assertEqual(get_corrective_action(planes_list), alert_type)
 
     def test_3_planes_maintain_altitude(self):
         '''
         This method tests get_corrective_action to see if the correct alert is sent to the user
         after it has checked for the 1 or 2 closest planes to avoid.
         '''
-        global primary_aircraft
+        # global primary_aircraft
         p_plane_location1, p_plane_velocity1 =  [838115, 701998, 4364], [100, 100, 100]
-        primary_aircraft = self.plane_helper("0001", p_plane_location1, p_plane_velocity1, 9000)
+        primary_aircraft.update_plane(p_plane_location1, p_plane_velocity1, 9000)
         plane_location1, plane_velocity1 = [446314, 220417, 1699], [100, 100, 100]
         plane_location2, plane_velocity2 = [508330, 13887, 478], [100, 100, 100]
         plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1, 10000)
         plane_obj2 = self.plane_helper("0012", plane_location2, plane_velocity2, 8000)
         planes_list = [plane_obj1, plane_obj2]
-        alert_type = "maintain"
-        self.assertEqual(get_corrective_action(planes_list, primary_aircraft), alert_type)
+        alert_type = "MAINTAIN"
+        self.assertEqual(get_corrective_action(planes_list), alert_type)
 
     def test_2_planes_ascend(self):
         '''
         This method tests get_corrective_action to see if the correct alert is sent to the user
         after it has checked for the 1 or 2 closest planes to avoid.
         '''
-        global primary_aircraft
+        # global primary_aircraft
         p_plane_location1, p_plane_velocity1 = [740352, 417544, 9225], [100, 100, 100]
-        primary_aircraft = self.plane_helper("0001", p_plane_location1, p_plane_velocity1, 10000)
+        primary_aircraft.update_plane(p_plane_location1, p_plane_velocity1, 10000)
         plane_location1, plane_velocity1 =  [676632, 763416, 7465], [100, 100, 100]
         plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1, 9000)
-        print str(primary_aircraft.elevation) + "IM RIGHT HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
-        print str(plane_obj1.elevation) + "IM RIGHT HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
         planes_list = [plane_obj1]
-        alert_type = "climb"
-        self.assertEqual(get_corrective_action(planes_list, primary_aircraft), alert_type)
+        alert_type = "CLIMB"
+        self.assertEqual(get_corrective_action(planes_list), alert_type)
 
     def test_2_planes_descend(self):
         '''
         This method tests get_corrective_action to see if the correct alert is sent to the user
         after it has checked for the 1 or 2 closest planes to avoid.
         '''
-        global primary_aircraft
+        # global primary_aircraft
         p_plane_location1, p_plane_velocity1 = [971784, 362204, 9698], [100, 100, 100]
-        primary_aircraft = self.plane_helper("0001", p_plane_location1, p_plane_velocity1, 3000)
+        primary_aircraft.update_plane(p_plane_location1, p_plane_velocity1, 3000)
         plane_location1, plane_velocity1 = [544760, 522579, 2903], [100, 100, 100]
         plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1, 6000)
         planes_list = [plane_obj1]
-        alert_type = "descend"
-        self.assertEqual(get_corrective_action(planes_list, primary_aircraft), alert_type)
+        alert_type = "DESCEND"
+        self.assertEqual(get_corrective_action(planes_list), alert_type)
 
     def test_single_aircraft_do_nothing(self):
         '''
         This method tests get_corrective_action to see if the correct alert is sent to the user
         after it has checked for the 1 or 2 closest planes to avoid.
         '''
-        global primary_aircraft
+        # global primary_aircraft
         p_plane_location1, p_plane_velocity1 = [367444, 197892, 9165], [100, 100, 100]
-        primary_aircraft = self.plane_helper("0001", p_plane_location1, p_plane_velocity1)
+        primary_aircraft.update_plane(p_plane_location1, p_plane_velocity1, 1000)
         planes_list = []
         alert_type = "Do Nothing"
-        self.assertEqual(get_corrective_action(planes_list, primary_aircraft), alert_type)
+        self.assertEqual(get_corrective_action(planes_list), alert_type)
 
     def test_same_height_2_different_x_y_z(self):
         """
         This method tests get_corrective_action to see if the correct alert is sent to the user
         after it has checked for the 1 or 2 closest planes to avoid.
         """
-        global primary_aircraft
+        # global primary_aircraft
         p_plane_location1, p_plane_velocity1 = [5028425.838154886, 1316022.43637708, -3689294.5853006197], [100, 100, 100]
-        primary_aircraft = self.plane_helper("0001", p_plane_location1, p_plane_velocity1)
+        primary_aircraft.update_plane(p_plane_location1, p_plane_velocity1,4000)
         plane_location1, plane_velocity1 = [6190594.197247156, -699338.7555241557, 1347347.3160368751], [100, 100, 100]
-        plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1)
+        plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1,6000)
         planes_list = [plane_obj1]
-        alert_type = "descend"
-        self.assertEqual(get_corrective_action(planes_list, primary_aircraft), alert_type)
-
+        alert_type = "DESCEND"
+        self.assertEqual(get_corrective_action(planes_list), alert_type)
+    #
     def test_same_height_3_different_x_y_z(self):
         '''
         This method tests get_corrective_action to see if the correct alert is sent to the user
         after it has checked for the 1 or 2 closest planes to avoid.
         '''
-        global primary_aircraft
+        # global primary_aircraft
         p_plane_location1, p_plane_velocity1 = [5028425.838154886, 1316022.43637708, -3689294.5853006197], [100, 100, 100]
-        primary_aircraft = self.plane_helper("0001", p_plane_location1, p_plane_velocity1)
+        primary_aircraft.update_plane(p_plane_location1, p_plane_velocity1,1050)
         plane_location1, plane_velocity1 = [6190594.197247156, -699338.7555241557, 1347347.3160368751], [100, 100, 100]
         plane_location2, plane_velocity2 = [5824728.55475669, -2434862.581991883, -878554.1931024338], [100, 100, 100]
-        plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1)
-        plane_obj2 = self.plane_helper("0012", plane_location2, plane_velocity2)
+        plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1, 2000)
+        plane_obj2 = self.plane_helper("0012", plane_location2, plane_velocity2, 3000)
         planes_list = [plane_obj1, plane_obj2]
-        alert_type = "descend"
-        self.assertEqual(get_corrective_action(planes_list, primary_aircraft), alert_type)
-
+        alert_type = "DESCEND"
+        self.assertEqual(get_corrective_action(planes_list), alert_type)
+    #
     def test_same_height_2_same_x_different_y_z(self):
         '''
         This method tests get_corrective_action to see if the correct alert is sent to the user
         after it has checked for the 1 or 2 closest planes to avoid.
         '''
-        global primary_aircraft
+        # global primary_aircraft
         p_plane_location1, p_plane_velocity1 = [3000000,4000000,5000000], [100, 100, 100]
-        primary_aircraft = self.plane_helper("0001", p_plane_location1, p_plane_velocity1)
+        primary_aircraft.update_plane(p_plane_location1, p_plane_velocity1,1050)
         plane_location1, plane_velocity1 = [3000000,5000000,4000000], [100, 100, 100]
-        plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1)
+        plane_obj1 = self.plane_helper("0011", plane_location1, plane_velocity1,1530)
         planes_list = [plane_obj1]
-        alert_type = "descend"
-        self.assertEqual(get_corrective_action(planes_list, primary_aircraft), alert_type)
+        alert_type = "DESCEND"
+        self.assertEqual(get_corrective_action(planes_list), alert_type)
+
 
     @patch.object(CollisionDetection,
-                  "determine_collision")
-    def test_collision_detection_generator(self, mock_determine_collision):
-        '''
-        This test is check the collision_detection_generator method to see if the correct list is returned of
-        all the planes in the area that have a potential collision with the PA
-        '''
-        global nearby_planes_list
-        nearby_planes_list = []
+                  "build_collision_list")
+    def test_call_count_collision_detection_generator(self, mock_build_collision_list):
+        collision_detection_generator()
+        self.assertEqual(mock_build_collision_list.call_count, len(nearby_planes_list))
+
+    def test_behavior_of_collision_detection_generator(self):
+        primary_aircraft.update_plane([0,0,0],[0,0,0],0)
+        dummy_plane1 = PlaneObject("1", 400, 0, 0, 100, 0, 0) #shouldnt hit
+        # dummy_plane2 = PlaneObject("2", 500, 500, -500, -10, -10, 10) #should hit
+        # dummy_plane3 = PlaneObject("3", -401, 0, 0, 100, 0, 0) #should hit
+        dummy_plane2 = PlaneObject("2", 400, 0, 0, 100, 0, 0) #shouldnt hit
+        dummy_plane3 = PlaneObject("3", 400, 0, 0, 100, 0, 0) #shouldnt hit
+        dummy_plane4 = PlaneObject("4", 400, 0, 0, 100, 0, 0) #shouldnt hit
+        dummy_plane5 = PlaneObject("5", 400, 0, 0, 100, 0, 0) #shouldnt hit
+        dummy_plane6 = PlaneObject("6", 400, 0, 0, 100, 0, 0) #shouldnt hit
+        dummy_plane7 = PlaneObject("7", 400, 0, 0, 100, 0, 0) #shouldnt hit
+        dummy_plane8 = PlaneObject("8", 400, 0, 0, 100, 0, 0) #shouldnt hit
+        dummy_plane9 = PlaneObject("9", 400, 0, 0, 100, 0, 0) #shouldnt hit
+        # dummy_plane9 = PlaneObject("9", 500, 500, -500, -10, -10, 10) #should hit
+        dummy_plane10 = PlaneObject("10", 500, 500, -500, -10, -10, 10) #should hit
+        nearby_planes_list.append(dummy_plane1)
+        nearby_planes_list.append(dummy_plane2)
+        nearby_planes_list.append(dummy_plane3)
+        nearby_planes_list.append(dummy_plane4)
+        nearby_planes_list.append(dummy_plane5)
+        nearby_planes_list.append(dummy_plane6)
+        nearby_planes_list.append(dummy_plane7)
+        nearby_planes_list.append(dummy_plane8)
+        nearby_planes_list.append(dummy_plane9)
+        nearby_planes_list.append(dummy_plane10)
+
         generated_tested_colided_list = collision_detection_generator()
-        true_colided_list = []
-        self.assertEqual(mock_determine_collision.call_count, len(nearby_planes_list))
-        self.assertEqual(generated_tested_colided_list, true_colided_list)
+        dummy_plane10 = PlaneObject("10", 500, 500, -500, -10, -10, 10) #should hit
+        dummy_plane10.set_tuc_interval(26.90598923241497)
+        true_colided_list = [dummy_plane10]
+        self.assertEqual(generated_tested_colided_list[0].tuc_interval, true_colided_list[0].tuc_interval)
+        self.assertEqual(generated_tested_colided_list[0].id_code, true_colided_list[0].id_code)
+
 
     # def test_update_transponder_code(self):
     #     pass
 
     def plane_helper(self, id_code, location_vector, velocity_vector, elevation=-1):
-        return plane.PlaneObject(id_code,
+        return plane.PlaneObject(int(id_code),
                                  location_vector[0], location_vector[1], location_vector[2],
                                  velocity_vector[0], velocity_vector[1], velocity_vector[2], elevation)
 

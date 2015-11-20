@@ -1,17 +1,31 @@
 __corrective_actions = ["ASCEND", "MAINTAIN ALTITUDE", "DESCEND"]
 #https://docs.python.org/2/library/queue.html#Queue.Queue.join
-from multiprocessing.pool import ThreadPool
 from Queue import Queue
+from time import sleep,clock
 from computation_package.collision_detection import CollisionDetection
 from threading import Thread
-
+from plane_controller.data_verification import DataVerify
+from io_package.audio import Audio
+__collision_alerts = {
+    "HIGH": {"CLIMB": 'climbnow', "DESCEND": 'descendnow', "MAINTAIN": 'maintain'},
+    "MEDIUM": {"CLIMB": 'climb2', "DESCEND": 'descend2', "MAINTAIN": 'maintain'},
+    "LOW": {"CLIMB": 'climb', "DESCEND": 'descend', "MAINTAIN": 'maintain'}
+}
 """
 The set of planes that the ADS-B send in.
 """
 from plane import PlaneObject
-# __nearby_planes_list = {}
 nearby_planes_list = []
-primary_aircraft = PlaneObject("00", 0, 0, 0, 0, 0, 0)
+primary_aircraft = PlaneObject(00, 0, 0, 0, 0, 0, 0)
+plane_management_queue=Queue(maxsize=10)
+
+def remove_excess_planes():
+    b=0
+    for i in nearby_planes_list:
+        if(clock()-i.update_time>10):
+            nearby_planes_list.pop(b)
+        b+=1
+
 
 
 def plane_controller_driver():
@@ -26,9 +40,18 @@ def plane_controller_driver():
     dispatch_collision_alerts(get_corrective_action(find_highest_priority_s(collision_detection_generator())))
 
     """
-
-    pass
-
+    while True:
+        clock_time = clock()
+        while clock() < clock_time+5:
+            if plane_management_queue.qsize()!=0:
+                inputed_plane = plane_management_queue.get()
+                update_plane_list(inputed_plane)
+        remove_excess_planes()
+        lookup_list = find_highest_priority_s(collision_detection_generator())
+        lookup_list.reverse()
+        if not(lookup_list[0] == "DO NOTHING"):
+            lookup_list[1] = get_corrective_action(lookup_list[1])
+            dispatch_collision_alerts(lookup_list)
 
 def collision_detection_generator():
     """
@@ -40,123 +63,16 @@ def collision_detection_generator():
     :return: list_closest: returns a list with the closest airplanes on a collision course with the PA
     """
 
-
-    # pool = ThreadPool(processes=10)
-    # c_d = CollisionDetection()
-    # queue = Queue()
-    # for i in nearby_planes_list:
-    #     pool.apply_async(c_d.determine_collision(dummy_pa, i, queue)) #A variant of the apply() method which returns a result object.
-    # queue.join()
-    # collision_course_planes = []
-    # for i in iter(queue.get, None):
-    #     collision_course_planes.append(i)
-    #     if queue._qsize() == 0:
-    #         break
-    #
-    # print(collision_course_planes)
-    # for i in collision_course_planes:
-    #     print i.id_code
-
-    # pool = ThreadPool(processes=10)
-    # c_d = CollisionDetection()
-    # queue = Queue()
-    # for i in nearby_planes_list:
-    #     pool.apply(c_d.determine_collision, (dummy_pa, i, queue))
-    # queue.join()
-    # collision_course_planes = []
-    # for i in iter(queue.get, None):
-    #     collision_course_planes.append(i)
-    #     if queue._qsize() == 0:
-    #         break
-    #
-    # print(collision_course_planes)
-    # for i in collision_course_planes:
-    #     print i.id_code
-
-    # dummy_pa = PlaneObject("PA", 1 ,1 ,1 ,2, 2, 2)
-    # dummy_plane1 = PlaneObject("1", 1, 1, 1, 2, 2, 2)
-    # dummy_plane2 = PlaneObject("2", 1, 1, 1, 2, 2, 2)
-    # dummy_plane3 = PlaneObject("3", 1, 1, 1, 2, 2, 2)
-    # dummy_plane4 = PlaneObject("4", 1, 1, 1, 2, 2, 2)
-    # dummy_plane5 = PlaneObject("5", 1, 1, 1, 2, 2, 2)
-    # dummy_plane6 = PlaneObject("6", 1, 1, 1, 2, 2, 2)
-    # dummy_plane7 = PlaneObject("7", 1, 1, 1, 2, 2, 2)
-    # dummy_plane8 = PlaneObject("8", 1, 1, 1, 2, 2, 2)
-    # dummy_plane9 = PlaneObject("9", 1, 1, 1, 2, 2, 2)
-    # dummy_plane10 = PlaneObject("10", 1, 1, 1, 2, 2, 2)
-    #
-    #
-    # nearby_planes_list.append(dummy_plane1)
-    # nearby_planes_list.append(dummy_plane2)
-    # nearby_planes_list.append(dummy_plane3)
-    # nearby_planes_list.append(dummy_plane4)
-    # nearby_planes_list.append(dummy_plane5)
-    # nearby_planes_list.append(dummy_plane6)
-    # nearby_planes_list.append(dummy_plane7)
-    # nearby_planes_list.append(dummy_plane8)
-    # nearby_planes_list.append(dummy_plane9)
-    # nearby_planes_list.append(dummy_plane10)
-    #
-    #
-    # queue = Queue()
-    # for i in nearby_planes_list:
-    #     Thread(target= CollisionDetection().build_collision_list(dummy_pa, i ,queue)).start()
-    # queue.join() ## block until all tasks are done
-    # collision_course_planes = []
-    # for i in iter(queue.get, None):
-    #     collision_course_planes.append(i)
-    #     if queue._qsize() == 0:
-    #         break
-    #
-    # print collision_course_planes
-    # for i in collision_course_planes:
-    #     print i.id_code
-    # return collision_course_planes
-    dummy_pa = PlaneObject("PA", 0 , 0 , 0 , 0, 0, 0)
-
-    dummy_plane1 = PlaneObject("1", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    # dummy_plane2 = PlaneObject("2", 500, 500, -500, -10, -10, 10) #should hit
-    # dummy_plane3 = PlaneObject("3", -401, 0, 0, 100, 0, 0) #should hit
-    dummy_plane2 = PlaneObject("2", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    dummy_plane3 = PlaneObject("3", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    dummy_plane4 = PlaneObject("4", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    dummy_plane5 = PlaneObject("5", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    dummy_plane6 = PlaneObject("6", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    dummy_plane7 = PlaneObject("7", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    dummy_plane8 = PlaneObject("8", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    dummy_plane9 = PlaneObject("9", 400, 0, 0, 100, 0, 0) #shouldnt hit
-    # dummy_plane9 = PlaneObject("9", 500, 500, -500, -10, -10, 10) #should hit
-    dummy_plane10 = PlaneObject("10", 500, 500, -500, -10, -10, 10) #should hit
-
-
-
-    # dummy_plane2 = PlaneObject("2", 1, 1, 1, 2, 2, 2)
-    # dummy_plane3 = PlaneObject("3", 1, 1, 1, 2, 2, 2)
-    # dummy_plane4 = PlaneObject("4", 1, 1, 1, 2, 2, 2)
-    # dummy_plane5 = PlaneObject("5", 1, 1, 1, 2, 2, 2)
-    # dummy_plane6 = PlaneObject("6", 1, 1, 1, 2, 2, 2)
-    # dummy_plane7 = PlaneObject("7", 1, 1, 1, 2, 2, 2)
-    # dummy_plane8 = PlaneObject("8", 1, 1, 1, 2, 2, 2)
-    # dummy_plane9 = PlaneObject("9", 1, 1, 1, 2, 2, 2)
-    # dummy_plane10 = PlaneObject("10", 1, 1, 1, 2, 2, 2)
-
-
-    nearby_planes_list.append(dummy_plane1)
-    nearby_planes_list.append(dummy_plane2)
-    nearby_planes_list.append(dummy_plane3)
-    nearby_planes_list.append(dummy_plane4)
-    nearby_planes_list.append(dummy_plane5)
-    nearby_planes_list.append(dummy_plane6)
-    nearby_planes_list.append(dummy_plane7)
-    nearby_planes_list.append(dummy_plane8)
-    nearby_planes_list.append(dummy_plane9)
-    nearby_planes_list.append(dummy_plane10)
-
-
     queue = Queue()
+    thread_list = []
+
     for i in nearby_planes_list:
-        Thread(target= CollisionDetection().build_collision_list(dummy_pa, i ,queue)).start()
-    queue.join() ## block until all tasks are done
+        t = Thread(target=CollisionDetection().build_collision_list, args=(primary_aircraft,i,queue))
+        thread_list.append(t)
+        t.start()
+
+    for i in thread_list:
+        i.join()
 
     collision_course_planes = []
     if queue.qsize() > 0:
@@ -173,12 +89,53 @@ def collision_detection_generator():
 
 def input_data(data_in):
     """
-    Takes the data from the plane_controller_driver and sends that information to data_verification
+    Takes the data from the plane_controller_driver and sends that information to data_verification.
 
     :param data_in:
     :return:
     """
-    pass
+    verifier = DataVerify()
+    result = verifier.verify_data(data_in)
+    numerical_data = __convert_to_numbers(data_in)
+    if result:
+        cartesian_list = convert_to_cartesian_meters(numerical_data[1:4])
+        plane_object = PlaneObject(data_in[0], cartesian_list[0], cartesian_list[1], cartesian_list[2], data_in[4],
+                                   data_in[5], data_in[6], data_in[3])
+        if verifier.within_distance(plane_object):
+            plane_management_queue.put(plane_object)
+
+
+
+
+def __convert_to_numbers(list_in):
+    list_in[0] = int(list_in[0])
+    # list_in[1] = __convert_lat_long(list_in[1])
+    # list_in[2] = __convert_lat_long(list_in[2])
+    # list_in[3] = int(list_in[3])
+    list_in[4] = __convert_vector(list_in[4])
+    list_in[5] = __convert_vector(list_in[5])
+    list_in[6] = __convert_vector(list_in[6])
+    return list_in
+
+
+def __convert_lat_long(string_lat_long):
+    unsigned_lat_long = string_lat_long[1:10]
+    if int(string_lat_long[0]) == 0:
+        return float(unsigned_lat_long) / 1000000
+    else:
+        return -1 * float(unsigned_lat_long) / 1000000
+
+
+def __convert_vector(string_vector):
+    unsigned_vector = string_vector[1:8]
+    if int(string_vector[0]) == 0:
+        return float(unsigned_vector) / 1000
+    else:
+        return -1 * float(unsigned_vector) / 1000
+
+
+
+#180000000 -> 180.000000 = a degree value
 
 
 def convert_to_cartesian_meters(list_in):
@@ -186,9 +143,18 @@ def convert_to_cartesian_meters(list_in):
     Converts the list of data from latitude, longitude, and elevation to cartesian coordinates.
 
     :param list_in: the initial list of data in elevation, latitude, and longitude.
-    :return: the same list converted
+    :return: list_out: the list with cartesian coordinates in place of location information. list should be
+    in the following format:
+        loc_x
+        loc_y
+        loc_z
     """
-    pass
+    list_in[0] = __convert_lat_long(list_in[0]) #Converting string value to float value
+    list_in[1] = __convert_lat_long(list_in[1]) #Converting string value to float value
+    list_in[2] = int(list_in[2]) #Converting string value to integer value
+
+
+    # pass
 
 
 def find_highest_priority_s(collision_list):
@@ -196,7 +162,14 @@ def find_highest_priority_s(collision_list):
     Finds the plane or planes, when applicable, with the highest priority and returns them as list to the caller.
 
     :param
-    :return: high_priority_list: the the collisions with the highest priority
+    :return: list of length two:
+                attribute 1 will be:
+                    Plane or planes (up to two), with the highest priority
+                attribute 2 will be:
+                    HIGH - if high priority
+                    MEDIUM - if medium priority
+                    LOW - if low priority
+                    LOWEST - if farther than 10 minutes away
     """
     priority_list =[]
 
@@ -214,7 +187,53 @@ def find_highest_priority_s(collision_list):
                     priority_list[1] = p
                 else:
                     pass
+    return __find_priority(priority_list)
 
+
+def __find_priority(priority_list):
+    if len(priority_list) == 0:
+        return [priority_list, "DO NOTHING"]
+    elif len(priority_list) == 1:
+        if not (priority_list[0] == "LOWEST"):
+            return [priority_list, __get_priority(priority_list[0])]
+        else:
+            return [priority_list, "DO NOTHING"]
+    elif __get_priority(priority_list[0]) == __get_priority(priority_list[1]):
+        if not (priority_list[0] == "LOWEST"):
+            return [priority_list, __get_priority(priority_list[0])]
+        else:
+            return [priority_list, "DO NOTHING"]
+    else:
+        if __get_priority(priority_list[0]) == "HIGH" or __get_priority(priority_list[1]) == "HIGH":
+            if __get_priority(priority_list[0]) == "HIGH":
+                return [[priority_list[0]], __get_priority(priority_list[0])]
+            else:
+                return [[priority_list[1]], __get_priority(priority_list[1])]
+        elif __get_priority(priority_list[0]) == "MEDIUM" or __get_priority(priority_list[1]) == "MEDIUM":
+            if __get_priority(priority_list[0]) == "MEDIUM":
+                return [[priority_list[0]], __get_priority(priority_list[0])]
+            else:
+                return [[priority_list[1]], __get_priority(priority_list[1])]
+        elif __get_priority(priority_list[0]) == "LOW" or __get_priority(priority_list[1]) == "LOW":
+            if __get_priority(priority_list[0]) == "LOW":
+                return [[priority_list[0]], __get_priority(priority_list[0])]
+            else:
+                return [[priority_list[1]], __get_priority(priority_list[1])]
+    return [priority_list, "DO NOTHING"]
+
+
+
+def __get_priority(plane):
+    if plane.tuc_interval < 1*60:
+        return "HIGH"
+    elif plane.tuc_interval < 3 * 60:
+        return "MEDIUM"
+    elif plane.tuc_interval < 10 * 60:
+        return "LOW"
+    else:
+        return "LOWEST"
+
+'''
     """
     These conditional statements check to see if the TUC of one plane is 2x greater than the other,
     if it is greater then we take closest plane which, under these conditions,
@@ -229,13 +248,10 @@ def find_highest_priority_s(collision_list):
             return [priority_list[0]]
         else:
             return priority_list
-
+'''
     # pass
     # we should reset the tuc interval here of all of them back to -1. So we dont
     # resuse the same tuc interval
-
-def data_verify(list):
-    pass
 
 
 def update_plane_list(plane):
@@ -245,20 +261,36 @@ def update_plane_list(plane):
     :param plane:
     :return:
     """
-    pass
+    if plane.id_code ==  primary_aircraft.id_code:
+        primary_aircraft.update_plane(plane.location_vector,plane.velocity_vector,plane.elevation)
+
+    else:
+        for i in nearby_planes_list:
+            if plane.id_code == i.id_code:
+                i.update_plane(plane.location_vector,plane.velocity_vector,plane.elevation)
+                i.update_time = clock()
+            else:
+                nearby_planes_list.append(i)
 
 
-def dispatch_collision_alerts(alert_type):
+
+
+    # pass
+
+
+def dispatch_collision_alerts(lookup_list):
     """
 
     :return:
     """
+    audio = Audio()
+    audio.audio_alert(__collision_alerts[lookup_list[0]][lookup_list[1]])
     # rel_x = PA[loc_x] - new_plane[loc_x]
     # rel_y = PA[loc_y] - new_plane[loc_y]
     # rel_z = PA[loc_z] - new_plane[loc_z]
 
 
-def get_corrective_action(priority_list, primary_aicrt):
+def get_corrective_action(priority_list):
     """
     Calculates the corrective action of the primary aircraft, will ascend or descend or maintain elevation based
     upon the GPS location of the PA relative to other Aircraft.
@@ -267,34 +299,34 @@ def get_corrective_action(priority_list, primary_aicrt):
     :return: climb, maintain, descend
     """
     #global primary_aircraft
-    primary_aircraft = primary_aicrt
+    #primary_aircraft = primary_aicrt
 
 
     print "Elv: " + str(primary_aircraft.elevation)
     print "lox y: " + str(primary_aircraft.location_vector[1])
-    print "vect z:: " + str(primary_aircraft.location_vector[2])
+    print "vect z:: " + str(primary_aircraft.velocity_vector[2])
 
 
     if len(priority_list) == 0:
-        return "Do Nothing"
+        return "DO NOTHING"
     elif len(priority_list) == 1:
         if (__compare_planes(primary_aircraft, priority_list[0])) == 1:
-            return "climb"
+            return "CLIMB"
         else:
-            return "descend"
+            return "DESCEND"
     elif len(priority_list) == 2:
         result_intruder1 = __compare_planes(primary_aircraft, priority_list[0])
         result_intruder2 = __compare_planes(primary_aircraft, priority_list[1])
         result = result_intruder1 + result_intruder2
         #if = 2 then the PA needs to go above both the planes
         if result == 2:
-            return "climb"
+            return "CLIMB"
         #else if result is equal to 0 then the PA should maintain its elevation and not move
         elif result == 0:
-            return "maintain"
+            return "MAINTAIN"
         #else if the result is = -2 then the PA should descend
         elif result == -2:
-            return "descend"
+            return "DESCEND"
         else:
             return "Error"
 
@@ -347,8 +379,7 @@ def update_transponder_code(new_code):
     :param new_code:
     :return:
     """
-    pass
-    # new_trans_code = new_code
+    primary_aircraft.id_code = int(new_code)
 
 
-print collision_detection_generator()
+
