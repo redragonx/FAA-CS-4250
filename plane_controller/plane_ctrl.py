@@ -385,25 +385,25 @@ def get_corrective_action(priority_list):
 
 
     if len(priority_list) == 0:
-        return "Do Nothing"
+        return "DO NOTHING"
     elif len(priority_list) == 1:
         if (__compare_planes(primary_aircraft, priority_list[0])) == 1:
-            return "climb"
+            return "CLIMB"
         else:
-            return "descend"
+            return "DESCEND"
     elif len(priority_list) == 2:
         result_intruder1 = __compare_planes(primary_aircraft, priority_list[0])
         result_intruder2 = __compare_planes(primary_aircraft, priority_list[1])
         result = result_intruder1 + result_intruder2
         #if = 2 then the PA needs to go above both the planes
         if result == 2:
-            return "climb"
+            return "CLIMB"
         #else if result is equal to 0 then the PA should maintain its elevation and not move
         elif result == 0:
-            return "maintain"
+            return "MAINTAIN"
         #else if the result is = -2 then the PA should descend
         elif result == -2:
-            return "descend"
+            return "DESCEND"
         else:
             return "Error"
 
