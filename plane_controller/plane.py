@@ -3,10 +3,11 @@ __author__ = 'group'
 
 class PlaneObject(object):
     id_code = 0  # single identifier
-    __location_vector = []
-    __velocity_vector = []
-    __tuc_interval = -1
+    location_vector = []
+    velocity_vector = []
+    tuc_interval = -1
     __elevation = 0
+    update_time = -1.0
 
     def __init__(self, id_code, loc_x, loc_y, loc_z, vec_x, vec_y, vec_z, elevation=-1):
         self.id_code = id_code
