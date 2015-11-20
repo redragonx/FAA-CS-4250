@@ -20,23 +20,31 @@ class TestPlaneController(unittest.TestCase):
     def setUp(self):
         self.plane1_location, plane1_velocity = [0, 0, 0], [100, 100, 100]
         self.plane1_obj = self.plane_helper("227", self.plane1_location, plane1_velocity)
-        self.plane1_obj.set_tuc_interval(8302.287698233651)
+        self.plane1_obj.set_tuc_interval(600)
 
         self.plane2_location, plane2_velocity = [0, 0, 0], [100, 100, 100]
         self.plane2_obj = self.plane_helper("331", self.plane2_location, plane2_velocity)
-        self.plane2_obj.set_tuc_interval(10064.8100367134)
+        self.plane2_obj.set_tuc_interval(180)
 
         self.plane3_location, plane3_velocity = [0, 0, 0], [100, 100, 100]
         self.plane3_obj = self.plane_helper("440", self.plane3_location, plane3_velocity)
-        self.plane3_obj.set_tuc_interval(23087.316045484404)
+        self.plane3_obj.set_tuc_interval(179.00020)
 
         self.plane4_location, plane4_velocity = [0, 0, 0], [100, 100, 100]
         self.plane4_obj = self.plane_helper("802", self.plane4_location, plane4_velocity)
-        self.plane4_obj.set_tuc_interval(1598.2491739877244)
+        self.plane4_obj.set_tuc_interval(120.000)
 
         self.plane5_location, plane5_velocity = [0, 0, 0], [100, 100, 100]
         self.plane5_obj = self.plane_helper("901", self.plane5_location, plane5_velocity)
-        self.plane5_obj.set_tuc_interval(10864.460059084924)
+        self.plane5_obj.set_tuc_interval(70.000)
+
+        self.plane6_location, plane6_velocity = [0, 0, 0], [100, 100, 100]
+        self.plane6_obj = self.plane_helper("802", self.plane4_location, plane4_velocity)
+        self.plane6_obj.set_tuc_interval(59.00)
+
+        self.plane7_location, plane7_velocity = [0, 0, 0], [100, 100, 100]
+        self.plane7_obj = self.plane_helper("802", self.plane4_location, plane4_velocity)
+        self.plane7_obj.set_tuc_interval(59.00)
 
     # patch.object if the method that you are testing is in a class
     @patch.multiple("plane_controller.plane_ctrl",
@@ -152,8 +160,8 @@ class TestPlaneController(unittest.TestCase):
         It will return a list containing 1 or 2 planes in the same TUC
 
         """
-        collision_list = [self.plane1_obj,self.plane2_obj,self.plane3_obj, self.plane5_obj]
-        data_out1 = [self.plane1_obj, self.plane2_obj]
+        collision_list = [self.plane1_obj, self.plane2_obj, self.plane3_obj, self.plane4_obj, self.plane5.obj, self.plane6.obj, self.plane7_obj]
+        data_out1 = [self.plane6_obj, self.plane7_obj]
         self.assertEqual(find_highest_priority_s(collision_list), data_out1)
 
     def test_find_highest_priority_s2(self):

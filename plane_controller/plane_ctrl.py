@@ -5,7 +5,12 @@ from Queue import Queue
 from computation_package.collision_detection import CollisionDetection
 from threading import Thread
 from plane_controller.data_verification import DataVerify
-
+from io_package.audio import Audio
+__collision_alerts = {
+    "HIGH": {"CLIMB": 'climbnow', "DESCEND": 'descendnow', "MAINTAIN": 'maintain'},
+    "MEDIUM": {"CLIMB": 'climb2', "DESCEND": 'descend2', "MAINTAIN": 'maintain'},
+    "LOW": {"CLIMB": 'climb', "DESCEND": 'descend', "MAINTAIN": 'maintain'}
+}
 """
 The set of planes that the ADS-B send in.
 """
@@ -254,7 +259,14 @@ def find_highest_priority_s(collision_list):
     Finds the plane or planes, when applicable, with the highest priority and returns them as list to the caller.
 
     :param
-    :return: high_priority_list: the the collisions with the highest priority
+    :return: list of length two:
+                attribute 1 will be:
+                    Plane or planes (up to two), with the highest priority
+                attribute 2 will be:
+                    HIGH - if high priority
+                    MEDIUM - if medium priority
+                    LOW - if low priority
+                    LOWEST - if farther than 10 minutes away
     """
     priority_list =[]
 
@@ -272,27 +284,34 @@ def find_highest_priority_s(collision_list):
                     priority_list[1] = p
                 else:
                     pass
-    if len(priority_list) == 0 or len(priority_list) == 1:
-        return priority_list
-    elif __get_priority(priority_list[0]) == __get_priority(priority_list[1]):
-        return priority_list
+    return __find_priority(priority_list)
+
+def __find_priority(priority_list):
+    if len(priority_list) == 0:
+        return [priority_list, "DO NOTHING"]
+    elif len(priority_list) == 1 or __get_priority(priority_list[0]) == __get_priority(priority_list[1]):
+        if not (priority_list[0] == "LOWEST"):
+            return [priority_list, get_corrective_action(priority_list[0])]
+        else:
+            return [priority_list, "DO NOTHING"]
     else:
         if __get_priority(priority_list[0]) == "HIGH" or __get_priority(priority_list[1]) == "HIGH":
             if __get_priority(priority_list[0]) == "HIGH":
-                return [priority_list[0]]
+                return [priority_list[0], __get_priority(priority_list[0])]
             else:
-                return [priority_list[1]]
+                return [priority_list[1], __get_priority(priority_list[1])]
         elif __get_priority(priority_list[0]) == "MEDIUM" or __get_priority(priority_list[1]) == "MEDIUM":
             if __get_priority(priority_list[0]) == "MEDIUM":
-                return [priority_list[0]]
+                return [priority_list[0], __get_priority(priority_list[0])]
             else:
-                return [priority_list[1]]
+                return [priority_list[1], __get_priority(priority_list[1])]
         elif __get_priority(priority_list[0]) == "LOW" or __get_priority(priority_list[1]) == "LOW":
             if __get_priority(priority_list[0]) == "LOW":
-                return [priority_list[0]]
+                return [priority_list[0], __get_priority(priority_list[0])]
             else:
-                return [priority_list[1]]
-    return "Unreachable Error"
+                return [priority_list[1], __get_priority(priority_list[0])]
+    return [priority_list, "DO NOTHING"]
+
 
 
 def __get_priority(plane):
@@ -325,9 +344,6 @@ def __get_priority(plane):
     # we should reset the tuc interval here of all of them back to -1. So we dont
     # resuse the same tuc interval
 
-def data_verify(list):
-    pass
-
 
 def update_plane_list(plane):
     """
@@ -339,11 +355,13 @@ def update_plane_list(plane):
     pass
 
 
-def dispatch_collision_alerts(alert_type):
+def dispatch_collision_alerts(lookup_list):
     """
 
     :return:
     """
+    audio = Audio()
+    audio.audio_alert(__collision_alerts[lookup_list[0],lookup_list[1]])
     # rel_x = PA[loc_x] - new_plane[loc_x]
     # rel_y = PA[loc_y] - new_plane[loc_y]
     # rel_z = PA[loc_z] - new_plane[loc_z]
