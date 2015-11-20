@@ -52,8 +52,10 @@ def plane_controller_driver():
                 inputed_plane = plane_management_queue.get()
                 update_plane_list(inputed_plane)
         remove_excess_planes()
-        # dispatch_collision_alerts(get_corrective_action(find_highest_priority_s(collision_detection_generator())))
-
+        lookup_list = find_highest_priority_s(collision_detection_generator())
+        lookup_list.reverse()
+        lookup_list[1] = get_corrective_action(lookup_list[1])
+        dispatch_collision_alerts(lookup_list)
 
 def collision_detection_generator():
     """
@@ -304,6 +306,7 @@ def find_highest_priority_s(collision_list):
                 else:
                     pass
     return __find_priority(priority_list)
+
 
 def __find_priority(priority_list):
     if len(priority_list) == 0:
