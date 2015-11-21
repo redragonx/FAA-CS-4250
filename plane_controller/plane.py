@@ -6,7 +6,7 @@ class PlaneObject(object):
     location_vector = []
     velocity_vector = []
     tuc_interval = -1
-    __elevation = 0
+    elevation = 0
     update_time = -1.0
 
     def __init__(self, id_code, loc_x, loc_y, loc_z, vec_x, vec_y, vec_z, elevation=-1):
@@ -31,3 +31,13 @@ class PlaneObject(object):
         self.velocity_vector = p_plane_velocity
         self.elevation = elevation
 
+
+    def to_string(self):
+
+        id_code = "ID Code: {}\n".format(self.id_code)
+        location_vector = "Location Vector: {}\n".format(self.location_vector)
+        velocity_vector = "Velocity Vector: {}\n".format(self.velocity_vector)
+        tuc_interval = "TUC Interval: {}\n".format(self.tuc_interval)
+        elevation = "Elevation: {}\n".format(self.elevation)
+        update_time = "Update Time: {}".format(self.update_time)
+        return id_code + location_vector + velocity_vector + tuc_interval + elevation + update_time
