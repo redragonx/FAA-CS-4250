@@ -47,30 +47,30 @@ class TestPlaneController(unittest.TestCase):
         self.plane7_obj.set_tuc_interval(59.00)
 
     # patch.object if the method that you are testing is in a class
-    @patch.multiple("plane_controller.plane_ctrl",
-                    collision_detection_generator=DEFAULT,
-                    find_highest_priority_s=DEFAULT,
-                    get_corrective_action=DEFAULT,
-                    dispatch_collision_alerts=DEFAULT)
-    def test_plane_controller_driver(self, collision_detection_generator,
-                                     find_highest_priority_s,
-                                     get_corrective_action,
-                                     dispatch_collision_alerts):
-        '''
-         This method checks to see if the plane driver calls its correct sequence of commands
-        '''
-        # 1. collision_detection_generator -> calculates and returns a list of all the planes on a collision course with the PA
-        # 2. find_highest_priority -> returns list of 1 or 2 planes
-        # 3. corrective action -> String command
-        # 4. dispatch event -> sends chris's audio alert
-
-        # action
-        plane_controller_driver()
-        # assert
-        self.assertTrue(collision_detection_generator.call_count > 0)
-        self.assertTrue(find_highest_priority_s.call_count > 0)
-        self.assertTrue(get_corrective_action.call_count > 0)
-        self.assertTrue(dispatch_collision_alerts > 0)
+    # @patch.multiple("plane_controller.plane_ctrl",
+    #                 collision_detection_generator=DEFAULT,
+    #                 find_highest_priority_s=DEFAULT,
+    #                 get_corrective_action=DEFAULT,
+    #                 dispatch_collision_alerts=DEFAULT)
+    # def test_plane_controller_driver(self, collision_detection_generator,
+    #                                  find_highest_priority_s,
+    #                                  get_corrective_action,
+    #                                  dispatch_collision_alerts):
+    #     '''
+    #      This method checks to see if the plane driver calls its correct sequence of commands
+    #     '''
+    #     # 1. collision_detection_generator -> calculates and returns a list of all the planes on a collision course with the PA
+    #     # 2. find_highest_priority -> returns list of 1 or 2 planes
+    #     # 3. corrective action -> String command
+    #     # 4. dispatch event -> sends chris's audio alert
+    #
+    #     # action
+    #     plane_controller_driver()
+    #     # assert
+    #     self.assertTrue(collision_detection_generator.call_count > 0)
+    #     self.assertTrue(find_highest_priority_s.call_count > 0)
+    #     self.assertTrue(get_corrective_action.call_count > 0)
+    #     self.assertTrue(dispatch_collision_alerts > 0)
 
     @patch.multiple("plane_controller.plane_ctrl",
                     convert_to_cartesian_meters=DEFAULT)
@@ -389,8 +389,10 @@ class TestPlaneController(unittest.TestCase):
         self.assertEqual(generated_tested_colided_list[0].id_code, true_colided_list[0].id_code)
 
 
-    # def test_update_transponder_code(self):
-    #     pass
+    def test_update_transponder_code(self):
+        update_transponder_code(100)
+        result_id = primary_aircraft.id_code
+        self.assertEqual(100,result_id)
 
     def plane_helper(self, id_code, location_vector, velocity_vector, elevation=-1):
         return plane.PlaneObject(int(id_code),

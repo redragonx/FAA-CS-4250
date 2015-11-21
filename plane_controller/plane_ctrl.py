@@ -16,7 +16,8 @@ The set of planes that the ADS-B send in.
 """
 from plane import PlaneObject
 nearby_planes_list = []
-primary_aircraft = PlaneObject(00, 0, 0, 0, 0, 0, 0)
+primary_aircraft = PlaneObject(-1, 0, 0, 0, 0, 0, 0)
+# primary_aircraft = PlaneObject(00, 0, 0, 0, 0, 0, 0)
 plane_management_queue=Queue(maxsize=10)
 
 def remove_excess_planes():
@@ -48,8 +49,10 @@ def plane_controller_driver():
                 update_plane_list(inputed_plane)
         remove_excess_planes()
         lookup_list = find_highest_priority_s(collision_detection_generator())
+        print ">>>>>",lookup_list
         lookup_list.reverse()
         if not(lookup_list[0] == "DO NOTHING"):
+            print ">>>>>",lookup_list[0],lookup_list[1][0].to_string()
             lookup_list[1] = get_corrective_action(lookup_list[1])
             dispatch_collision_alerts(lookup_list)
 
@@ -65,7 +68,11 @@ def collision_detection_generator():
 
     queue = Queue()
     thread_list = []
-
+    # print "Begin Set","-"*100
+    # for i in nearby_planes_list:
+    #     print "*"*20
+    #     print i.to_string()
+    # print "End Set","-"*100
     for i in nearby_planes_list:
         t = Thread(target=CollisionDetection().build_collision_list, args=(primary_aircraft,i,queue))
         thread_list.append(t)
@@ -85,6 +92,8 @@ def collision_detection_generator():
         print i.id_code
     return collision_course_planes
 
+def put_in_plane(plane_object):
+    plane_management_queue.put(plane_object)
 
 
 def input_data(data_in):
@@ -102,8 +111,7 @@ def input_data(data_in):
         plane_object = PlaneObject(data_in[0], cartesian_list[0], cartesian_list[1], cartesian_list[2], data_in[4],
                                    data_in[5], data_in[6], data_in[3])
         if verifier.within_distance(plane_object):
-            plane_management_queue.put(plane_object)
-
+            put_in_plane(plane_object)
 
 
 
@@ -261,16 +269,18 @@ def update_plane_list(plane):
     :param plane:
     :return:
     """
-    if plane.id_code ==  primary_aircraft.id_code:
+    if plane.id_code == primary_aircraft.id_code:
         primary_aircraft.update_plane(plane.location_vector,plane.velocity_vector,plane.elevation)
 
     else:
+        updated_or_not = False
         for i in nearby_planes_list:
             if plane.id_code == i.id_code:
+                updated_or_not = True
                 i.update_plane(plane.location_vector,plane.velocity_vector,plane.elevation)
                 i.update_time = clock()
-            else:
-                nearby_planes_list.append(i)
+        if not(updated_or_not):
+            nearby_planes_list.append(plane)
 
 
 
@@ -285,6 +295,9 @@ def dispatch_collision_alerts(lookup_list):
     """
     audio = Audio()
     audio.audio_alert(__collision_alerts[lookup_list[0]][lookup_list[1]])
+
+
+
     # rel_x = PA[loc_x] - new_plane[loc_x]
     # rel_y = PA[loc_y] - new_plane[loc_y]
     # rel_z = PA[loc_z] - new_plane[loc_z]
