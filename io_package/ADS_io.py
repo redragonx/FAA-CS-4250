@@ -1,5 +1,7 @@
 from plane_controller import plane_ctrl
 from audio import Audio
+from io_package import ADS_ANTENNA
+import io
 
 __author__ = 'redragonx/daemoniclegend'
 
@@ -14,7 +16,8 @@ __author__ = 'redragonx/daemoniclegend'
 
 class ADSIO():
     audio = Audio()
-    input_stream = None
+    input_stream = io.BufferedReader(ADS_ANTENNA, 54)
+    string_out = None
     parsed_data = None
     plane_id = None
     plane_lat = None
@@ -28,7 +31,9 @@ class ADSIO():
         pass
 
     def input_listener(self):
-        pass
+        while self.input_stream.peek() != None:
+            self.string_out = self.input_stream.read()
+            self.parse_string(self, self.string_out)
 
     def parse_string(self, user_input):
         self.input_stream = user_input  # raw_input()  removed currently for testing purposes

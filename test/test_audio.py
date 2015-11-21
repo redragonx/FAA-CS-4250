@@ -8,7 +8,7 @@ class TestAudio(unittest.TestCase):
     def test_audio_alert(self):
         audio = Audio()
 
-        __goodString = 'testok'
+        __goodString = 'adjustvert'
         __badString = 'Bad error message is bad'
 
         # tests using a valid error code
