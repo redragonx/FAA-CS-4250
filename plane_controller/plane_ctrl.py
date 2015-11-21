@@ -15,6 +15,7 @@ __collision_alerts = {
 The set of planes that the ADS-B send in.
 """
 from plane import PlaneObject
+import math
 nearby_planes_list = []
 primary_aircraft = PlaneObject(-1, 0, 0, 0, 0, 0, 0)
 # primary_aircraft = PlaneObject(00, 0, 0, 0, 0, 0, 0)
@@ -142,10 +143,6 @@ def __convert_vector(string_vector):
         return -1 * float(unsigned_vector) / 1000
 
 
-
-#180000000 -> 180.000000 = a degree value
-
-
 def convert_to_cartesian_meters(list_in):
     """
     Converts the list of data from latitude, longitude, and elevation to cartesian coordinates.
@@ -161,8 +158,11 @@ def convert_to_cartesian_meters(list_in):
     list_in[1] = __convert_lat_long(list_in[1]) #Converting string value to float value
     list_in[2] = int(list_in[2]) #Converting string value to integer value
 
-
-    # pass
+    radius = 6371000 + list_in[2]
+    x = radius * math.cos(math.degrees(list_in[0])) * math.cos(math.degrees(list_in[1]))
+    y = radius * math.cos(math.degrees(list_in[0])) * math.sin(math.degrees(list_in[1]))
+    z = radius * math.sin(math.degrees(list_in[1]))
+    return [x, y, z]
 
 
 def find_highest_priority_s(collision_list):
