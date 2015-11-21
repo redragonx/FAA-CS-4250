@@ -20,10 +20,10 @@ class Audio():
         error_type = stringIn
 
         if error_type == 'adjustvert':
-            errorSound = os.path.join(self.__audio_dir, "adjustvert.wav")
-            print( errorSound )
-            sound = pyglet.media.load(errorSound, streaming=False)
-            sound.play()
+            # errorSound = os.path.join(self.__audio_dir, "adjustvert.wav")
+            # print( errorSound )
+            # sound = pyglet.media.load(errorSound, streaming=False)
+            # sound.play()
             return True
         elif error_type == 'adjustvert2':
             # sound = pyglet.media.load('adjustvert2.wav')
