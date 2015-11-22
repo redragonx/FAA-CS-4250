@@ -25,7 +25,8 @@ def main():
 
 def put_in_p(list):
       for i in list:
-        Thread(target=put_in_plane,args=(i,)).start()
+        # Thread(target=put_in_plane,args=(i,)).start()
+       put_in_plane(i)
 
 
 

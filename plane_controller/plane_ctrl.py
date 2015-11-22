@@ -50,10 +50,10 @@ def plane_controller_driver():
                 update_plane_list(inputed_plane)
         remove_excess_planes()
         lookup_list = find_highest_priority_s(collision_detection_generator())
-        print ">>>>>",lookup_list
+        # print ">>>>>",lookup_list
         lookup_list.reverse()
         if not(lookup_list[0] == "DO NOTHING"):
-            print ">>>>>",lookup_list[0],lookup_list[1][0].to_string()
+            # print ">>>>>",lookup_list[0],lookup_list[1][0].to_string()
             lookup_list[1] = get_corrective_action(lookup_list[1])
             dispatch_collision_alerts(lookup_list)
 
@@ -89,8 +89,8 @@ def collision_detection_generator():
             if queue._qsize() == 0:
                 break
 
-    for i in collision_course_planes:
-        print i.id_code
+    # for i in collision_course_planes:
+        # print i.id_code
     return collision_course_planes
 
 def put_in_plane(plane_object):
@@ -314,9 +314,9 @@ def get_corrective_action(priority_list):
     #primary_aircraft = primary_aicrt
 
 
-    print "Elv: " + str(primary_aircraft.elevation)
-    print "lox y: " + str(primary_aircraft.location_vector[1])
-    print "vect z:: " + str(primary_aircraft.velocity_vector[2])
+    # print "Elv: " + str(primary_aircraft.elevation)
+    # print "lox y: " + str(primary_aircraft.location_vector[1])
+    # print "vect z:: " + str(primary_aircraft.velocity_vector[2])
 
 
     if len(priority_list) == 0:
