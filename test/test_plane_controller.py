@@ -183,8 +183,8 @@ class TestPlaneController(unittest.TestCase):
 
         collision_list = [self.plane3_obj]
         data_out1 = [[self.plane3_obj], 'MEDIUM']
-        print find_highest_priority_s(collision_list)
-        print data_out1
+        # print find_highest_priority_s(collision_list)
+        # print data_out1
         self.assertEqual(find_highest_priority_s(collision_list), data_out1)
 
     def test_find_highest_priority_s6(self):
