@@ -86,7 +86,7 @@ print(build_number_system("0008", from_c_t_c1_back(x=-7000, y=0, z=6391000), -10
 print(build_number_system("0009", from_c_t_c1_back(x=-8000, y=0, z=6391000), -100, 0, 0))
 # print "*"*20
 # print len(build_number_system("0010", from_c_t_c1_back(x=500, y=500, z=(6391000-500)), -10, -10, 10))
-print(build_number_system("0010", from_c_t_c1_back(x=500, y=500, z=(6391000-500)), -10, -10, 10))
+print(build_number_system("0010", from_c_t_c1_back(x=500, y=500, z=(6391000-500)), 10, 10, 10))
 
 #Tests
 # from_c_t_c1_back(x=, y=,z=)
