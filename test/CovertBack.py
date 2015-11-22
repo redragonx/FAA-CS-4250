@@ -33,6 +33,13 @@ def from_c_t_c1_back(**c_t_c_set):
 
 
 def build_number_system(id_code, list_in, x, y, z):
+    print "id_code:",id_code
+    print "x",list_in[0]
+    print "y",list_in[1]
+    print "z",list_in[2]
+    print "xvec",convert_vector(x)
+    print "yvec",convert_vector(y)
+    print "zvec",convert_vector(z)
     return id_code + list_in[0] + list_in[1] + list_in[2] + convert_vector(x) + convert_vector(y) + convert_vector(z)
 
 

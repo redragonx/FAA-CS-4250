@@ -72,29 +72,29 @@ class TestPlaneController(unittest.TestCase):
     #     self.assertTrue(get_corrective_action.call_count > 0)
     #     self.assertTrue(dispatch_collision_alerts > 0)
 
-    @patch.multiple("plane_controller.plane_ctrl",
-                    convert_to_cartesian_meters=DEFAULT)
-    @patch.object(DataVerify,"verify_data")
-    def test_input_data(self, mock_verify_data,convert_to_cartesian_meters):
-        """
-        This method test to see if input_data calls its correct methods and follows the correct order
-        convert -> data_verify -> update_plane_list
-        '"""
-        # arrange
-        # data_in =[id,lat,long,altitude,x,y,z]
-        data_in = ["110","0013136740","1163168417","6561","00100000", "00100000","00100000"]
-        c_t_c = [-894163.0351763, 5032354.994301094, -3811775.7330091116]
-        plane_location, plane_velocity = c_t_c, [100, 100, 100]
-        plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
-
-        # action
-        input_data(data_in)
-
-        # assert
-        self.assertEqual(convert_to_cartesian_meters.call_count, 1)
-        self.assertEqual(mock_verify_data.call_count, 1)
-        convert_to_cartesian_meters.assert_called_once_with(data_in[1:4])
-        mock_verify_data.assert_called_once_with(data_in)
+    # @patch.multiple("plane_controller.plane_ctrl",
+    #                 convert_to_cartesian_meters=DEFAULT)
+    # @patch.object(DataVerify,"verify_data")
+    # def test_input_data(self, mock_verify_data,convert_to_cartesian_meters):
+    #     """
+    #     This method test to see if input_data calls its correct methods and follows the correct order
+    #     convert -> data_verify -> update_plane_list
+    #     '"""
+    #     # arrange
+    #     # data_in =[id,lat,long,altitude,x,y,z]
+    #     data_in = ["110","0013136740","1163168417","6561","00100000", "00100000","00100000"]
+    #     c_t_c = [-894163.0351763, 5032354.994301094, -3811775.7330091116]
+    #     plane_location, plane_velocity = c_t_c, [100, 100, 100]
+    #     plane_obj = self.plane_helper("0011", plane_location, plane_velocity)
+    #
+    #     # action
+    #     input_data(data_in)
+    #
+    #     # assert
+    #     self.assertEqual(convert_to_cartesian_meters.call_count, 1)
+    #     self.assertEqual(mock_verify_data.call_count, 1)
+    #     convert_to_cartesian_meters.assert_called_once_with(data_in[1:4])
+    #     mock_verify_data.assert_called_once_with(data_in)
 
     def test_convert_to_cartesian_meters(self):
         """
