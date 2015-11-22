@@ -103,52 +103,92 @@ class TestPlaneController(unittest.TestCase):
         """
         original_data1 = ["0013136740", "1163168417", "6561"]
         c_t_c1 = [round(-5944598.358067343, 4), round(-1798356.177876519, 4), round(1449465.324689559,4)]
-        self.assertEquals(convert_to_cartesian_meters(original_data1), c_t_c1)
+        result = convert_to_cartesian_meters(original_data1)
+        result2 = []
+        for i in result:
+            result2.append(round(i,4))
+        self.assertEquals(result2, c_t_c1)
 
     def test_c_t_c_2(self):
         original_data2 = ["1067118752", "1103679115", "5815"]
         c_t_c2 = [round(-586349.9350400632, 4), round(-2409120.159576062, 4), round(-5875040.710891093, 4)]
-        self.assertEquals(convert_to_cartesian_meters(original_data2), c_t_c2)
+        result = convert_to_cartesian_meters(original_data2)
+        result2 = []
+        for i in result:
+            result2.append(round(i,4))
+        self.assertEquals(result2, c_t_c2)
 
     def test_c_t_c_3(self):
         original_data3 = ["0000000000","0000000000", "2400"]
         c_t_c3 = [6373400.0, 0.0, 0.0]
-        self.assertEquals(convert_to_cartesian_meters(original_data3), c_t_c3)
+        result = convert_to_cartesian_meters(original_data3)
+        result2 = []
+        for i in result:
+            result2.append(round(i,4))
+        self.assertEquals(result2, c_t_c3)
 
     def test_c_t_c_4(self):
         original_data4 = ["0054000000", "0122000000", "35"]
-        c_t_c4 =  [round(6373400.0,4),round(0.0,4),round(0.0,4)]
-        self.assertEquals(convert_to_cartesian_meters(original_data4), c_t_c4)
+        c_t_c4 = [round(-1984441.8805317765, 4), round(3175770.862290158, 4), round(5154275.586757594, 4)]
+        result = convert_to_cartesian_meters(original_data4)
+        result2 = []
+        for i in result:
+            result2.append(round(i,4))
+        self.assertEquals(result2, c_t_c4)
 
     def test_c_t_c_5(self):
         original_data5 = ["045000000", "045000000", "2400"]
         c_t_c5 =  [round(3186700.0000000005,4),round(3186700.0,4),round(4506674.359214341,4)]
-        self.assertEquals(convert_to_cartesian_meters(original_data5), c_t_c5)
+        result = convert_to_cartesian_meters(original_data5)
+        result2 = []
+        for i in result:
+            result2.append(round(i,4))
+        self.assertEquals(result2, c_t_c5)
 
     def test_c_t_c_6(self):
         original_data6 = ["0045000000", "1000000000", "2400"]
         c_t_c6 =  [round(4506674.359214342,4),round(0.0,4),round(4506674.359214341,4)]
-        self.assertEquals(convert_to_cartesian_meters(original_data6), c_t_c6)
+        result = convert_to_cartesian_meters(original_data6)
+        result2 = []
+        for i in result:
+            result2.append(round(i,4))
+        self.assertEquals(result2, c_t_c6)
 
     def test_c_t_c_7(self):
         original_data7 = ["1090000000", "0450000000", "2400"]
         c_t_c7 =  [round(0.0,4),round(0.0,4),round(-6373400.0,4)]
-        self.assertEquals(convert_to_cartesian_meters(original_data7), c_t_c7)
+        result = convert_to_cartesian_meters(original_data7)
+        result2 = []
+        for i in result:
+            result2.append(round(i,4))
+        self.assertEquals(result2, c_t_c7)
 
     def test_c_t_c_8(self):
         original_data8 = ["0000000000", "0000000000", "35"]
-        c_t_c8 =  [round(6371035.0,4),round(0.0,4),round(-6373400.0,4)]
-        self.assertEquals(convert_to_cartesian_meters(original_data8), c_t_c8)
+        c_t_c8 =  [round(6371035.0,4),round(0.0,4),round(0.0,4)]
+        result = convert_to_cartesian_meters(original_data8)
+        result2 = []
+        for i in result:
+            result2.append(round(i,4))
+        self.assertEquals(result2, c_t_c8)
 
     def test_c_t_c_9(self):
         original_data9 = ["0090000000", "0450000000", "35"]
         c_t_c9 =  [round(0.0,4),round(0.0,4),round(6371035.0,4)]
-        self.assertEquals(convert_to_cartesian_meters(original_data9), c_t_c9)
+        result = convert_to_cartesian_meters(original_data9)
+        result2 = []
+        for i in result:
+            result2.append(round(i,4))
+        self.assertEquals(result2, c_t_c9)
 
     def test_c_t_c_10(self):
         original_data10 = ["0045000000", "1177000000", "2400"]
         c_t_c10 = [round(-4500498.118632586,4),round(-235861.11206504062,4),round(4506674.359214341,4)]
-        self.assertEquals(convert_to_cartesian_meters(original_data10), c_t_c10)
+        result = convert_to_cartesian_meters(original_data10)
+        result2 = []
+        for i in result:
+            result2.append(round(i,4))
+        self.assertEquals(result2, c_t_c10)
 
     def test_find_highest_priority_s1(self):
         """
@@ -183,8 +223,8 @@ class TestPlaneController(unittest.TestCase):
 
         collision_list = [self.plane3_obj]
         data_out1 = [[self.plane3_obj], 'MEDIUM']
-        print find_highest_priority_s(collision_list)
-        print data_out1
+        # print find_highest_priority_s(collision_list)
+        # print data_out1
         self.assertEqual(find_highest_priority_s(collision_list), data_out1)
 
     def test_find_highest_priority_s6(self):
