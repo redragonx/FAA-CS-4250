@@ -26,8 +26,8 @@ def from_c_t_c1_back(**c_t_c_set):
 
     # print("*"*20)
     # print "R:", (R-6371000)
-    print "lat: " + str_lat
-    print "lon: " + str_long
+    # print "lat: " + str_lat
+    # print "lon: " + str_long
     # print [str_lat, str_long, prepend_zero((int(R-6371000)), (6-len(str(abs(int(R-6371000))))))]
     return [str_lat, str_long, prepend_zero((int(R-6371000)), (6-len(str(abs(int(R-6371000))))))]
 
@@ -58,34 +58,34 @@ def calculate_r(x,y,z):
 # print convert_vector(100)
 # print convert_vector(-100.2377)
 print "PA"
-print len(build_number_system("0001", from_c_t_c1_back(x=0, y=0, z=6391000), 0, 0, 0))
+# print len(build_number_system("0001", from_c_t_c1_back(x=0, y=0, z=6391000), 0, 0, 0))
 print(build_number_system("0001", from_c_t_c1_back(x=0, y=0, z=6391000), 0, 0, 0))
-print "*"*20
-print len(build_number_system("0002", from_c_t_c1_back(x=5000, y=0, z=6391000), 100, 0, 0))
+# print "*"*20
+# print len(build_number_system("0002", from_c_t_c1_back(x=5000, y=0, z=6391000), 100, 0, 0))
 print(build_number_system("0002", from_c_t_c1_back(x=5000, y=0, z=6391000), 100, 0, 0))
-print "*"*20
-print len(build_number_system("0003", from_c_t_c1_back(x=6000, y=0, z=6391000), 100, 0, 0))
+# print "*"*20
+# print len(build_number_system("0003", from_c_t_c1_back(x=6000, y=0, z=6391000), 100, 0, 0))
 print(build_number_system("0003", from_c_t_c1_back(x=6000, y=0, z=6391000), 100, 0, 0))
-print "*"*20
-print len(build_number_system("0004", from_c_t_c1_back(x=7000, y=0, z=6391000), 100, 0, 0))
+# print "*"*20
+# print len(build_number_system("0004", from_c_t_c1_back(x=7000, y=0, z=6391000), 100, 0, 0))
 print(build_number_system("0004", from_c_t_c1_back(x=7000, y=0, z=6391000), 100, 0, 0))
-print "*"*20
-print len(build_number_system("0005", from_c_t_c1_back(x=8000, y=0, z=6391000), 100, 0, 0))
+# print "*"*20
+# print len(build_number_system("0005", from_c_t_c1_back(x=8000, y=0, z=6391000), 100, 0, 0))
 print(build_number_system("0005", from_c_t_c1_back(x=8000, y=0, z=6391000), 100, 0, 0))
-print "*"*20
-print len(build_number_system("0006", from_c_t_c1_back(x=9000, y=0, z=6391000), 100, 0, 0))
+# print "*"*20
+# print len(build_number_system("0006", from_c_t_c1_back(x=9000, y=0, z=6391000), 100, 0, 0))
 print(build_number_system("0006", from_c_t_c1_back(x=9000, y=0, z=6391000), 100, 0, 0))
-print "*"*20
-print len(build_number_system("0007", from_c_t_c1_back(x=-6000, y=0, z=6391000), -100, 0, 0))
+# print "*"*20
+# print len(build_number_system("0007", from_c_t_c1_back(x=-6000, y=0, z=6391000), -100, 0, 0))
 print(build_number_system("0007", from_c_t_c1_back(x=-6000, y=0, z=6391000), -100, 0, 0))
-print "*"*20
-print len(build_number_system("0008", from_c_t_c1_back(x=-7000, y=0, z=6391000), -100, 0, 0))
+# print "*"*20
+# print len(build_number_system("0008", from_c_t_c1_back(x=-7000, y=0, z=6391000), -100, 0, 0))
 print(build_number_system("0008", from_c_t_c1_back(x=-7000, y=0, z=6391000), -100, 0, 0))
-print "*"*20
-print len(build_number_system("0009", from_c_t_c1_back(x=-8000, y=0, z=6391000), 100, 0, 0))
-print(build_number_system("0009", from_c_t_c1_back(x=-8000, y=0, z=6391000), 100, 0, 0))
-print "*"*20
-print len(build_number_system("0010", from_c_t_c1_back(x=500, y=500, z=(6391000-500)), -10, -10, 10))
+# print "*"*20
+# print len(build_number_system("0009", from_c_t_c1_back(x=-8000, y=0, z=6391000), -100, 0, 0))
+print(build_number_system("0009", from_c_t_c1_back(x=-8000, y=0, z=6391000), -100, 0, 0))
+# print "*"*20
+# print len(build_number_system("0010", from_c_t_c1_back(x=500, y=500, z=(6391000-500)), -10, -10, 10))
 print(build_number_system("0010", from_c_t_c1_back(x=500, y=500, z=(6391000-500)), -10, -10, 10))
 
 
