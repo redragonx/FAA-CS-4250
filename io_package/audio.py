@@ -265,7 +265,7 @@ class Audio():
             pyglet.app.run()
             return True
         elif error_type == '0':
-            error_sound = os.path.join(self.__audio_dir, "0.wav")
+            error_sound = os.path.join(self.__audio_dir, "zero.wav")
 
             sound = pyglet.media.load(error_sound)
             sound.play()
@@ -274,7 +274,7 @@ class Audio():
             pyglet.app.run()
             return True
         elif error_type == '1':
-            error_sound = os.path.join(self.__audio_dir, "1.wav")
+            error_sound = os.path.join(self.__audio_dir, "one.wav")
 
             sound = pyglet.media.load(error_sound)
             sound.play()
@@ -283,7 +283,7 @@ class Audio():
             pyglet.app.run()
             return True
         elif error_type == '2':
-            error_sound = os.path.join(self.__audio_dir, "2.wav")
+            error_sound = os.path.join(self.__audio_dir, "two.wav")
 
             sound = pyglet.media.load(error_sound)
             sound.play()
@@ -292,7 +292,7 @@ class Audio():
             pyglet.app.run()
             return True
         elif error_type == '3':
-            error_sound = os.path.join(self.__audio_dir, "3.wav")
+            error_sound = os.path.join(self.__audio_dir, "three.wav")
 
             sound = pyglet.media.load(error_sound)
             sound.play()
@@ -301,7 +301,7 @@ class Audio():
             pyglet.app.run()
             return True
         elif error_type == '4':
-            error_sound = os.path.join(self.__audio_dir, "4.wav")
+            error_sound = os.path.join(self.__audio_dir, "four.wav")
 
             sound = pyglet.media.load(error_sound)
             sound.play()
@@ -310,7 +310,7 @@ class Audio():
             pyglet.app.run()
             return True
         elif error_type == '5':
-            error_sound = os.path.join(self.__audio_dir, "5.wav")
+            error_sound = os.path.join(self.__audio_dir, "five.wav")
 
             sound = pyglet.media.load(error_sound)
             sound.play()
@@ -319,7 +319,7 @@ class Audio():
             pyglet.app.run()
             return True
         elif error_type == '6':
-            error_sound = os.path.join(self.__audio_dir, "6.wav")
+            error_sound = os.path.join(self.__audio_dir, "six.wav")
 
             sound = pyglet.media.load(error_sound)
             sound.play()
@@ -328,7 +328,7 @@ class Audio():
             pyglet.app.run()
             return True
         elif error_type == '7':
-            error_sound = os.path.join(self.__audio_dir, "7.wav")
+            error_sound = os.path.join(self.__audio_dir, "seven.wav")
 
             sound = pyglet.media.load(error_sound)
             sound.play()
@@ -337,7 +337,7 @@ class Audio():
             pyglet.app.run()
             return True
         elif error_type == '8':
-            error_sound = os.path.join(self.__audio_dir, "8.wav")
+            error_sound = os.path.join(self.__audio_dir, "eight.wav")
 
             sound = pyglet.media.load(error_sound)
             sound.play()
@@ -346,7 +346,7 @@ class Audio():
             pyglet.app.run()
             return True
         elif error_type == '9':
-            error_sound = os.path.join(self.__audio_dir, "9.wav")
+            error_sound = os.path.join(self.__audio_dir, "nine.wav")
 
             sound = pyglet.media.load(error_sound)
             sound.play()
