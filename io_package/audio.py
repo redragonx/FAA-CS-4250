@@ -1,6 +1,7 @@
 __author__ = 'redragonx/daemoniclegend'
 
 import os
+import io
 
 # Sound files Copyright (C) 2004, Danny Ho, danniho@canada.com
 import pyglet
@@ -12,18 +13,24 @@ class Audio():
     __audio_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'Soundfiles'))
 
     def __init__(self):
-
-        print(self.__audio_dir)
+        pass
 
     def audio_alert(self, stringIn):
+
+        def exit_callback(dt):
+            pyglet.app.exit()
 
         error_type = stringIn
 
         if error_type == 'adjustvert':
-            # errorSound = os.path.join(self.__audio_dir, "adjustvert.wav")
-            # print( errorSound )
-            # sound = pyglet.media.load(errorSound, streaming=False)
-            # sound.play()
+            errorSound = os.path.join(self.__audio_dir, "adjustvert.wav")
+
+            print( errorSound )
+            sound = pyglet.media.load(errorSound)
+            sound.play()
+
+            pyglet.clock.schedule_once(exit_callback, 5)
+            pyglet.app.run()
             return True
         elif error_type == 'adjustvert2':
             # sound = pyglet.media.load('adjustvert2.wav')
