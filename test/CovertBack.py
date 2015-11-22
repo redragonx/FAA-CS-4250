@@ -26,8 +26,8 @@ def from_c_t_c1_back(**c_t_c_set):
 
     # print("*"*20)
     # print "R:", (R-6371000)
-    # print "lat: " + str_lat
-    # print "lon: " + str_long
+    print "lat: " + str_lat
+    print "lon: " + str_long
     # print [str_lat, str_long, prepend_zero((int(R-6371000)), (6-len(str(abs(int(R-6371000))))))]
     return [str_lat, str_long, prepend_zero((int(R-6371000)), (6-len(str(abs(int(R-6371000))))))]
 
