@@ -20,6 +20,8 @@ nearby_planes_list = []
 primary_aircraft = PlaneObject(-1, 0, 0, 0, 0, 0, 0)
 # primary_aircraft = PlaneObject(00, 0, 0, 0, 0, 0, 0)
 plane_management_queue=Queue(maxsize=10)
+data_verify = DataVerify()
+
 
 def remove_excess_planes():
     b=0
@@ -104,14 +106,14 @@ def input_data(data_in):
     :param data_in:
     :return:
     """
-    verifier = DataVerify()
-    result = verifier.verify_data(data_in)
+    # verifier = DataVerify()
+    result = data_verify.verify_data(data_in)
     numerical_data = __convert_to_numbers(data_in)
     if result:
         cartesian_list = convert_to_cartesian_meters(numerical_data[1:4])
         plane_object = PlaneObject(data_in[0], cartesian_list[0], cartesian_list[1], cartesian_list[2], data_in[4],
                                    data_in[5], data_in[6], data_in[3])
-        if verifier.within_distance(plane_object):
+        if data_verify.within_distance(plane_object):
             put_in_plane(plane_object)
 
 
@@ -157,10 +159,14 @@ def convert_to_cartesian_meters(list_in):
     list_in[0] = __convert_lat_long(list_in[0]) #Converting string value to float value
     list_in[1] = __convert_lat_long(list_in[1]) #Converting string value to float value
     list_in[2] = int(list_in[2]) #Converting string value to integer value
+    print "list_in: " + str(list_in)
+    print "list in 2 position: " + str(list_in[2])
     radius = 6371000 + list_in[2]
+    print "Radius: " + str(radius)
     x = radius * math.cos(math.radians(list_in[0])) * math.cos(math.radians(list_in[1]))
     y = radius * math.cos(math.radians(list_in[0])) * math.sin(math.radians(list_in[1]))
     z = radius * math.sin(math.radians(list_in[0]))
+
     return [x, y, z]
 
 
