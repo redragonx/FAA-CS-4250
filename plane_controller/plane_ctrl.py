@@ -157,10 +157,14 @@ def convert_to_cartesian_meters(list_in):
     list_in[0] = __convert_lat_long(list_in[0]) #Converting string value to float value
     list_in[1] = __convert_lat_long(list_in[1]) #Converting string value to float value
     list_in[2] = int(list_in[2]) #Converting string value to integer value
+    print "list_in: " + str(list_in)
+    print "list in 2 position: " + str(list_in[2])
     radius = 6371000 + list_in[2]
+    print "Radius: " + str(radius)
     x = radius * math.cos(math.radians(list_in[0])) * math.cos(math.radians(list_in[1]))
     y = radius * math.cos(math.radians(list_in[0])) * math.sin(math.radians(list_in[1]))
     z = radius * math.sin(math.radians(list_in[0]))
+
     return [x, y, z]
 
 

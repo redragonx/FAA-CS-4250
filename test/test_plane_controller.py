@@ -116,6 +116,7 @@ class TestPlaneController(unittest.TestCase):
         result2 = []
         for i in result:
             result2.append(round(i,4))
+        print "result2: " + str(result2)
         self.assertEquals(result2, c_t_c2)
 
     def test_c_t_c_3(self):
