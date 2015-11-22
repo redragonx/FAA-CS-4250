@@ -1,8 +1,11 @@
-__author__ = 'redragonx/daemoniclegend'
+__author__ = 'redragonx/daemoniclegend/Alton09'
 
 # from plane_controller.plane import PlaneObject
 import re
-
+import time
+import math
+from threading import Lock
+from plane_controller.plane import  PlaneObject
 
 class DataVerify():
     velocity_map = {}
@@ -39,14 +42,49 @@ class DataVerify():
         else:
             return 'False'
 
-    def within_distance(self, plane1):
-        raise Exception("Not Yet Implemented.")
-        # pass
-    def dispatch_data_valid(self, plane):
-        return
+    @staticmethod
+    def within_distance(plane):
+        id_code = plane.id_code
+        velocity = DataVerify.vector_magnitude(plane.velocity_vector)
+        current_time = time.time()  # In seconds
+        return_val = False
 
-    def dispatch_data_not_vaild(self, alert_type):
-        return
+        try:
+            existing_value = DataVerify.velocity_map[id_code]
+            existing_vel = existing_value[0]
+            existing_time = existing_value[1]
+        except KeyError:
+            DataVerify.velocity_map[id_code] = [velocity, current_time]
+            return True
+
+        if DataVerify.__correct_acceleration(existing_vel, velocity, existing_time, current_time):
+            return_val = True
+        else:
+            return_val = False
+
+        return return_val
+
+    @staticmethod
+    def __correct_range(num):
+        if 0 < num <= 30:
+            return True
+        else:
+            return False
+
+    @staticmethod
+    def __correct_acceleration(velocity1, velocity2, time1, time2):
+        delta_v = abs(velocity2 - velocity1)
+        delta_t = abs(time2 - time1)
+        acceleration = delta_v / delta_t
+        return DataVerify.__correct_range(acceleration)
+
+    @staticmethod
+    def vector_magnitude(velocity):
+        if velocity.__len__() == 3:
+            return math.sqrt(math.pow(velocity[0], 2) +
+                         math.pow(velocity[1], 2) + math.pow(velocity[2], 2))
+        else:
+            return None
 
     def __init__(self):
         pass

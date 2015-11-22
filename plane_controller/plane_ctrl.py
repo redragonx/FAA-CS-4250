@@ -32,12 +32,14 @@ def remove_excess_planes():
 
 def plane_controller_driver():
     """
-    This thread runs in all of the computations for detecting collisions and generates relevant alerts every 5 seconds
-    It is synchronized.
+    This thread runs in all of the computations for detecting collisions and generates relevant alerts.
 
-    :param
+    :param list_in:
     :return:
+    Use Event to wait for the input to reliquinsh the lock so that we can update the nearby_planes_list
 
+
+    dispatch_collision_alerts(get_corrective_action(find_highest_priority_s(collision_detection_generator())))
 
     """
     while True:
@@ -97,7 +99,7 @@ def put_in_plane(plane_object):
 
 def input_data(data_in):
     """
-    Takes the data from the plane_controller_driver and sends that information to data_verification as well as the queue
+    Takes the data from the plane_controller_driver and sends that information to data_verification.
 
     :param data_in:
     :return:
@@ -109,7 +111,7 @@ def input_data(data_in):
         cartesian_list = convert_to_cartesian_meters(numerical_data[1:4])
         plane_object = PlaneObject(data_in[0], cartesian_list[0], cartesian_list[1], cartesian_list[2], data_in[4],
                                    data_in[5], data_in[6], data_in[3])
-        if verifier.within_distance(plane_object):
+        if DataVerify.within_distance(plane_object):
             put_in_plane(plane_object)
 
 
@@ -242,6 +244,26 @@ def __get_priority(plane):
     else:
         return "LOWEST"
 
+'''
+    """
+    These conditional statements check to see if the TUC of one plane is 2x greater than the other,
+    if it is greater then we take closest plane which, under these conditions,
+    we have designated to be a higher priority.
+    """
+    if len(priority_list) == 0 or len(priority_list) == 1:
+        return priority_list
+    elif len(priority_list) == 2:
+        if priority_list[0].tuc_interval / priority_list[1].tuc_interval > 2.0:
+            return [priority_list[1]]
+        elif priority_list[1].tuc_interval / priority_list[0].tuc_interval > 2.0:
+            return [priority_list[0]]
+        else:
+            return priority_list
+'''
+    # pass
+    # we should reset the tuc interval here of all of them back to -1. So we dont
+    # resuse the same tuc interval
+
 
 def update_plane_list(plane):
     """
@@ -265,9 +287,13 @@ def update_plane_list(plane):
 
 
 
+
+    # pass
+
+
 def dispatch_collision_alerts(lookup_list):
     """
-    Dispatch to audio the corrective action
+
     :return:
     """
     audio = Audio()
@@ -288,6 +314,13 @@ def get_corrective_action(priority_list):
     :param planes: planes
     :return: climb, maintain, descend
     """
+    #global primary_aircraft
+    #primary_aircraft = primary_aicrt
+
+
+    # print "Elv: " + str(primary_aircraft.elevation)
+    # print "lox y: " + str(primary_aircraft.location_vector[1])
+    # print "vect z:: " + str(primary_aircraft.velocity_vector[2])
 
 
     if len(priority_list) == 0:
@@ -318,7 +351,7 @@ def get_corrective_action(priority_list):
 
 def __compare_planes(plane1, plane2):
     '''
-    Compare planes to set up for corrective actions
+
     :param plane1:
     :param plane2:
     :return:
