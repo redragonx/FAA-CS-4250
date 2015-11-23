@@ -42,44 +42,40 @@ class DataVerify():
         else:
             return 'False'
 
-    @staticmethod
-    def within_distance(plane):
+    def within_distance(self,plane):
         id_code = plane.id_code
-        velocity = DataVerify.vector_magnitude(plane.velocity_vector)
+        velocity = self.vector_magnitude(plane.velocity_vector)
         current_time = time.time()  # In seconds
         return_val = False
 
         try:
-            existing_value = DataVerify.velocity_map[id_code]
+            existing_value = self.velocity_map[id_code]
             existing_vel = existing_value[0]
             existing_time = existing_value[1]
         except KeyError:
-            DataVerify.velocity_map[id_code] = [velocity, current_time]
+            self.velocity_map[id_code] = [velocity, current_time]
             return True
 
-        if DataVerify.__correct_acceleration(existing_vel, velocity, existing_time, current_time):
+        if self.__correct_acceleration(existing_vel, velocity, existing_time, current_time):
             return_val = True
         else:
             return_val = False
 
         return return_val
 
-    @staticmethod
-    def __correct_range(num):
+    def __correct_range(self,num):
         if 0 < num <= 30:
             return True
         else:
             return False
 
-    @staticmethod
-    def __correct_acceleration(velocity1, velocity2, time1, time2):
+    def __correct_acceleration(self, velocity1, velocity2, time1, time2):
         delta_v = abs(velocity2 - velocity1)
         delta_t = abs(time2 - time1)
         acceleration = delta_v / delta_t
-        return DataVerify.__correct_range(acceleration)
+        return self.__correct_range(acceleration)
 
-    @staticmethod
-    def vector_magnitude(velocity):
+    def vector_magnitude(self,velocity):
         if velocity.__len__() == 3:
             return math.sqrt(math.pow(velocity[0], 2) +
                          math.pow(velocity[1], 2) + math.pow(velocity[2], 2))
