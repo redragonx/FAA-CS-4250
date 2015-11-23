@@ -9,8 +9,8 @@ Navigation
 [Screenshot](#screenshot) |
 [Team](#team) |
 [Configuration](#configuration) |
-[Folder Structure](#Folder Structure) |
-[Running the program](#Running the program) |
+[Folder-Structure](#Folder-Structure) |
+[Running-The-Project](#Running-The-Project) |
 
 Purpose
 ====================
@@ -37,7 +37,7 @@ Configuration
 ==============================
 This project uses Python standards for folder stucturing and is recommended that you use an IDE like IntelliJ IDEA 15. You can use the import from existing sources to create a IntelliJ IDEA project for NGenCACD. This codebase will require Python 2.7. Not tested with higher versions. NGenCACD requires Pyglet (a Python audio library). Please install it via your IDE, unix/linux package manager or PIP tool.
 
-Folder Structure
+Folder-Structure
 ==============================
 <pre>
 .
@@ -116,7 +116,7 @@ Folder Structure
 This should be your folder structure before running any commands.
 
 
-Running the Program
+Running-The-Project
 ===================
 <ol>
 <li>Run the invidial tests in the test folder or Driver.py for a overall system test</li>
