@@ -16,7 +16,7 @@ __author__ = 'redragonx/daemoniclegend'
 
 class ADSIO():
     audio = Audio()
-    input_stream = io.BufferedReader(ADS_ANTENNA, 54)
+    input_stream = None
     string_out = None
     parsed_data = None
     plane_id = None
@@ -30,7 +30,7 @@ class ADSIO():
     def __init__(self):
         pass
 
-    def input_listener(self):
+    def input_listener(self, input_stream):
         while self.input_stream.peek() != None:
             self.string_out = self.input_stream.read()
             self.parse_string(self, self.string_out)
