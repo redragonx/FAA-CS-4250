@@ -17,7 +17,7 @@ The set of planes that the ADS-B send in.
 from plane import PlaneObject
 import math
 nearby_planes_list = []
-primary_aircraft = PlaneObject(-1, 0, 0, 0, 0, 0, 0)
+primary_aircraft = PlaneObject(1, 0, 0, 0, 0, 0, 0)
 # primary_aircraft = PlaneObject(00, 0, 0, 0, 0, 0, 0)
 plane_management_queue=Queue(maxsize=10)
 data_verify = DataVerify()
@@ -26,7 +26,7 @@ data_verify = DataVerify()
 def remove_excess_planes():
     b=0
     for i in nearby_planes_list:
-        if(clock()-i.update_time>10):
+        if(clock()-i.update_time>20):
             nearby_planes_list.pop(b)
         b+=1
 
@@ -54,6 +54,7 @@ def plane_controller_driver():
         lookup_list = find_highest_priority_s(collision_detection_generator())
         # print ">>>>>",lookup_list
         lookup_list.reverse()
+        print "look:",lookup_list
         if not(lookup_list[0] == "DO NOTHING"):
             # print ">>>>>",lookup_list[0],lookup_list[1][0].to_string()
             lookup_list[1] = get_corrective_action(lookup_list[1])
@@ -76,6 +77,9 @@ def collision_detection_generator():
     #     print "*"*20
     #     print i.to_string()
     # print "End Set","-"*100
+    #print nearby_planes_list
+    # for i in nearby_planes_list:
+    #     print i.id_code
     for i in nearby_planes_list:
         t = Thread(target=CollisionDetection().build_collision_list, args=(primary_aircraft,i,queue))
         thread_list.append(t)
@@ -106,6 +110,7 @@ def input_data(data_in):
     :param data_in:
     :return:
     """
+    # print data_in
     # verifier = DataVerify()
     result = data_verify.verify_data(data_in)
     numerical_data = __convert_to_numbers(data_in)
@@ -115,11 +120,17 @@ def input_data(data_in):
                                    data_in[5], data_in[6], data_in[3])
         if data_verify.within_distance(plane_object):
             put_in_plane(plane_object)
-
+    # numerical_data = __convert_to_numbers(data_in)
+    # cartesian_list = convert_to_cartesian_meters(numerical_data[1:4])
+    # # print "Data_in:",data_in
+    # # print(data_in[0])
+    # plane_object = PlaneObject(data_in[0], cartesian_list[0], cartesian_list[1], cartesian_list[2], data_in[4],
+    #                                 data_in[5], data_in[6], data_in[3])
+    # put_in_plane(plane_object)
 
 
 def __convert_to_numbers(list_in):
-    list_in[0] = int(list_in[0])
+    list_in[0] = list_in[0]
     # list_in[1] = __convert_lat_long(list_in[1])
     # list_in[2] = __convert_lat_long(list_in[2])
     # list_in[3] = int(list_in[3])
@@ -159,10 +170,10 @@ def convert_to_cartesian_meters(list_in):
     list_in[0] = __convert_lat_long(list_in[0]) #Converting string value to float value
     list_in[1] = __convert_lat_long(list_in[1]) #Converting string value to float value
     list_in[2] = int(list_in[2]) #Converting string value to integer value
-    print "list_in: " + str(list_in)
-    print "list in 2 position: " + str(list_in[2])
+    # print "list_in: " + str(list_in)
+    # print "list in 2 position: " + str(list_in[2])
     radius = 6371000 + list_in[2]
-    print "Radius: " + str(radius)
+    # print "Radius: " + str(radius)
     x = radius * math.cos(math.radians(list_in[0])) * math.cos(math.radians(list_in[1]))
     y = radius * math.cos(math.radians(list_in[0])) * math.sin(math.radians(list_in[1]))
     z = radius * math.sin(math.radians(list_in[0]))
@@ -274,9 +285,10 @@ def update_plane_list(plane):
     :param plane:
     :return:
     """
+    # print "plane.id:",plane.id_code
+    # print "primary.id:",primary_aircraft.id_code
     if plane.id_code == primary_aircraft.id_code:
         primary_aircraft.update_plane(plane.location_vector,plane.velocity_vector,plane.elevation)
-
     else:
         updated_or_not = False
         for i in nearby_planes_list:
@@ -299,6 +311,7 @@ def dispatch_collision_alerts(lookup_list):
     :return:
     """
     audio = Audio()
+    print __collision_alerts[lookup_list[0]][lookup_list[1]]
     audio.audio_alert(__collision_alerts[lookup_list[0]][lookup_list[1]])
 
 

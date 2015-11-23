@@ -72,8 +72,11 @@ class DataVerify():
     def __correct_acceleration(self, velocity1, velocity2, time1, time2):
         delta_v = abs(velocity2 - velocity1)
         delta_t = abs(time2 - time1)
-        acceleration = delta_v / delta_t
-        return self.__correct_range(acceleration)
+        if delta_t != 0:
+            acceleration = delta_v / delta_t
+            return self.__correct_range(acceleration)
+        elif delta_t == 0:
+            return False
 
     def vector_magnitude(self,velocity):
         if velocity.__len__() == 3:

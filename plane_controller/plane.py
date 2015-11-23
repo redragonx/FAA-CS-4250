@@ -2,7 +2,7 @@ __author__ = 'group'
 
 
 class PlaneObject(object):
-    id_code = 0  # single identifier
+    id_code = ""  # single identifier
     location_vector = []
     velocity_vector = []
     tuc_interval = -1
