@@ -9,8 +9,8 @@ Navigation
 [Screenshot](#screenshot) |
 [Team](#team) |
 [Configuration](#configuration) |
-[Folder-Structure](#Folder-Structure) |
-[Running-The-Project](#Running-The-Project) |
+[Folder-Structure](#folder-structure) |
+[Running-The-Project](#running-the-project) |
 
 Purpose
 ====================
