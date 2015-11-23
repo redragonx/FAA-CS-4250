@@ -8,6 +8,7 @@ def from_c_t_c1_back(**c_t_c_set):
     y = c_t_c_set.get("y")
     x = c_t_c_set.get("x")
     R = calculate_r(x, y, z)
+    # print "R:",R
     lat = math.degrees(math.asin(z / R))
     long = math.degrees(math.atan2(y, x))
     lat = int(round(lat,6) * 1000000)
@@ -29,18 +30,31 @@ def from_c_t_c1_back(**c_t_c_set):
     # print "lat: " + str_lat
     # print "lon: " + str_long
     # print [str_lat, str_long, prepend_zero((int(R-6371000)), (6-len(str(abs(int(R-6371000))))))]
+    # print "HHHEERRREEE:",prepend_zero((int(R-6371000)), (6-len(str(abs(int(R-6371000))))))
     return [str_lat, str_long, prepend_zero((int(R-6371000)), (6-len(str(abs(int(R-6371000))))))]
 
 
 def build_number_system(id_code, list_in, x, y, z):
     print "id_code:",id_code
+    #print len(id_code)
+
     print "x",list_in[0]
+    #print len(list_in[0])
+
     print "y",list_in[1]
+    #print len(list_in[1])
+
     print "z",list_in[2]
+    #print len(str(list_in[2]))
+
     print "xvec",convert_vector(x)
+    #print len(convert_vector(x))
+
     print "yvec",convert_vector(y)
+    # print len(convert_vector(y))
     print "zvec",convert_vector(z)
-    return id_code + list_in[0] + list_in[1] + list_in[2] + convert_vector(x) + convert_vector(y) + convert_vector(z)
+    # print len(convert_vector(z))
+    return id_code + str(list_in[0]) + str(list_in[1]) + str(list_in[2]) + str(convert_vector(x)) + convert_vector(y) + convert_vector(z)
 
 
 def convert_vector(vec_int):
@@ -65,23 +79,23 @@ def calculate_r(x,y,z):
 # print convert_vector(100)
 # print convert_vector(-100.2377)
 print "PA"
-# print len(build_number_system("0001", from_c_t_c1_back(x=0, y=0, z=6391000), 0, 0, 0))
-# print(build_number_system("0001", from_c_t_c1_back(x=0, y=0, z=6391000), 0, 0, 0))
+print len(build_number_system("0001", from_c_t_c1_back(x=1, y=1, z=6391000), 0, 0, 0))
+print(build_number_system("0001", from_c_t_c1_back(x=0, y=0, z=6391000), 0, 0, 0))
 # # print "*"*20
 # # print len(build_number_system("0002", from_c_t_c1_back(x=5000, y=0, z=6391000), 100, 0, 0))
-# print(build_number_system("0002", from_c_t_c1_back(x=5000, y=0, z=6391000), 100, 0, 0))
+# print(build_number_system("0002", from_c_t_c1_back(x=5000, y=0, z=1), 100, 0, 0))
 # # print "*"*20
 # # print len(build_number_system("0003", from_c_t_c1_back(x=6000, y=0, z=6391000), 100, 0, 0))
-# print(build_number_system("0003", from_c_t_c1_back(x=6000, y=0, z=6391000), 100, 0, 0))
+# print(build_number_system("0003", from_c_t_c1_back(x=6000, y=0, z=1), 100, 0, 0))
 # # print "*"*20
 # # print len(build_number_system("0004", from_c_t_c1_back(x=7000, y=0, z=6391000), 100, 0, 0))
-# print(build_number_system("0004", from_c_t_c1_back(x=7000, y=0, z=6391000), 100, 0, 0))
+# print(build_number_system("0004", from_c_t_c1_back(x=7000, y=0, z=1), 100, 0, 0))
 # # print "*"*20
 # # print len(build_number_system("0005", from_c_t_c1_back(x=8000, y=0, z=6391000), 100, 0, 0))
-# print(build_number_system("0005", from_c_t_c1_back(x=8000, y=0, z=6391000), 100, 0, 0))
+# print(build_number_system("0005", from_c_t_c1_back(x=8000, y=0, z=1), 100, 0, 0))
 # # print "*"*20
 # # print len(build_number_system("0006", from_c_t_c1_back(x=9000, y=0, z=6391000), 100, 0, 0))
-# print(build_number_system("0006", from_c_t_c1_back(x=9000, y=0, z=6391000), 100, 0, 0))
+# print(build_number_system("0006", from_c_t_c1_back(x=9000, y=0, z=1), 100, 0, 0))
 # # print "*"*20
 # # print len(build_number_system("0007", from_c_t_c1_back(x=-6000, y=0, z=6391000), -100, 0, 0))
 # print(build_number_system("0007", from_c_t_c1_back(x=-6000, y=0, z=6391000), -100, 0, 0))
@@ -93,8 +107,7 @@ print "PA"
 # print(build_number_system("0009", from_c_t_c1_back(x=-8000, y=0, z=6391000), -100, 0, 0))
 # # print "*"*20
 # # print len(build_number_system("0010", from_c_t_c1_back(x=500, y=500, z=(6391000-500)), -10, -10, 10))
-# print(build_number_system("0010", from_c_t_c1_back(x=500, y=500, z=(6391000-500)), 10, 10, 10))
-print(build_number_system("0002", from_c_t_c1_back(x=0, y=0, z=6391000), 100, 0, 0))
+print(build_number_system("0010", from_c_t_c1_back(x=500, y=500, z=6391000), -10, -10, 0))
 #Tests
 # from_c_t_c1_back(x=, y=,z=)
 # from_c_t_c1_back(x=, y=,z=)
